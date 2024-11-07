@@ -7,6 +7,9 @@ public abstract class DBrain : MonoBehaviour
     protected Defense defense;
     protected Transform target;
 
+    public Transform Target => target; 
+    public Defense Defense => defense;
+
     protected virtual void Awake()
     {
         defense = GetComponent<Defense>();

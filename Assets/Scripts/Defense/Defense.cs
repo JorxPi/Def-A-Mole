@@ -6,7 +6,7 @@ using UnityEngine;
 public class Defense : MonoBehaviour
 {
     [Header("Defense Stats")]
-    public float attackRange = 10f;
+    public float attackRange = 5f;
     public float attackDamage = 20f;
     public float attackSpeed = 1f;
     public int deployCost = 100;
