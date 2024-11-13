@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2484190812227574390}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fire Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4227984090595662888}
   - component: {fileID: 2548628751496592812}
   - component: {fileID: 8733840862039212719}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: reference
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: -5254499753585806880}
   - component: {fileID: 716455051124048829}
   - component: {fileID: 6710554949665342605}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Defense
   m_TagString: Defense
   m_Icon: {fileID: 0}
@@ -317,7 +317,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7378855592608757600}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
