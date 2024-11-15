@@ -9,7 +9,7 @@ public class Defense : MonoBehaviour
     public float attackRange = 5f;
     public float attackDamage = 20f;
     public float attackSpeed = 1f;
-    public int deployCost = 100;
+    public int deployCost = 20;
 
     protected float attackCooldown = 0f;
 
