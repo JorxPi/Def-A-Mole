@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//will be abstract
+// Base class for all defenses
 public class Defense : MonoBehaviour
 {
     [Header("Defense Stats")]
@@ -13,20 +13,17 @@ public class Defense : MonoBehaviour
 
     protected float attackCooldown = 0f;
 
-    // will be virtual
-    protected void Start()
+    protected virtual void Start()
     {
-        
+        // Base initialization
     }
 
-    // virtual
-    protected void Update()
+    protected virtual void Update()
     {
         if (attackCooldown > 0f)
             attackCooldown -= Time.deltaTime;
     }
 
-    // Method to be called by Brain for attacking
     public bool CanAttack()
     {
         return attackCooldown <= 0f;

@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class DBrainBasic : DBrain
 {
-    public GameObject projectilePrefab;
-    //position from where the projectile is fired (every defense will have a gamobject chils with a firePoint transform)
-    public Transform firePoint;
-
     protected override void ChooseTarget()
     {
         // Example logic: Find nearest enemy within range
@@ -29,19 +25,5 @@ public class DBrainBasic : DBrain
         }
 
         target = nearestEnemy;
-    }
-
-    protected override void PerformAttack()
-    {
-        if (projectilePrefab == null || firePoint == null) return;
-
-        GameObject projectileInstance = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        Projectile projectile = projectileInstance.GetComponent<Projectile>();
-
-        if (projectile != null)
-        {
-            projectile.SetTarget(target);
-            projectile.SetDamage(defense.attackDamage);
-        }
     }
 }

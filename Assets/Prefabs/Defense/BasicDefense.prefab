@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4432008805397593426}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.591}
+  m_LocalPosition: {x: 0, y: 0.522, z: 0.662}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -59,8 +59,8 @@ Transform:
   m_GameObject: {fileID: 6041921311601488606}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.451, y: 0.552, z: 0}
-  m_LocalScale: {x: 0.4618391, y: 0.4618391, z: 0.4618391}
+  m_LocalPosition: {x: 0.015, y: 0.552, z: 0.426}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6668453952146910238}
@@ -147,13 +147,13 @@ GameObject:
   - component: {fileID: 6668453952146910238}
   - component: {fileID: 274597891670448807}
   - component: {fileID: 6468723635339851301}
-  - component: {fileID: 8173871441909714830}
-  - component: {fileID: 5293005985620196467}
-  - component: {fileID: -5254499753585806880}
-  - component: {fileID: 716455051124048829}
   - component: {fileID: 6710554949665342605}
+  - component: {fileID: 8173871441909714830}
+  - component: {fileID: 2423946225414529819}
+  - component: {fileID: -5254499753585806880}
+  - component: {fileID: 4507399162538530088}
   m_Layer: 6
-  m_Name: Defense
+  m_Name: BasicDefense
   m_TagString: Defense
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,6 +227,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &6710554949665342605
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554021112271803409}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &8173871441909714830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +266,7 @@ MonoBehaviour:
   attackDamage: 20
   attackSpeed: 1
   deployCost: 100
---- !u!114 &5293005985620196467
+--- !u!114 &2423946225414529819
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,7 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangeIndicatorPrefab: {fileID: 3279891831375080189, guid: 6bc7cc1d168503f4492e638bfd534ee1, type: 3}
   feetPosition: {fileID: 7378855592608757600}
---- !u!114 &716455051124048829
+--- !u!114 &4507399162538530088
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,29 +308,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapCenter: {fileID: 1390067013638267455, guid: 3f549234005796142a3a661acad4d6ba, type: 3}
   rotationSpeed: 5
---- !u!136 &6710554949665342605
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8554021112271803409}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &8663742783138958241
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,10 @@ public abstract class DBrain : MonoBehaviour
     public Transform Target => target; 
     public Defense Defense => defense;
 
+    [Header("Attack Settings")]
+    public GameObject projectilePrefab;
+    public Transform firePoint;
+
     protected virtual void Awake()
     {
         defense = GetComponent<Defense>();
@@ -27,5 +31,17 @@ public abstract class DBrain : MonoBehaviour
 
     protected abstract void ChooseTarget();
 
-    protected abstract void PerformAttack();
+    protected virtual void PerformAttack()
+    {
+        if (projectilePrefab == null || firePoint == null || target == null) return;
+
+        GameObject projectileInstance = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        Projectile projectile = projectileInstance.GetComponent<Projectile>();
+
+        if (projectile != null)
+        {
+            projectile.SetTarget(target);
+            projectile.SetDamage(defense.attackDamage);
+        }
+    }
 }
