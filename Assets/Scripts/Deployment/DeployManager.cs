@@ -8,7 +8,7 @@ public class DeployManager : MonoBehaviour
 
     public GameObject map; 
     private bool isDeploying = false;
-    private GameObject currentDefensePrefab;
+    private DefenseData currentDefenseData;
     private Bounds mapBounds;
 
     private void Awake()
@@ -35,11 +35,10 @@ public class DeployManager : MonoBehaviour
         }
     }
 
-    public void StartDeployment(GameObject unitPrefab)
+    public void StartDeployment(DefenseData defenseData)
     {
-        currentDefensePrefab = unitPrefab;
+        currentDefenseData = defenseData;
         isDeploying = true;
-        Debug.Log("Deployment mode activated for: " + unitPrefab.name);
     }
 
     private void HandleDeployment()
@@ -65,12 +64,12 @@ public class DeployManager : MonoBehaviour
             {
                 Vector3 targetPosition = hit.point;
 
-                Transform feetTransform = currentDefensePrefab.transform.Find("Feet");
+                Transform feetTransform = currentDefenseData.prefab.transform.Find("Feet");
 
-                Vector3 feetOffset = currentDefensePrefab.transform.position - feetTransform.position;
+                Vector3 feetOffset = currentDefenseData.prefab.transform.position - feetTransform.position;
                 Vector3 adjustedPosition = targetPosition + feetOffset;
 
-                Instantiate(currentDefensePrefab, adjustedPosition, Quaternion.identity);
+                Instantiate(currentDefenseData.prefab, adjustedPosition, Quaternion.identity);
                 Debug.Log("Unit deployed at: " + adjustedPosition);
                 isDeploying = false;
 
@@ -85,7 +84,7 @@ public class DeployManager : MonoBehaviour
     private void CancelDeployment()
     {
         isDeploying = false;
-        currentDefensePrefab = null;
+        currentDefenseData = null;
         Debug.Log("Deployment cancelled.");
     }
 
@@ -111,7 +110,7 @@ public class DeployManager : MonoBehaviour
 
     private bool IsDefenseInLocation(Vector3 position)
     {
-        Collider defenseCollider = currentDefensePrefab.GetComponent<Collider>();
+        Collider defenseCollider = currentDefenseData.prefab.GetComponent<Collider>();
         float distanceBetweenDefenses = 1.3f;
 
         // Radius of the new defense to be deployed

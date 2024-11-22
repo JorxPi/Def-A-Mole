@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DeployButton : MonoBehaviour
 {
-    public GameObject unitPrefab; // Assign the prefab to this button
+    public DefenseData defenseData;
 
     private void Start()
     {
@@ -14,6 +14,6 @@ public class DeployButton : MonoBehaviour
 
     private void OnDeployButtonClick()
     {
-        DeployManager.Instance.StartDeployment(unitPrefab);
+        DeployManager.Instance.StartDeployment(defenseData);
     }
 }
