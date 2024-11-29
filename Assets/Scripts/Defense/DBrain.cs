@@ -37,11 +37,6 @@ public abstract class DBrain : MonoBehaviour
 
         GameObject projectileInstance = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         Projectile projectile = projectileInstance.GetComponent<Projectile>();
-
-        if (projectile != null)
-        {
-            projectile.SetTarget(target);
-            projectile.SetDamage(defense.attackDamage);
-        }
+        projectile.Initialize(target, defense);
     }
 }

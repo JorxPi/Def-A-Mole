@@ -15,9 +15,9 @@ public class DBrainSniper : DBrain
             if (enemyCollider.CompareTag("Enemy"))
             {
                 Enemy enemy = enemyCollider.GetComponent<Enemy>();
-                if (enemy != null && enemy.health < lowestHP)
+                if (enemy != null && enemy.damageable.health < lowestHP)
                 {
-                    lowestHP = enemy.health;
+                    lowestHP = enemy.damageable.health;
                     weakestEnemy = enemy.transform;
                 }
             }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3840028663296835532}
   - component: {fileID: 4796629063599941222}
   - component: {fileID: 4380495816744511627}
+  - component: {fileID: 3994596002443258430}
   - component: {fileID: 6824725249267519793}
   m_Layer: 0
   m_Name: Enemy
@@ -95,6 +96,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6faac03a48b9c2b488fd9fb5dc15f689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageable: {fileID: 3994596002443258430}
+  goldReward: 20
+--- !u!114 &3994596002443258430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7195705201981636860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26729e88667959e43b3d8ea9dfe97ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50

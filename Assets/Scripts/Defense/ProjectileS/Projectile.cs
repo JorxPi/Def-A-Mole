@@ -5,16 +5,12 @@ using UnityEngine;
 public abstract class Projectile : MonoBehaviour
 {
     protected Transform target;
-    protected float damage;
+    protected MonoBehaviour owner;
 
-    public void SetTarget(Transform Target)
+    public void Initialize(Transform Target, MonoBehaviour Owner)
     {
         target = Target;
-    }
-
-    public void SetDamage(float Damage)
-    {
-        damage = Damage;
+        owner = Owner; 
     }
 
     protected virtual void Update()
@@ -34,11 +30,24 @@ public abstract class Projectile : MonoBehaviour
     //leaving this here for testing
     protected virtual void HitTarget()
     {
-        if (target.TryGetComponent<Enemy>(out Enemy enemy))
+        if (target.TryGetComponent<Damageable>(out Damageable damageable))
         {
-            enemy.TakeDamage(damage);
+            if (owner is Defense defense)
+            {
+                float damage = defense.attackDamage;
+                damageable.ApplyDamage(damage);
+            }
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject); // Destroy projectile after hitting target
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Check if projectile hitsthe target
+        if (other.transform == target)
+        {
+            HitTarget();
+        }
     }
 }

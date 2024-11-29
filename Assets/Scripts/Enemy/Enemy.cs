@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float health = 50f;
+    public Damageable damageable;
     public int goldReward = 20;
 
-    public void TakeDamage(float damageAmount)
+    /*public void TakeDamage(float damageAmount)
     {
         health -= damageAmount;
         if (health <= 0f)
         {
             Die();
+        }
+    }*/
+
+    /*public void ApplyDamage(MonoBehaviour attacker)
+    {
+        Debug.Log(attacker);
+        if (attacker is Defense defense)
+        {
+            Debug.Log(attacker);
+            float damage = defense.attackDamage; 
+            health -= damage;
+
+            if (health <= 0)
+            {
+                Die();
+            }
         }
     }
 
@@ -20,5 +36,5 @@ public class Enemy : MonoBehaviour
     {
         //CurrencyManager.Instance.AddGold(goldReward);
         Destroy(gameObject);
-    }
+    }*/
 }
