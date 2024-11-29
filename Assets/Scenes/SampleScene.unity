@@ -770,15 +770,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: maxHeight
-      value: 50
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: minHeight
-      value: 8
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
+      propertyPath: zoomSpeed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: radiusOffset
-      value: 20
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
+      propertyPath: verticalSpeed
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
+      propertyPath: horizontalSpeed
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3741515077531456077, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: m_LocalPosition.x

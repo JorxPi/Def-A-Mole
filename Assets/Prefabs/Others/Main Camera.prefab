@@ -106,7 +106,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapBounds: {fileID: 8626957244979441678, guid: 3f549234005796142a3a661acad4d6ba, type: 3}
-  horizontalSpeed: 30
-  verticalSpeed: 10
-  minHeight: 4
-  maxHeight: 10
+  horizontalSpeed: 50
+  verticalSpeed: 18
+  minHeight: 12
+  maxHeight: 65
+  radiusOffset: 13
+  zoomSpeed: 7
+  minZoom: 2
