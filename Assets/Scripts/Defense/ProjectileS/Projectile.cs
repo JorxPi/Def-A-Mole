@@ -7,6 +7,11 @@ public abstract class Projectile : MonoBehaviour
     protected Transform target;
     protected MonoBehaviour owner;
 
+    protected virtual void Start()
+    {
+        // Base initialization
+    }
+
     public void Initialize(Transform Target, MonoBehaviour Owner)
     {
         target = Target;
@@ -26,8 +31,6 @@ public abstract class Projectile : MonoBehaviour
 
     protected abstract void MoveTowardsTarget();
 
-    //this should be in the enemy. They should check if a projectile enter the trigger zone and recive damage acordingly.
-    //leaving this here for testing
     protected virtual void HitTarget()
     {
         if (target.TryGetComponent<Damageable>(out Damageable damageable))
@@ -42,6 +45,7 @@ public abstract class Projectile : MonoBehaviour
         Destroy(gameObject); // Destroy projectile after hitting target
     }
 
+    // can do this with pure math
     private void OnTriggerEnter(Collider other)
     {
         // Check if projectile hitsthe target

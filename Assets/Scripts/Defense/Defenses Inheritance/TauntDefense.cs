@@ -14,7 +14,6 @@ public class TauntDefense : Defense
         attackRange = 7f;
         attackDamage = 0f;
         attackSpeed = 0f;
-        health = 300f;
 
         tauntRangeCollider = gameObject.AddComponent<SphereCollider>();
         tauntRangeCollider.isTrigger = true;

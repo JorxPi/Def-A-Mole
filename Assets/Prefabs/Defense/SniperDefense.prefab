@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7381265961200340827}
   - component: {fileID: 3511514277595503184}
   - component: {fileID: 1605639306107857064}
+  - component: {fileID: 6678614022737644577}
   m_Layer: 6
   m_Name: SniperDefense
   m_TagString: Defense
@@ -117,10 +118,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 600d3e9f7582a2440a4c155abe0c9465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 15
+  attackRange: 20
   attackDamage: 40
   attackSpeed: 0.5
-  deployCost: 50
 --- !u!114 &7381265961200340827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +163,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapCenter: {fileID: 1390067013638267455, guid: 3f549234005796142a3a661acad4d6ba, type: 3}
   rotationSpeed: 5
+--- !u!114 &6678614022737644577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284601796826560135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26729e88667959e43b3d8ea9dfe97ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 70
 --- !u!1 &677232443766038339
 GameObject:
   m_ObjectHideFlags: 0

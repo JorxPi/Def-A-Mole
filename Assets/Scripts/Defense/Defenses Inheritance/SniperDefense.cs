@@ -9,8 +9,7 @@ public class SniperDefense : Defense
         base.Start();
         attackRange = 15f;    
         attackDamage = 40f;  
-        attackSpeed = 0.5f;
-        health = 60f;    
+        attackSpeed = 0.5f;  
     }
 }
 
