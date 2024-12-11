@@ -5,17 +5,25 @@ using UnityEngine;
 public class SlowingProjectile : Projectile
 {
     public float speed = 10f;
-    public float slowDuration = 2f;
-    public float slowAmount = 0.5f; // Slow enemies to 50% of their original speed
-    public float explosionRadius = 3f;
+    public float height = 5f;
 
-    private Vector3 launchPosition;
-    private float height = 5f; // Peak height of the parabolic arc
+    public float explosionRadius = 3f;
+    public float slowDuration = 2f;
+    public float slowAmount = 0.5f;
+
+    private Vector3 startPoint;
+    private Vector3 targetPoint;
+    private float travelTime;
+    private float elapsedTime;
 
     protected override void Start()
     {
         base.Start();
-        launchPosition = transform.position;
+        startPoint = transform.position;
+        targetPoint = target.position;
+
+        travelTime = Vector3.Distance(startPoint, targetPoint) / speed;
+        elapsedTime = 0f;
     }
 
     protected override void MoveTowardsTarget()
@@ -26,26 +34,26 @@ public class SlowingProjectile : Projectile
             return;
         }
 
-        // Calculate progress along the trajectory
-        float distanceToTarget = Vector3.Distance(launchPosition, target.position);
-        float progress = Mathf.Clamp01(Vector3.Distance(transform.position, launchPosition) / distanceToTarget);
+        elapsedTime += Time.deltaTime;
+        float progress = Mathf.Clamp01(elapsedTime / travelTime);
 
-        // Calculate parabolic height
-        float yOffset = 4 * height * (progress - progress * progress); // Simple parabolic formula
+        // Calculate the horizontal position
+        Vector3 horizontalPosition = Vector3.Lerp(startPoint, targetPoint, progress);
 
-        // Move towards the target along the arc
-        Vector3 direction = (target.position - launchPosition).normalized;
-        Vector3 nextPosition = Vector3.Lerp(launchPosition, target.position, progress);
-        nextPosition.y += yOffset;
+        // Calculate the parabolic height offset
+        float parabolicHeight = 4 * height * progress * (1 - progress);
 
-        transform.position = Vector3.MoveTowards(transform.position, nextPosition, speed * Time.deltaTime);
+        // Set the new position with the height offset
+        Vector3 nextPosition = new Vector3(horizontalPosition.x, horizontalPosition.y + parabolicHeight, horizontalPosition.z);
+        transform.position = nextPosition;
 
-        // Check if we've reached the target
+        // Check if the projectile has reached the target
         if (progress >= 1f)
         {
             HitTarget();
         }
     }
+
 
     protected override void HitTarget()
     {
@@ -65,7 +73,7 @@ public class SlowingProjectile : Projectile
                     }
                 }
 
-                // Apply slow (Assume enemies have a method `ApplySlow`)
+                // Apply slow effect
                 if (collider.TryGetComponent<Enemy>(out Enemy enemy))
                 {
                     //enemy.ApplySlow(slowAmount, slowDuration);
@@ -73,6 +81,6 @@ public class SlowingProjectile : Projectile
             }
         }
 
-        Destroy(gameObject); // Destroy the projectile
+        Destroy(gameObject); // Destroy the projectile after applying effects
     }
 }

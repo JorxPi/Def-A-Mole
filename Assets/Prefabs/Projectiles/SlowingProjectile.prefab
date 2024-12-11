@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9136176462232208404}
   - component: {fileID: 6943702599813115340}
   - component: {fileID: 645346979573681350}
-  - component: {fileID: 7459386037054267197}
+  - component: {fileID: 4187202866254594082}
   m_Layer: 0
   m_Name: SlowingProjectile
   m_TagString: Untagged
@@ -100,13 +100,13 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7459386037054267197
+--- !u!114 &4187202866254594082
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,7 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a22ddf3319bf9468a10df271c47092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 5
+  height: 3
+  explosionRadius: 3
   slowDuration: 2
   slowAmount: 0.5
-  explosionRadius: 3
