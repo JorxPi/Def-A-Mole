@@ -1,0 +1,84 @@
+using UnityEngine;
+using System.Collections.Generic;
+
+public class LevelManager : MonoBehaviour
+{
+    public float mapRadius = 10f;
+
+    private int currentLevel;
+    private List<Vector2> currentAngleRanges;
+
+    private void Start()
+    {
+        currentLevel = 1;
+        SetAngleRangesForLevel(currentLevel);
+    }
+
+    public void AssignTargetToEnemy(EnemyAI enemyAI)
+    {
+        if (enemyAI != null)
+        {
+            Vector3 targetPoint = CalculateTargetPoint();
+            enemyAI.SetTarget(targetPoint);
+        }
+    }
+
+    private Vector3 CalculateTargetPoint()
+    {
+        // Elegir un ángulo aleatorio dentro de los rangos fijos del nivel
+        float randomAngle = GenerateRandomAngleFromRanges(currentAngleRanges);
+        float angleInRadians = randomAngle * Mathf.Deg2Rad;
+
+        // Convertir el ángulo en una posición en el borde del mapa
+        float x = Mathf.Cos(angleInRadians) * mapRadius;
+        float z = Mathf.Sin(angleInRadians) * mapRadius;
+
+        return new Vector3(x, 0, z);
+    }
+
+    private float GenerateRandomAngleFromRanges(List<Vector2> angleRanges)
+    {
+        // Escoger un intervalo aleatorio
+        Vector2 selectedRange = angleRanges[Random.Range(0, angleRanges.Count)];
+
+        // Devolver un ángulo aleatorio dentro del intervalo
+        return Random.Range(selectedRange.x, selectedRange.y);
+    }
+
+    private void SetAngleRangesForLevel(int level)
+    {
+        currentAngleRanges = new List<Vector2>();
+
+        // Definir los rangos de ángulos fijos por nivel
+        if (level == 1)
+        {
+            currentAngleRanges.Add(new Vector2(0, 15));
+        }
+        else if (level == 2)
+        {
+            currentAngleRanges.Add(new Vector2(0, 30));
+        }
+        else if (level == 3)
+        {
+            currentAngleRanges.Add(new Vector2(15, 30));
+            currentAngleRanges.Add(new Vector2(60, 90));
+        }
+        else if (level == 4)
+        {
+            currentAngleRanges.Add(new Vector2(0, 45));
+            currentAngleRanges.Add(new Vector2(90, 120));
+        }
+        else
+        {
+            // Ejemplo para niveles más altos: Rangos múltiples o más amplios
+            currentAngleRanges.Add(new Vector2(0, 90));
+            currentAngleRanges.Add(new Vector2(120, 160));
+        }
+    }
+
+    public void StartNextLevel()
+    {
+        currentLevel++;
+        SetAngleRangesForLevel(currentLevel);
+    }
+}
