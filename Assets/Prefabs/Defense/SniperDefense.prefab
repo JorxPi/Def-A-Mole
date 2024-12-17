@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4938582970354490401}
   - component: {fileID: 7006818900043027576}
-  - component: {fileID: 5723704372769803341}
   - component: {fileID: 7997954738691804847}
   - component: {fileID: 7381265961200340827}
   - component: {fileID: 3511514277595503184}
   - component: {fileID: 1605639306107857064}
   - component: {fileID: 6678614022737644577}
+  - component: {fileID: 2043030198407045751}
   m_Layer: 6
   m_Name: SniperDefense
   m_TagString: Defense
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 284601796826560135}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8563194, y: 1.8232689, z: 6.24}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -83,29 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5723704372769803341
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 284601796826560135}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &7997954738691804847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +153,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 70
+--- !u!65 &2043030198407045751
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284601796826560135}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.4789704, z: 4.7359667}
+  m_Center: {x: 0, y: 0.74240404, z: -0.443048}
 --- !u!1 &677232443766038339
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +199,7 @@ Transform:
   m_GameObject: {fileID: 677232443766038339}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.988, z: 0.383}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -232,7 +230,7 @@ Transform:
   m_GameObject: {fileID: 3568852563624697353}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.008, z: 1.7}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -252,11 +250,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e18fed374efcdff47a9e4c8d567d8b63, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.37
+      value: 0.617
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e18fed374efcdff47a9e4c8d567d8b63, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.228
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e18fed374efcdff47a9e4c8d567d8b63, type: 3}
       propertyPath: m_LocalRotation.w

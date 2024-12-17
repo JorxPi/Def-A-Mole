@@ -37,8 +37,15 @@ public class DeployManager : MonoBehaviour
 
     public void StartDeployment(DefenseData defenseData)
     {
-        currentDefenseData = defenseData;
-        isDeploying = true;
+        if (CurrencyManager.Instance.HasEnoughGold(defenseData.cost))
+        {
+            currentDefenseData = defenseData;
+            isDeploying = true;
+        }
+        else
+        {
+            Debug.Log("Not enough gold to deploy this defense!");
+        }
     }
 
     private void HandleDeployment()
@@ -70,6 +77,7 @@ public class DeployManager : MonoBehaviour
                 Vector3 adjustedPosition = targetPosition + feetOffset;
 
                 Instantiate(currentDefenseData.prefab, adjustedPosition, Quaternion.identity);
+                CurrencyManager.Instance.SpendGold(currentDefenseData.cost);
                 Debug.Log("Unit deployed at: " + adjustedPosition);
                 isDeploying = false;
 

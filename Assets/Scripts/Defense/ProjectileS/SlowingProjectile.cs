@@ -37,17 +37,13 @@ public class SlowingProjectile : Projectile
         elapsedTime += Time.deltaTime;
         float progress = Mathf.Clamp01(elapsedTime / travelTime);
 
-        // Calculate the horizontal position
         Vector3 horizontalPosition = Vector3.Lerp(startPoint, targetPoint, progress);
 
-        // Calculate the parabolic height offset
         float parabolicHeight = 4 * height * progress * (1 - progress);
 
-        // Set the new position with the height offset
         Vector3 nextPosition = new Vector3(horizontalPosition.x, horizontalPosition.y + parabolicHeight, horizontalPosition.z);
         transform.position = nextPosition;
 
-        // Check if the projectile has reached the target
         if (progress >= 1f)
         {
             HitTarget();
@@ -57,13 +53,11 @@ public class SlowingProjectile : Projectile
 
     protected override void HitTarget()
     {
-        // Area effect: Apply damage and slow to all enemies within radius
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (var collider in hitColliders)
         {
             if (collider.CompareTag("Enemy"))
             {
-                // Apply damage
                 if (collider.TryGetComponent<Damageable>(out Damageable damageable))
                 {
                     if (owner is Defense defense)
@@ -72,8 +66,7 @@ public class SlowingProjectile : Projectile
                         damageable.ApplyDamage(damage);
                     }
                 }
-
-                // Apply slow effect
+                
                 if (collider.TryGetComponent<Enemy>(out Enemy enemy))
                 {
                     //enemy.ApplySlow(slowAmount, slowDuration);
@@ -81,6 +74,6 @@ public class SlowingProjectile : Projectile
             }
         }
 
-        Destroy(gameObject); // Destroy the projectile after applying effects
+        Destroy(gameObject); 
     }
 }

@@ -1,30 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class CurrencyUI : MonoBehaviour
 {
-    public Text goldText;
+    [Header("UI Reference")]
+    public TMP_Text currencyText; // Assign this in the Inspector
 
     private void OnEnable()
     {
-        if (CurrencyManager.Instance != null)
-        {
-            CurrencyManager.Instance.OnGoldChanged += UpdateGoldUI;
-        }
+        CurrencyManager.Instance.OnGoldChanged += UpdateCurrencyDisplay;
     }
 
     private void OnDisable()
     {
-        if (CurrencyManager.Instance != null)
-        {
-            CurrencyManager.Instance.OnGoldChanged -= UpdateGoldUI;
-        }
+        CurrencyManager.Instance.OnGoldChanged -= UpdateCurrencyDisplay;
     }
 
-    private void UpdateGoldUI(int currentGold)
+    private void Start()
     {
-        goldText.text = "Gold: " + currentGold;
+        // Initialize the display with the current gold amount
+        UpdateCurrencyDisplay(CurrencyManager.Instance.startingGold);
+    }
+
+    private void UpdateCurrencyDisplay(int goldAmount)
+    {
+        currencyText.text = $"Gold: {goldAmount}";
     }
 }

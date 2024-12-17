@@ -1,13 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using System; // For the Action delegate
 using UnityEngine;
+using TMPro;
 
 public class CurrencyManager : MonoBehaviour
 {
-    public static CurrencyManager Instance; 
+    public static CurrencyManager Instance { get; private set; }
 
-    public int CurrentGold { get; private set; } = 100;
+    [Header("Starting Gold")]
+    public int startingGold = 100;
+
+    [Header("UI Reference")]
+    public TMP_Text currencyText; 
+
+    private int currentGold;
 
     public event Action<int> OnGoldChanged;
 
@@ -23,23 +30,36 @@ public class CurrencyManager : MonoBehaviour
         }
     }
 
-    public void AddGold(int amount)
+    private void Start()
     {
-        CurrentGold += amount;
-        OnGoldChanged?.Invoke(CurrentGold);
+        currentGold = startingGold;
+        UpdateCurrencyUI();
     }
 
-    public bool SpendGold(int amount)
+    public bool HasEnoughGold(int amount)
     {
-        if (CurrentGold >= amount)
+        return currentGold >= amount;
+    }
+
+    public void SpendGold(int amount)
+    {
+        if (HasEnoughGold(amount))
         {
-            CurrentGold -= amount;
-            OnGoldChanged?.Invoke(CurrentGold);
-            return true;
+            currentGold -= amount;
+            UpdateCurrencyUI();
+            OnGoldChanged?.Invoke(currentGold);
         }
-        else
-        {
-            return false;
-        }
+    }
+
+    public void AddGold(int amount)
+    {
+        currentGold += amount;
+        UpdateCurrencyUI();
+        OnGoldChanged?.Invoke(currentGold);
+    }
+
+    private void UpdateCurrencyUI()
+    {
+        currencyText.text = $"Gold: {currentGold}";
     }
 }
