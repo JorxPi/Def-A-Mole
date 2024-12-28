@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2098614548769535880}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.025, y: -1.368, z: -0.238}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 2325219221398640652}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.036, y: -0.262, z: 2.487}
+  m_LocalPosition: {x: -0.036, y: 1.159, z: 2.319}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 5424226841354647242}
   - component: {fileID: 4580387028194097726}
   - component: {fileID: 1844677372339292726}
+  - component: {fileID: 3048010536843556484}
   m_Layer: 0
   m_Name: SlowingDefense
   m_TagString: Defense
@@ -92,7 +93,7 @@ Transform:
   m_GameObject: {fileID: 6319336131982888255}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1124573, y: 7.676488, z: 6.94827}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -120,8 +121,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.3630571, y: 3.0577765, z: 4.0954595}
-  m_Center: {x: 0.013190746, y: 0.15829039, z: 0.008793592}
+  m_Size: {x: 2.3630571, y: 2.9880743, z: 4.0954595}
+  m_Center: {x: 0.013190746, y: 1.505867, z: 0.008793592}
 --- !u!114 &6604349479811413185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +180,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapCenter: {fileID: 1390067013638267455, guid: 3f549234005796142a3a661acad4d6ba, type: 3}
   rotationSpeed: 5
+--- !u!114 &3048010536843556484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319336131982888255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26729e88667959e43b3d8ea9dfe97ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1001 &7938639667169887800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -189,11 +203,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 90e6b6362b5f8624db4192c7c0850bad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90e6b6362b5f8624db4192c7c0850bad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.402
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90e6b6362b5f8624db4192c7c0850bad, type: 3}
       propertyPath: m_LocalPosition.z
