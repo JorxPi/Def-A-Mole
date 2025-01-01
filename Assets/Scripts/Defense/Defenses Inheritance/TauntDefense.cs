@@ -11,9 +11,6 @@ public class TauntDefense : Defense
     protected override void Start()
     {
         base.Start();
-        attackRange = 7f;
-        attackDamage = 0f;
-        attackSpeed = 0f;
 
         tauntRangeCollider = gameObject.AddComponent<SphereCollider>();
         tauntRangeCollider.isTrigger = true;

@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: SlowingDefense
   m_EditorClassIdentifier: 
   defenseName: Snail
+  attackRange: 10
+  attackDamage: 20
+  attackSpeed: 0.5
   cost: 50
+  upgradeCost: 0
   defenseIcon: {fileID: 0}
   prefab: {fileID: 6319336131982888255, guid: afd36d44a5364cb49a41e609d5d375ac, type: 3}
