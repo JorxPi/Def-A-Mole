@@ -18,16 +18,24 @@ public class LevelManager : MonoBehaviour
     {
         if (enemyAI != null)
         {
-            Vector3 targetPoint = CalculateTargetPoint();
+            Vector3 targetPoint = CalculateTargetPoint(out float targetAngle);
+            Debug.Log($"Enemigo asignado al ángulo: {targetAngle}° en el nivel {currentLevel}");
             enemyAI.SetTarget(targetPoint);
         }
     }
 
-    private Vector3 CalculateTargetPoint()
+    private Vector3 CalculateTargetPoint(out float selectedAngle)
     {
+        if (currentAngleRanges == null || currentAngleRanges.Count == 0)
+        {
+            Debug.LogError("No se pueden calcular puntos objetivo. currentAngleRanges está vacío o es null.");
+            selectedAngle = 0;
+            return Vector3.zero;
+        }
+
         // Elegir un ángulo aleatorio dentro de los rangos fijos del nivel
-        float randomAngle = GenerateRandomAngleFromRanges(currentAngleRanges);
-        float angleInRadians = randomAngle * Mathf.Deg2Rad;
+        selectedAngle = GenerateRandomAngleFromRanges(currentAngleRanges);
+        float angleInRadians = selectedAngle * Mathf.Deg2Rad;
 
         // Convertir el ángulo en una posición en el borde del mapa
         float x = Mathf.Cos(angleInRadians) * mapRadius;
@@ -38,6 +46,12 @@ public class LevelManager : MonoBehaviour
 
     private float GenerateRandomAngleFromRanges(List<Vector2> angleRanges)
     {
+        if (angleRanges == null || angleRanges.Count == 0)
+        {
+            Debug.LogError("No hay rangos de ángulos disponibles.");
+            return 0;
+        }
+
         // Escoger un intervalo aleatorio
         Vector2 selectedRange = angleRanges[Random.Range(0, angleRanges.Count)];
 
@@ -47,7 +61,11 @@ public class LevelManager : MonoBehaviour
 
     private void SetAngleRangesForLevel(int level)
     {
-        currentAngleRanges = new List<Vector2>();
+
+        if (currentAngleRanges == null)
+            currentAngleRanges = new List<Vector2>();
+        else
+            currentAngleRanges.Clear(); // Vaciar la lista existente
 
         // Definir los rangos de ángulos fijos por nivel
         if (level == 1)
@@ -73,6 +91,19 @@ public class LevelManager : MonoBehaviour
             // Ejemplo para niveles más altos: Rangos múltiples o más amplios
             currentAngleRanges.Add(new Vector2(0, 90));
             currentAngleRanges.Add(new Vector2(120, 160));
+        }
+
+        // Registrar en consola los rangos definidos para el nivel actual
+        Debug.Log($"Rangos de ángulos para el nivel {level}:");
+        foreach (Vector2 range in currentAngleRanges)
+        {
+            Debug.Log($"- Rango: {range.x}° a {range.y}°");
+        }
+
+        if (currentAngleRanges.Count == 0)
+        {
+            Debug.LogWarning($"No se definieron rangos de ángulos para el nivel {level}. Usando rango predeterminado.");
+            currentAngleRanges.Add(new Vector2(0, 360)); // Rango predeterminado
         }
     }
 

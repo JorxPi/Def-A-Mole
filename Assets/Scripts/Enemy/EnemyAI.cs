@@ -1,58 +1,48 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    public float speed = 2f; // Velocidad a la que se mueve el enemigo
-    private Vector3 targetPoint; // Punto objetivo hacia el que se moverá
-    private EnemyAnimation enemyAnimation; // Animaciones del enemigo
-    private bool hasTarget = false; // Controla si el enemigo tiene un objetivo asignado
+    public float speed = 2f;
+    private Vector3 targetPoint;
+    private bool hasTarget = false;
 
-    private void Start()
+    private void Update()
     {
-        // Obtén el componente de animación
-        enemyAnimation = GetComponent<EnemyAnimation>();
+        if (hasTarget)
+        {
+            MoveTowardsTarget();
+        }
     }
 
     public void SetTarget(Vector3 target)
     {
         targetPoint = target;
         hasTarget = true;
-
-        // Activar la animación de caminar
-        if (enemyAnimation != null)
-        {
-            enemyAnimation.SetWalking(true);
-        }
     }
 
-    private void Update()
+    private void MoveTowardsTarget()
     {
-        if (hasTarget)
+        // Movimiento hacia el objetivo
+        Vector3 direction = (targetPoint - transform.position).normalized;
+        transform.position += direction * speed * Time.deltaTime;
+
+        // Comprueba si llegó al objetivo
+        if (Vector3.Distance(transform.position, targetPoint) < 0.1f)
         {
-            // Calcula la dirección hacia el punto objetivo
-            Vector3 direction = (targetPoint - transform.position).normalized;
-
-            // Mueve al enemigo hacia el objetivo
-            transform.position += direction * speed * Time.deltaTime;
-
-            // Verifica si el enemigo ha llegado al destino
-            if (Vector3.Distance(transform.position, targetPoint) < 0.1f)
-            {
-                hasTarget = false; // Detiene el movimiento
-                if (enemyAnimation != null)
-                {
-                    enemyAnimation.SetWalking(false); // Detener animación de caminar
-                }
-                OnReachTarget(); // Lógica al llegar al destino
-            }
+            hasTarget = false;
+            OnReachTarget();
         }
     }
 
     private void OnReachTarget()
     {
-        // Lógica que quieres ejecutar cuando el enemigo llega al destino
+        // Lógica cuando el enemigo alcanza el objetivo
         Debug.Log("Enemy reached the target!");
-        // Ejemplo: Aplica daño a la barrera o destruye al enemigo
+        Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        // Notifica al LevelManager o Spawner si es necesario
     }
 }
