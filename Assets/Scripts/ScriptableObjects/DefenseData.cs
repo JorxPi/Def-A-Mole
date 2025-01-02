@@ -6,7 +6,11 @@ using UnityEngine;
 public class DefenseData : ScriptableObject
 {
     public string defenseName;
+    public float attackRange;
+    public float attackDamage;
+    public float attackSpeed;
     public int cost;
+    public int upgradeCost;
     public Sprite defenseIcon; 
     public GameObject prefab;
 }

@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: -5254499753585806880}
   - component: {fileID: 4507399162538530088}
   - component: {fileID: 5494162270227383457}
+  - component: {fileID: 1236139442059156731}
   - component: {fileID: 3663843835034924315}
   m_Layer: 6
   m_Name: BasicDefense
@@ -126,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0adf5e0337d4e3a46b3551d6f66b1348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseStats: {fileID: 11400000, guid: 590904c2073302345a14fa6d141a94c5, type: 2}
   attackRange: 5
   attackDamage: 20
   attackSpeed: 1
@@ -184,6 +186,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 120
+--- !u!114 &1236139442059156731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554021112271803409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c08629c7c71284c91ab18d4a11f7dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeCosts: 140000001e000000
 --- !u!65 &3663843835034924315
 BoxCollider:
   m_ObjectHideFlags: 0

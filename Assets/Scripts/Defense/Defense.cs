@@ -5,16 +5,28 @@ using UnityEngine;
 // Base class for all defenses
 public class Defense : MonoBehaviour
 {
-    [Header("Defense Stats")]
-    public float attackRange = 5f;
-    public float attackDamage = 20f;
-    public float attackSpeed = 1f;
+    [Header("Base Stats")]
+    public DefenseData baseStats;
+
+    public float attackRange;
+    public float attackDamage;
+    public float attackSpeed;
 
     protected float attackCooldown = 0f;
 
     protected virtual void Start()
     {
-        // Base initialization
+        InitializeStats();
+    }
+
+    private void InitializeStats()
+    {
+        if (baseStats != null)
+        {
+            attackRange = baseStats.attackRange;
+            attackDamage = baseStats.attackDamage;
+            attackSpeed = baseStats.attackSpeed;
+        }
     }
 
     protected virtual void Update()
@@ -31,5 +43,10 @@ public class Defense : MonoBehaviour
     public void ResetAttackCooldown()
     {
         attackCooldown = 1f / attackSpeed;
+    }
+
+    private void OnMouseDown()
+    {
+        UpgradeUI.Instance.ShowUpgradePanel(gameObject);
     }
 }

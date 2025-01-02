@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: TauntDefense
   m_EditorClassIdentifier: 
   defenseName: Beatle
+  attackRange: 7
+  attackDamage: 0
+  attackSpeed: 0
   cost: 70
+  upgradeCost: 0
   defenseIcon: {fileID: 0}
   prefab: {fileID: 6138668607168900822, guid: 23874fd1156c79b40858b728aeb75d33, type: 3}
