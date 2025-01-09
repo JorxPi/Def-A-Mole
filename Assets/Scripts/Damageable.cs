@@ -6,6 +6,7 @@ using UnityEngine;
 public class Damageable : MonoBehaviour
 {
     public float health;
+    public float maxHealth; 
 
     //Event used for gold update on enemy death
     public event Action OnDeath;

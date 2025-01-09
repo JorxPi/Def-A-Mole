@@ -53,6 +53,6 @@ public class EnemySpawner1 : MonoBehaviour
             return Mathf.RoundToInt(5 + Mathf.Pow(level, 1.5f));
         if (level <= 20)
             return Mathf.RoundToInt(30 + (level - 10) * 2);
-        return Mathf.Clamp(50 + (level - 20), 50, 100); // Límite máximo
+        return Mathf.Clamp(50 + (level - 20), 50, 100); // Lï¿½mite mï¿½ximo
     }
 }

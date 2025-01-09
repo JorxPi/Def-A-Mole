@@ -3,12 +3,14 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     public float speed = 2f;
+    public float damageAmount = 10f;
     private Vector3 targetPoint;
     private bool hasTarget = false;
+    private bool hasReachedTarget = false;
 
     private void Update()
     {
-        if (hasTarget)
+        if (hasTarget && !hasReachedTarget)
         {
             MoveTowardsTarget();
         }
@@ -18,31 +20,32 @@ public class EnemyAI : MonoBehaviour
     {
         targetPoint = target;
         hasTarget = true;
+        hasReachedTarget = false;
     }
 
     private void MoveTowardsTarget()
     {
-        // Movimiento hacia el objetivo
         Vector3 direction = (targetPoint - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
+        
+        if (direction != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
 
-        // Comprueba si llegó al objetivo
         if (Vector3.Distance(transform.position, targetPoint) < 0.1f)
         {
-            hasTarget = false;
+            hasReachedTarget = true;
             OnReachTarget();
         }
     }
 
     private void OnReachTarget()
     {
-        // Lógica cuando el enemigo alcanza el objetivo
-        Debug.Log("Enemy reached the target!");
-        Destroy(gameObject);
-    }
-
-    private void OnDestroy()
-    {
-        // Notifica al LevelManager o Spawner si es necesario
+        var baseHealth = GameObject.FindGameObjectWithTag("Enemy")?.GetComponent<Damageable>();
+        if (baseHealth != null)
+        {
+            baseHealth.ApplyDamage(damageAmount);
+        }
     }
 }
