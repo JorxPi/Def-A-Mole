@@ -67,20 +67,31 @@ public class DeployManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.collider.gameObject == map && IsOnTopSurface(hit.point) && !IsDefenseInLocation(hit.point))
+            // Ensure we clicked on the map and validate deployment conditions
+            if (hit.collider.gameObject == map && !IsDefenseInLocation(hit.point))
             {
+                // Use the exact hit point to place the unit at floor level
                 Vector3 targetPosition = hit.point;
 
+                // Adjust for the feet offset (if necessary)
                 Transform feetTransform = currentDefenseData.prefab.transform.Find("Feet");
+                Vector3 feetOffset = Vector3.zero;
 
-                Vector3 feetOffset = currentDefenseData.prefab.transform.position - feetTransform.position;
-                Vector3 adjustedPosition = targetPosition + feetOffset;
+                if (feetTransform != null)
+                {
+                    feetOffset = currentDefenseData.prefab.transform.position - feetTransform.position;
+                }
 
+                // Ensure the unit spawns at the correct floor level
+                Vector3 adjustedPosition = new Vector3(targetPosition.x, hit.point.y, targetPosition.z) + feetOffset;
+
+                // Instantiate the defense unit
                 Instantiate(currentDefenseData.prefab, adjustedPosition, Quaternion.identity);
+
+                // Deduct the cost and finalize deployment
                 CurrencyManager.Instance.SpendGold(currentDefenseData.cost);
                 Debug.Log("Unit deployed at: " + adjustedPosition);
                 isDeploying = false;
-
             }
             else
             {
@@ -98,22 +109,15 @@ public class DeployManager : MonoBehaviour
 
     private bool IsOnTopSurface(Vector3 position)
     {
-
-        float topSurfaceY = mapBounds.max.y;
-
-        if (Mathf.Abs(position.y - topSurfaceY) > 0.1f) 
-        {
-            return false;
-        }
-
         Vector3 mapCenter = mapBounds.center;
         Vector2 mapCenterXZ = new Vector2(mapCenter.x, mapCenter.z);
         Vector2 targetXZ = new Vector2(position.x, position.z);
+
         float distanceFromCenter = Vector2.Distance(mapCenterXZ, targetXZ);
 
         float topRadius = mapBounds.extents.x;
 
-        return distanceFromCenter <= topRadius;
+        return distanceFromCenter <= topRadius; // Only check within bounds, skip Y-check
     }
 
     private bool IsDefenseInLocation(Vector3 position)

@@ -13,9 +13,12 @@ public class ExplodingEnemy : Enemy
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.TryGetComponent<Damageable>(out Damageable damageable))
+            if (hitCollider.gameObject.layer == LayerMask.NameToLayer("Defense"))
             {
-                damageable.ApplyDamage(explosionDamage);
+                if (hitCollider.TryGetComponent<Damageable>(out Damageable damageable))
+                {
+                    damageable.ApplyDamage(explosionDamage);
+                }
             }
         }
         

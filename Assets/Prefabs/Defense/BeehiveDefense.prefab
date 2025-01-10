@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2508645495012225159}
   - component: {fileID: 6547670793104466308}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BeeSwarm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3892523720338324951}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,9 +105,9 @@ GameObject:
   - component: {fileID: 5243618959386572683}
   - component: {fileID: 360827043488038552}
   - component: {fileID: 7914850780502491183}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BeehiveDefense
-  m_TagString: Untagged
+  m_TagString: Defense
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,6 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 160
+  maxHealth: 0
 --- !u!1001 &276454596078635270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -259,6 +260,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e604747118ac54d4684b420e447957fd, type: 3}
       propertyPath: m_Name
       value: PdV_Model_Bee (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e604747118ac54d4684b420e447957fd, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -322,6 +327,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PdV_Model_Bee (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e604747118ac54d4684b420e447957fd, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -383,6 +392,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e604747118ac54d4684b420e447957fd, type: 3}
       propertyPath: m_Name
       value: PdV_Model_Bee (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e604747118ac54d4684b420e447957fd, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -446,6 +459,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PdV_Model_Bee (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e604747118ac54d4684b420e447957fd, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -508,6 +525,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PdV_Model_Beehive (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b2b2b06678a51ea449dbaa28309dfa4b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -569,6 +590,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e604747118ac54d4684b420e447957fd, type: 3}
       propertyPath: m_Name
       value: PdV_Model_Bee (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e604747118ac54d4684b420e447957fd, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
