@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
-    public float mapRadius = 10f;
+    public float mapRadius = 20f;
 
     private int currentLevel;
     private List<Vector2> currentAngleRanges;
@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
         if (enemyAI != null)
         {
             Vector3 targetPoint = CalculateTargetPoint(out float targetAngle);
-            Debug.Log($"Enemigo asignado al ángulo: {targetAngle}° en el nivel {currentLevel}");
+            Debug.Log($"Enemigo asignado al ángulo: {targetAngle}° en el nivel {currentLevel} y punto final {targetPoint}");
             enemyAI.SetTarget(targetPoint);
         }
     }

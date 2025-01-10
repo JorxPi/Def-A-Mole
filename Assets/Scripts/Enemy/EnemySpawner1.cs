@@ -55,4 +55,10 @@ public class EnemySpawner1 : MonoBehaviour
             return Mathf.RoundToInt(30 + (level - 10) * 2);
         return Mathf.Clamp(50 + (level - 20), 50, 100); // L�mite m�ximo
     }
+
+    public float radius = 15;
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
 }

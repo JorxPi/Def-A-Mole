@@ -28,7 +28,6 @@ public class Enemy : MonoBehaviour
         
         if (enemyAI != null)
         {
-            enemyAI.speed = speed;
             enemyAI.damageAmount = damageAmount;
         }
     }

@@ -1,51 +1,50 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    public float speed = 2f;
+
     public float damageAmount = 10f;
+    public float stopDistance = 0.5f; // Distancia al borde para detenerse
     private Vector3 targetPoint;
     private bool hasTarget = false;
-    private bool hasReachedTarget = false;
+
+    private NavMeshAgent agent;
+
+    void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
 
     private void Update()
     {
-        if (hasTarget && !hasReachedTarget)
+
+        agent.destination = targetPoint;
+
+        /*
+        if (hasTarget)
         {
-            MoveTowardsTarget();
+            // Establecer destino del agente
+            agent.destination = targetPoint;
+
+            // Comprobar si está cerca del objetivo
+            if (Vector3.Distance(transform.position, targetPoint) <= stopDistance)
+            {
+                StopAtEdge();
+            }
         }
+*/
     }
 
     public void SetTarget(Vector3 target)
     {
         targetPoint = target;
         hasTarget = true;
-        hasReachedTarget = false;
     }
 
-    private void MoveTowardsTarget()
+    private void StopAtEdge()
     {
-        Vector3 direction = (targetPoint - transform.position).normalized;
-        transform.position += direction * speed * Time.deltaTime;
-        
-        if (direction != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(direction);
-        }
-
-        if (Vector3.Distance(transform.position, targetPoint) < 0.1f)
-        {
-            hasReachedTarget = true;
-            OnReachTarget();
-        }
-    }
-
-    private void OnReachTarget()
-    {
-        var baseHealth = GameObject.FindGameObjectWithTag("Enemy")?.GetComponent<Damageable>();
-        if (baseHealth != null)
-        {
-            baseHealth.ApplyDamage(damageAmount);
-        }
+        agent.isStopped = true; // Detiene el movimiento del agente
+        hasTarget = false; // Detener futuras actualizaciones de movimiento
     }
 }
