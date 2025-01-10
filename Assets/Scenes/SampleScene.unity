@@ -625,6 +625,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DamageVignette
       objectReference: {fileID: 0}
+    - target: {fileID: 2771478766961021920, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1563766135}
+    - target: {fileID: 2771478766961021920, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnUpgradeButtonClicked
+      objectReference: {fileID: 0}
     - target: {fileID: 5432178594204631803, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
       propertyPath: m_Name
       value: Canvas
