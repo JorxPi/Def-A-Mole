@@ -673,6 +673,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 410935234}
+  mapLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!4 &1120445304
 Transform:
   m_ObjectHideFlags: 0
@@ -1178,6 +1181,7 @@ MonoBehaviour:
   - {fileID: 3274956001613883752, guid: af80ab9109e89dd418a3c20df45bf70a, type: 3}
   spawnPoint: {fileID: 262209974}
   spawnInterval: 1
+  radius: 15
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

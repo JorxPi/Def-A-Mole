@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 213735405177960873}
   - component: {fileID: 1404519761617510921}
   - component: {fileID: 463566831181890955}
+  - component: {fileID: 549075466787640828}
   m_Layer: 6
   m_Name: TauntDefense
   m_TagString: Defense
@@ -135,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 300
+  maxHealth: 0
 --- !u!114 &1404519761617510921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +165,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapCenter: {fileID: 1390067013638267455, guid: 3f549234005796142a3a661acad4d6ba, type: 3}
   rotationSpeed: 5
+--- !u!114 &549075466787640828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6138668607168900822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ed45b7ad0cb4b42a9a80150b0535be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3917548832080387561
 PrefabInstance:
   m_ObjectHideFlags: 0

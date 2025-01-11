@@ -19,9 +19,9 @@ public class SniperUH : BasicUH
 
     public override string GetUpgradeDetails()
     {
-        if (currentUpgradeLevel < upgradeCosts.Length)
+        if (defense.baseStats != null && currentUpgradeLevel < defense.baseStats.upgradeCosts.Length)
         {
-            int upgradeCost = upgradeCosts[currentUpgradeLevel];
+            int upgradeCost = defense.baseStats.upgradeCosts[currentUpgradeLevel];
             switch (currentUpgradeLevel)
             {
                 case 0:

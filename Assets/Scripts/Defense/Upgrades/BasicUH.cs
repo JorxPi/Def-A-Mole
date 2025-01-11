@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class BasicUH : UpgradeHandler
 {
-    [Header("Upgrade Costs")]
-    public int[] upgradeCosts;
-
     protected override void Awake()
     {
         base.Awake();
@@ -12,9 +9,9 @@ public class BasicUH : UpgradeHandler
 
     public override bool Upgrade()
     {
-        if (currentUpgradeLevel < upgradeCosts.Length)
+        if (defense.baseStats != null && currentUpgradeLevel < defense.baseStats.upgradeCosts.Length)
         {
-            int upgradeCost = upgradeCosts[currentUpgradeLevel];
+            int upgradeCost = defense.baseStats.upgradeCosts[currentUpgradeLevel];
 
             if (CurrencyManager.Instance.HasEnoughGold(upgradeCost))
             {
@@ -35,14 +32,14 @@ public class BasicUH : UpgradeHandler
         }
         else
         {
-            Debug.Log("Max upgrade level reached.");
+            Debug.Log("Max upgrade level reached or invalid defense data.");
             return false;
         }
     }
 
     public string GetUpgradeDescription()
     {
-        if (currentUpgradeLevel < upgradeCosts.Length)
+        if (defense.baseStats != null && currentUpgradeLevel < defense.baseStats.upgradeCosts.Length)
         {
             return $"Upgrade {defense.baseStats.defenseName} to Level {currentUpgradeLevel + 1}";
         }
@@ -67,9 +64,9 @@ public class BasicUH : UpgradeHandler
 
     public virtual string GetUpgradeDetails()
     {
-        if (currentUpgradeLevel < upgradeCosts.Length)
+        if (defense.baseStats != null && currentUpgradeLevel < defense.baseStats.upgradeCosts.Length)
         {
-            int upgradeCost = upgradeCosts[currentUpgradeLevel];
+            int upgradeCost = defense.baseStats.upgradeCosts[currentUpgradeLevel];
             switch (currentUpgradeLevel)
             {
                 case 0:

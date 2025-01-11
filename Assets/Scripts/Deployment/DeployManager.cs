@@ -6,10 +6,11 @@ public class DeployManager : MonoBehaviour
 {
     public static DeployManager Instance { get; private set; }
 
-    public GameObject map; 
+    public GameObject map; // Reference to the map GameObject
+    public LayerMask mapLayer; // Assign the "Map" layer in the Inspector
+
     private bool isDeploying = false;
     private DefenseData currentDefenseData;
-    private Bounds mapBounds;
 
     private void Awake()
     {
@@ -21,10 +22,6 @@ public class DeployManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        Collider mapCollider = map.GetComponent<Collider>();
-        mapBounds = mapCollider.bounds;
-
     }
 
     private void Update()
@@ -65,15 +62,13 @@ public class DeployManager : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        // Raycast only hits the "Map" layer
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mapLayer))
         {
-            // Ensure we clicked on the map and validate deployment conditions
-            if (hit.collider.gameObject == map && !IsDefenseInLocation(hit.point))
+            // Ensure placement is valid (not too close to another defense)
+            if (!IsDefenseInLocation(hit.point))
             {
-                // Use the exact hit point to place the unit at floor level
-                Vector3 targetPosition = hit.point;
-
-                // Adjust for the feet offset (if necessary)
+                // Adjust for "Feet" offset if necessary
                 Transform feetTransform = currentDefenseData.prefab.transform.Find("Feet");
                 Vector3 feetOffset = Vector3.zero;
 
@@ -82,21 +77,27 @@ public class DeployManager : MonoBehaviour
                     feetOffset = currentDefenseData.prefab.transform.position - feetTransform.position;
                 }
 
-                // Ensure the unit spawns at the correct floor level
-                Vector3 adjustedPosition = new Vector3(targetPosition.x, hit.point.y, targetPosition.z) + feetOffset;
+                // Final position for the defense
+                Vector3 targetPosition = hit.point + feetOffset;
 
-                // Instantiate the defense unit
-                Instantiate(currentDefenseData.prefab, adjustedPosition, Quaternion.identity);
+                // Instantiate the defense
+                Instantiate(currentDefenseData.prefab, targetPosition, Quaternion.identity);
 
                 // Deduct the cost and finalize deployment
                 CurrencyManager.Instance.SpendGold(currentDefenseData.cost);
-                Debug.Log("Unit deployed at: " + adjustedPosition);
+                Debug.Log($"Defense placed at: {targetPosition}");
                 isDeploying = false;
             }
             else
             {
+                Debug.Log("Placement blocked by another defense.");
                 CancelDeployment();
             }
+        }
+        else
+        {
+            Debug.Log("Raycast did not hit the map.");
+            CancelDeployment();
         }
     }
 
@@ -107,28 +108,9 @@ public class DeployManager : MonoBehaviour
         Debug.Log("Deployment cancelled.");
     }
 
-    private bool IsOnTopSurface(Vector3 position)
-    {
-        Vector3 mapCenter = mapBounds.center;
-        Vector2 mapCenterXZ = new Vector2(mapCenter.x, mapCenter.z);
-        Vector2 targetXZ = new Vector2(position.x, position.z);
-
-        float distanceFromCenter = Vector2.Distance(mapCenterXZ, targetXZ);
-
-        float topRadius = mapBounds.extents.x;
-
-        return distanceFromCenter <= topRadius; // Only check within bounds, skip Y-check
-    }
-
     private bool IsDefenseInLocation(Vector3 position)
     {
-        Collider defenseCollider = currentDefenseData.prefab.GetComponent<Collider>();
-        float distanceBetweenDefenses = 1.3f;
-
-        // Radius of the new defense to be deployed
-        float defenseRadius = defenseCollider.bounds.extents.magnitude;
-
-        float detectionRadius = defenseRadius + distanceBetweenDefenses;
+        float detectionRadius = 1.3f; // Minimum allowed distance between defenses
 
         Collider[] colliders = Physics.OverlapSphere(position, detectionRadius);
 
@@ -136,20 +118,10 @@ public class DeployManager : MonoBehaviour
         {
             if (collider.CompareTag("Defense"))
             {
-                float distanceToDefense = Vector3.Distance(position, collider.transform.position);
-
-                float existingDefenseRadius = collider.bounds.extents.magnitude;
-
-                float requiredClearance = defenseRadius + existingDefenseRadius + distanceBetweenDefenses;
-
-                if (distanceToDefense < requiredClearance)
-                {
-                    return true; 
-                }
+                return true; // A defense is already in this area
             }
         }
 
-        return false; 
+        return false; // No defenses nearby
     }
-
 }

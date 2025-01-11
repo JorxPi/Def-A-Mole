@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 5243618959386572683}
   - component: {fileID: 360827043488038552}
   - component: {fileID: 7914850780502491183}
+  - component: {fileID: 1750561317419946305}
   m_Layer: 6
   m_Name: BeehiveDefense
   m_TagString: Defense
@@ -209,6 +210,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 160
   maxHealth: 0
+--- !u!114 &1750561317419946305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6465396792212365923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dbda3eb6d9e35a49acd1e11492c016c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &276454596078635270
 PrefabInstance:
   m_ObjectHideFlags: 0

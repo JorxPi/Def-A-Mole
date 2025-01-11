@@ -6,10 +6,22 @@ using UnityEngine;
 public class Damageable : MonoBehaviour
 {
     public float health;
-    public float maxHealth; 
+    public float maxHealth;
+
+    private Defense defense;
 
     //Event used for gold update on enemy death
     public event Action OnDeath;
+
+    private void Awake()
+    {
+        defense = GetComponent<Defense>();
+        if (defense != null && defense.baseStats != null)
+        {
+            maxHealth = defense.baseStats.maxHealth;
+            health = maxHealth; 
+        }
+    }
 
     public void ApplyDamage(float damage)
     {
@@ -28,5 +40,12 @@ public class Damageable : MonoBehaviour
         OnDeath?.Invoke();
 
         Destroy(gameObject); 
+    }
+
+    public void IncreaseMaxHealth(float amount)
+    {
+        maxHealth += amount;
+        health += amount; 
+        health = Mathf.Min(health, maxHealth);
     }
 }

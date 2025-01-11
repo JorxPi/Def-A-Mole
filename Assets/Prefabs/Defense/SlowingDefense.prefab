@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 4580387028194097726}
   - component: {fileID: 1844677372339292726}
   - component: {fileID: 3048010536843556484}
+  - component: {fileID: 5381714424416599589}
   m_Layer: 6
   m_Name: SlowingDefense
   m_TagString: Defense
@@ -195,6 +196,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 0
+--- !u!114 &5381714424416599589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319336131982888255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 983e948ac77278542b93a718fc7b84ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowingProjectile: {fileID: 4187202866254594082, guid: 134875eeff7ce6b49ba0f35a7950f2df, type: 3}
 --- !u!1001 &7938639667169887800
 PrefabInstance:
   m_ObjectHideFlags: 0
