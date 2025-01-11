@@ -128,6 +128,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangeIndicatorPrefab: {fileID: 3279891831375080189, guid: 6bc7cc1d168503f4492e638bfd534ee1, type: 3}
   feetPosition: {fileID: 813389626687547796}
+  defenseLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &1605639306107857064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 70
+  maxHealth: 0
 --- !u!65 &2043030198407045751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -188,7 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d7304b520ccf44ca53ae88ab409a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeCosts: 2800000028000000
 --- !u!1 &677232443766038339
 GameObject:
   m_ObjectHideFlags: 0

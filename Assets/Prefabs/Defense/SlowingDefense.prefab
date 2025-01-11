@@ -168,6 +168,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangeIndicatorPrefab: {fileID: 3279891831375080189, guid: 6bc7cc1d168503f4492e638bfd534ee1, type: 3}
   feetPosition: {fileID: 5991152925838957374}
+  defenseLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &1844677372339292726
 MonoBehaviour:
   m_ObjectHideFlags: 0

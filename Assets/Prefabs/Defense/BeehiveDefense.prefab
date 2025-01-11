@@ -175,6 +175,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangeIndicatorPrefab: {fileID: 3279891831375080189, guid: 6bc7cc1d168503f4492e638bfd534ee1, type: 3}
   feetPosition: {fileID: 3892523720338324951}
+  defenseLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!65 &360827043488038552
 BoxCollider:
   m_ObjectHideFlags: 0

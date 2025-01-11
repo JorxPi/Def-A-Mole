@@ -6,16 +6,17 @@ using UnityEngine;
 public class RangeIndicator : MonoBehaviour
 {
     public GameObject rangeIndicatorPrefab;
-    public Transform feetPosition; 
+    public Transform feetPosition;
+    public LayerMask defenseLayer; // Assign the "Defense" layer in the Inspector
+
     private GameObject rangeIndicator;
     private Defense defense;
 
-    private bool isMouseDownOnDefense = false; 
+    private bool isMouseDownOnDefense = false;
 
     private void Start()
     {
         defense = GetComponent<Defense>();
-
 
         if (rangeIndicatorPrefab != null && feetPosition != null)
         {
@@ -30,8 +31,8 @@ public class RangeIndicator : MonoBehaviour
     {
         if (rangeIndicator != null)
         {
-            rangeIndicator.SetActive(true); 
-            isMouseDownOnDefense = true; 
+            rangeIndicator.SetActive(true);
+            isMouseDownOnDefense = true;
         }
     }
 
@@ -41,7 +42,7 @@ public class RangeIndicator : MonoBehaviour
         {
             if (!MouseOverDefense())
             {
-                rangeIndicator.SetActive(false); 
+                rangeIndicator.SetActive(false);
             }
         }
 
@@ -54,15 +55,19 @@ public class RangeIndicator : MonoBehaviour
 
     private bool MouseOverDefense()
     {
-        int defenseLayerMask = LayerMask.GetMask("Defense");
-
+        // Use a LayerMask to restrict the raycast
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, defenseLayerMask))
+        // Perform a raycast that only interacts with the "Defense" layer
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, defenseLayer))
         {
+            Debug.Log($"Raycast hit: {hit.transform.name} on layer {LayerMask.LayerToName(hit.transform.gameObject.layer)}");
+
+            // Check if the raycast hit this specific defense
             return hit.transform == transform;
         }
+
+        Debug.Log("Raycast did not hit anything on the Defense layer.");
         return false;
     }
 }

@@ -11,12 +11,9 @@ public class CurrencyManager : MonoBehaviour
     [Header("Starting Gold")]
     public int startingGold = 100;
 
-    [Header("UI Reference")]
-    public TMP_Text currencyText; 
-
     private int currentGold;
 
-    public event Action<int> OnGoldChanged;
+    public event Action<int> OnGoldChanged; // Event to notify when gold changes
 
     private void Awake()
     {
@@ -33,7 +30,7 @@ public class CurrencyManager : MonoBehaviour
     private void Start()
     {
         currentGold = startingGold;
-        UpdateCurrencyUI();
+        OnGoldChanged?.Invoke(currentGold); // Notify subscribers of the initial gold value
     }
 
     public bool HasEnoughGold(int amount)
@@ -46,20 +43,13 @@ public class CurrencyManager : MonoBehaviour
         if (HasEnoughGold(amount))
         {
             currentGold -= amount;
-            UpdateCurrencyUI();
-            OnGoldChanged?.Invoke(currentGold);
+            OnGoldChanged?.Invoke(currentGold); // Notify subscribers of the new gold value
         }
     }
 
     public void AddGold(int amount)
     {
         currentGold += amount;
-        UpdateCurrencyUI();
-        OnGoldChanged?.Invoke(currentGold);
-    }
-
-    private void UpdateCurrencyUI()
-    {
-        currencyText.text = $"Gold: {currentGold}";
+        OnGoldChanged?.Invoke(currentGold); // Notify subscribers of the new gold value
     }
 }
