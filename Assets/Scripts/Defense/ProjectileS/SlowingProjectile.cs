@@ -69,7 +69,7 @@ public class SlowingProjectile : Projectile
                 
                 if (collider.TryGetComponent<Enemy>(out Enemy enemy))
                 {
-                    //enemy.ApplySlow(slowAmount, slowDuration);
+                    enemy.enemyAI.ApplySlow(slowAmount,slowDuration);
                 }
             }
         }

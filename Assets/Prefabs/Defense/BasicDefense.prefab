@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 5494162270227383457}
   - component: {fileID: 1236139442059156731}
   - component: {fileID: 3663843835034924315}
+  - component: {fileID: -6168232167101363490}
   m_Layer: 6
   m_Name: BasicDefense
   m_TagString: Defense
@@ -223,6 +224,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9216995, y: 2.575463, z: 4.0115995}
   m_Center: {x: 0, y: 1.2700161, z: 0.26257706}
+--- !u!208 &-6168232167101363490
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554021112271803409}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.33, y: 1.14, z: 1.675}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.27, z: 0.1}
+  m_TimeToStationary: 0.5
 --- !u!1 &8663742783138958241
 GameObject:
   m_ObjectHideFlags: 0

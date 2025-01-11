@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 1844677372339292726}
   - component: {fileID: 3048010536843556484}
   - component: {fileID: 5381714424416599589}
+  - component: {fileID: 1080882868053465217}
   m_Layer: 6
   m_Name: SlowingDefense
   m_TagString: Defense
@@ -212,6 +213,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slowingProjectile: {fileID: 4187202866254594082, guid: 134875eeff7ce6b49ba0f35a7950f2df, type: 3}
+--- !u!208 &1080882868053465217
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319336131982888255}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.87, y: 1.51, z: 1.855}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.49, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &7938639667169887800
 PrefabInstance:
   m_ObjectHideFlags: 0

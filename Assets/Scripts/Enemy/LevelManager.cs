@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
-    public float mapRadius = 20f;
+    public float mapRadius = 35f;
 
     private int currentLevel;
     private List<Vector2> currentAngleRanges;

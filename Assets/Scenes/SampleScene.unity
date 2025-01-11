@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -164,7 +164,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingGold: 100
-  currencyText: {fileID: 48092098}
 --- !u!4 &112543002
 Transform:
   m_ObjectHideFlags: 0
@@ -330,7 +329,7 @@ GameObject:
   - component: {fileID: 639922964}
   m_Layer: 0
   m_Name: WarningZone
-  m_TagString: Untagged
+  m_TagString: WarningZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -394,8 +393,8 @@ Transform:
   m_GameObject: {fileID: 639922956}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08, y: 0.69187355, z: 0.2}
-  m_LocalScale: {x: 21.713623, y: 3.1279, z: 21.713623}
+  m_LocalPosition: {x: -0.08, y: 1.1026, z: 0.2}
+  m_LocalScale: {x: 25, y: 3.6809127, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -742,7 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c9ea9be50f39d45bb67fd35413f013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapRadius: 30
+  mapRadius: 35
 --- !u!4 &1239178932
 Transform:
   m_ObjectHideFlags: 0

@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 1404519761617510921}
   - component: {fileID: 463566831181890955}
   - component: {fileID: 549075466787640828}
+  - component: {fileID: 4817712629988226896}
   m_Layer: 6
   m_Name: TauntDefense
   m_TagString: Defense
@@ -180,6 +181,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ed45b7ad0cb4b42a9a80150b0535be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &4817712629988226896
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6138668607168900822}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.175, y: 0.835, z: 0.805}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.25, y: 0.93, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &3917548832080387561
 PrefabInstance:
   m_ObjectHideFlags: 0

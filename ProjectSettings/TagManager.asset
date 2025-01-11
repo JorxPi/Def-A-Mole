@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Defense
+  - WarningZone
   layers:
   - Default
   - TransparentFX
