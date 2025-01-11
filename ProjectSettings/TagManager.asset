@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Defense
   - WarningZone
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Defense
-  - 
+  - Wall
   - 
   - 
   - 
