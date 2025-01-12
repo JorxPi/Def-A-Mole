@@ -13,8 +13,6 @@ public class TauntDefense : Defense
 
     }
 
-
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))

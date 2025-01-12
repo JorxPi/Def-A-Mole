@@ -129,8 +129,9 @@ public class EnemyAI : MonoBehaviour
     public void ApplySlow(float slowAmount, float slowDuration)
     {
         if(!isSlowed) {
-            Debug.Log($"{gameObject.name} ha sido ralentizado por {slowAmount * 100}% durante {slowDuration} segundos.");
-            agent.speed = agent.speed - slowAmount;
+            agent.speed = baseSpeed - slowAmount;
+            Debug.Log($"{gameObject.name} ha sido ralentizado -{slowAmount}% durante {slowDuration} segundos. (vel: {agent.speed})");
+
             isSlowed = true;
         }
         else

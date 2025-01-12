@@ -24,10 +24,10 @@ public class Barrier : MonoBehaviour
         currentHealth -= amount;
         if (currentHealth <= 0f)
         {
+            // Barrier destroyed
             currentHealth = 0f;
 
-            Debug.Log("Health is 0, showing Game Over");
-            // Aquí puedes agregar lógica para cuando la barrera sea destruida
+           
             if (gameOverController != null)
             {
                 gameOverController.ShowGameOver();
