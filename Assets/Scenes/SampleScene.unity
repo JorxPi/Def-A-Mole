@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -687,6 +687,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 1080
       objectReference: {fileID: 0}
+    - target: {fileID: 352771580724756076, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+      propertyPath: m_text
+      value: Round
+      objectReference: {fileID: 0}
     - target: {fileID: 406401163710222952, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1313,7 +1317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapRadius: 35
-  enemySpawner: {fileID: 0}
+  levelText: {fileID: 0}
+  enemiesAlive: 0
 --- !u!4 &1239178932
 Transform:
   m_ObjectHideFlags: 0
@@ -1801,8 +1806,7 @@ MonoBehaviour:
   - {fileID: 3274956001613883752, guid: f567673d05e41dd4381c7b85bf8db7d3, type: 3}
   - {fileID: 3274956001613883752, guid: af80ab9109e89dd418a3c20df45bf70a, type: 3}
   spawnPoint: {fileID: 262209974}
-  spawnInterval: 1
-  radius: 15
+  spawnInterval: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

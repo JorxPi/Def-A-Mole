@@ -40,7 +40,19 @@ public class Damageable : MonoBehaviour
     {
         OnDeath?.Invoke();
 
-        Destroy(gameObject); 
+        Enemy enemy = GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            DamageVignetteController vignetteController = FindObjectOfType<DamageVignetteController>();
+            if (vignetteController != null)
+            {
+                vignetteController.OnEnemyDeath(gameObject);
+            }
+            LevelManager levelManager = FindObjectOfType<LevelManager>();
+            levelManager.EnemyDied();
+        }
+
+        Destroy(gameObject);
     }
 
     public void IncreaseMaxHealth(float amount)

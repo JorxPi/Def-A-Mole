@@ -1,26 +1,24 @@
 using UnityEngine;
+using TMPro;
 using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
-    //public static LevelManager Instance { get; private set; }
-
     public float mapRadius = 35f;
-    public EnemySpawner1 enemySpawner;
+    public TextMeshProUGUI levelText;
 
     private int currentLevel;
     private List<Vector2> currentAngleRanges;
-    //private List<Enemy> enemies = new List<Enemy>();
-
+    public int enemiesAlive;
     private void Start()
     {
         currentLevel = 1;
         SetAngleRangesForLevel(currentLevel);
+        UpdateLevelText();
     }
 
     public void AssignTargetToEnemy(EnemyAI enemyAI)
     {
-        //EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
 
         if (enemyAI != null)
         {
@@ -30,14 +28,6 @@ public class LevelManager : MonoBehaviour
             //enemies.Add(enemy);
         }
     }
-
-    /*
-    public void UnregisterEnemy(Enemy enemy)
-    {
-        enemies.Remove(enemy);
-        CheckForNextLevel();
-    }
-    */
 
     private Vector3 CalculateTargetPoint(out float selectedAngle)
     {
@@ -122,21 +112,38 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    /*
+    
     private void CheckForNextLevel()
     {
-        if (enemies.Count == 0)
+        if (enemiesAlive == 0)
         {
             // Todos los enemigos han muerto, pasar al siguiente nivel
             StartNextLevel();
         }
     }
-    */
+    
+
+    public void EnemyDied()
+    {
+        enemiesAlive--;
+        Debug.Log($"Un enemigo ha sido destruido. ({enemiesAlive} enemies)");
+        CheckForNextLevel();
+    }
 
     public void StartNextLevel()
     {
         currentLevel++;
         SetAngleRangesForLevel(currentLevel);
+        UpdateLevelText();
+        EnemySpawner1 enemySpawner = FindObjectOfType<EnemySpawner1>();
         enemySpawner.StartLevel(currentLevel);
+    }
+
+    private void UpdateLevelText()
+    {
+        if (levelText != null)
+        {
+            levelText.text = $"Round: {currentLevel}";
+        }
     }
 }
