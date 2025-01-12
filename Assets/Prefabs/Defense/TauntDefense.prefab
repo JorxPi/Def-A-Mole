@@ -110,6 +110,9 @@ MonoBehaviour:
   attackRange: 7
   attackDamage: 0
   attackSpeed: 0
+  defenseLayer:
+    serializedVersion: 2
+    m_Bits: 64
   retaliatoryDamage: 10
 --- !u!114 &4893346196041934308
 MonoBehaviour:
