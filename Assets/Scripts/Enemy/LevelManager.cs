@@ -3,10 +3,14 @@ using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
+    //public static LevelManager Instance { get; private set; }
+
     public float mapRadius = 35f;
+    public EnemySpawner1 enemySpawner;
 
     private int currentLevel;
     private List<Vector2> currentAngleRanges;
+    //private List<Enemy> enemies = new List<Enemy>();
 
     private void Start()
     {
@@ -16,13 +20,24 @@ public class LevelManager : MonoBehaviour
 
     public void AssignTargetToEnemy(EnemyAI enemyAI)
     {
+        //EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
+
         if (enemyAI != null)
         {
             Vector3 targetPoint = CalculateTargetPoint(out float targetAngle);
             Debug.Log($"Enemigo asignado al ángulo: {targetAngle}° en el nivel {currentLevel} y punto final {targetPoint}");
             enemyAI.SetTarget(targetPoint);
+            //enemies.Add(enemy);
         }
     }
+
+    /*
+    public void UnregisterEnemy(Enemy enemy)
+    {
+        enemies.Remove(enemy);
+        CheckForNextLevel();
+    }
+    */
 
     private Vector3 CalculateTargetPoint(out float selectedAngle)
     {
@@ -107,9 +122,21 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    /*
+    private void CheckForNextLevel()
+    {
+        if (enemies.Count == 0)
+        {
+            // Todos los enemigos han muerto, pasar al siguiente nivel
+            StartNextLevel();
+        }
+    }
+    */
+
     public void StartNextLevel()
     {
         currentLevel++;
         SetAngleRangesForLevel(currentLevel);
+        enemySpawner.StartLevel(currentLevel);
     }
 }

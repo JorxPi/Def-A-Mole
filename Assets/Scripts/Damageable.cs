@@ -10,6 +10,7 @@ public class Damageable : MonoBehaviour
 
     private Defense defense;
 
+
     //Event used for gold update on enemy death
     public event Action OnDeath;
 

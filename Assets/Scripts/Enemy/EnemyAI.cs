@@ -7,7 +7,8 @@ public class EnemyAI : MonoBehaviour
     public float damageAmount = 10f;
     public float attackInterval = 1f;
     public float baseSpeed = 3.5f;
-    //public float stopDistance = 0.5f; // Distancia al borde para detenerse
+
+    private Barrier targetBarrier;
 
     private Vector3 targetPoint;
     private bool hasTarget = false;
@@ -18,13 +19,30 @@ public class EnemyAI : MonoBehaviour
 
     private bool isSlowed = false;
     private float slowTimer = 0f;
-    private bool attackingTower = false;
+
+    private bool isAttackingTower = false;
+    Defense targetDefense;
+    private Vector3 towerPoint;
 
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = baseSpeed;
+
+        GameObject barrierObject = GameObject.FindWithTag("Barrier");
+        if (barrierObject != null)
+        {
+            targetBarrier = barrierObject.GetComponent<Barrier>();
+            if (targetBarrier == null)
+            {
+                Debug.LogError("El objeto con tag 'Barrier' no tiene un componente Barrier.");
+            }
+        }
+        else
+        {
+            Debug.LogError("No se encontró ningún objeto con el tag 'Barrier' en la escena.");
+        }
     }
 
     private void Update()
@@ -48,6 +66,14 @@ public class EnemyAI : MonoBehaviour
             if (slowTimer <= 0f)
             {
                 ResetSpeed();
+            }
+        }
+
+        if (isAttackingTower)
+        {
+            if (Vector3.Distance(transform.position, towerPoint) <= 0.5f)
+            {
+                
             }
         }
 
@@ -78,7 +104,10 @@ public class EnemyAI : MonoBehaviour
     {
         // Aquí se debería restar vida a la barrera (esto se conecta con el sistema de vida de la barrera)
         Debug.Log($"{gameObject.name} está atacando la barrera y causa {damageAmount} de daño.");
+        targetBarrier.TakeDamage(damageAmount);
+
     }
+
 
     private void OnTriggerExit(Collider other)
     {
@@ -114,5 +143,21 @@ public class EnemyAI : MonoBehaviour
     {
         agent.speed = baseSpeed;
         isSlowed = false;
+    }
+
+    public void SetTowerTarget(Vector3 tower)
+    {
+        towerPoint = tower;
+    }
+
+    public void AttackTower(Defense defense)
+    {
+        Damageable damageable = defense.GetComponent<Damageable>();
+        if (damageable != null)
+        {
+            Defense targetDefense = defense;
+            isAttackingTower = true;
+
+        }
     }
 }
