@@ -77,20 +77,6 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        /*
-        if (hasTarget)
-        {
-            // Establecer destino del agente
-            agent.destination = targetPoint;
-
-            // Comprobar si está cerca del objetivo
-            if (Vector3.Distance(transform.position, targetPoint) <= stopDistance)
-            {
-                StopAtEdge();
-            }
-        }
-
-*/
     }
 
     public void SetTarget(Vector3 target)
@@ -108,7 +94,6 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("WarningZone"))
@@ -124,7 +109,6 @@ public class EnemyAI : MonoBehaviour
             isAttacking = false;
         }
     }
-
 
     public void ApplySlow(float slowAmount, float slowDuration)
     {

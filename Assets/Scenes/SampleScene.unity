@@ -134,6 +134,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &75212431 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8344462411923699800, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+  m_PrefabInstance: {fileID: 799323612}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &112543000
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,6 +190,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &238166148 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 352771580724756076, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+  m_PrefabInstance: {fileID: 799323612}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &262209973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,17 +1229,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1125016865 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8344462411923699800, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
-  m_PrefabInstance: {fileID: 799323612}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1133838794 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2981717271219802969, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
@@ -1269,7 +1280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13de60a3107e4764f86f8c1deac6f5a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 1125016865}
+  healthText: {fileID: 75212431}
   healthBar: {fileID: 554535734}
   barrier: {fileID: 339298384}
 --- !u!4 &1201170505
@@ -1317,7 +1328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapRadius: 35
-  levelText: {fileID: 0}
+  levelText: {fileID: 238166148}
   enemiesAlive: 0
 --- !u!4 &1239178932
 Transform:
