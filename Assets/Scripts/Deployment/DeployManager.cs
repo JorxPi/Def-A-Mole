@@ -11,6 +11,8 @@ public class DeployManager : MonoBehaviour
 
     private bool isDeploying = false;
     private DefenseData currentDefenseData;
+    private GameObject previewInstance;
+    private List<MonoBehaviour> disabledScripts = new List<MonoBehaviour>();
 
     private void Awake()
     {
@@ -28,6 +30,7 @@ public class DeployManager : MonoBehaviour
     {
         if (isDeploying)
         {
+            UpdatePreviewPosition();
             HandleDeployment();
         }
     }
@@ -38,6 +41,18 @@ public class DeployManager : MonoBehaviour
         {
             currentDefenseData = defenseData;
             isDeploying = true;
+
+            // Instantiate the preview from the prefab inside defenseData
+            if (currentDefenseData.prefab != null)
+            {
+                previewInstance = Instantiate(currentDefenseData.prefab);
+
+                // Disable attack scripts and other behaviors
+                DisableScripts(previewInstance);
+
+                // Disable physics interactions for the preview
+                DisableCollisions(previewInstance);
+            }
         }
         else
         {
@@ -47,57 +62,50 @@ public class DeployManager : MonoBehaviour
 
     private void HandleDeployment()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1)) // Right-click to cancel
         {
             CancelDeployment();
         }
-        else if (Input.GetMouseButtonDown(0))
+        else if (Input.GetMouseButtonDown(0)) // Left-click to place
         {
             PlaceDefense();
         }
     }
 
-    private void PlaceDefense()
+    private void UpdatePreviewPosition()
     {
-        Vector3 mousePos = Input.mousePosition;
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        if (previewInstance == null) return;
 
-        // Raycast only hits the "Map" layer
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mapLayer))
         {
-            // Ensure placement is valid (not too close to another defense)
-            if (!IsDefenseInLocation(hit.point))
-            {
-                // Adjust for "Feet" offset if necessary
-                Transform feetTransform = currentDefenseData.prefab.transform.Find("Feet");
-                Vector3 feetOffset = Vector3.zero;
+            Vector3 feetOffset = GetFeetOffset();
+            previewInstance.transform.position = hit.point + feetOffset;
 
-                if (feetTransform != null)
-                {
-                    feetOffset = currentDefenseData.prefab.transform.position - feetTransform.position;
-                }
+            // Check if placement is valid (not on another defense AND inside the map boundaries)
+            bool isValidPlacement = !IsDefenseInLocation(hit.point) && IsInsideMap(hit.point);
 
-                // Final position for the defense
-                Vector3 targetPosition = hit.point + feetOffset;
+            // Update preview color based on placement validity
+            UpdatePreviewColor(isValidPlacement);
+        }
+    }
 
-                // Instantiate the defense
-                Instantiate(currentDefenseData.prefab, targetPosition, Quaternion.identity);
+    private void PlaceDefense()
+    {
+        if (previewInstance == null) return;
 
-                // Deduct the cost and finalize deployment
-                CurrencyManager.Instance.SpendGold(currentDefenseData.cost);
-                Debug.Log($"Defense placed at: {targetPosition}");
-                isDeploying = false;
-            }
-            else
-            {
-                Debug.Log("Placement blocked by another defense.");
-                CancelDeployment();
-            }
+        Vector3 position = previewInstance.transform.position;
+
+        if (!IsDefenseInLocation(position) && IsInsideMap(position))
+        {
+            Instantiate(currentDefenseData.prefab, position, Quaternion.identity);
+            CurrencyManager.Instance.SpendGold(currentDefenseData.cost);
+            CleanupPreview();
         }
         else
         {
-            Debug.Log("Raycast did not hit the map.");
-            CancelDeployment();
+            Debug.Log("Placement blocked (either too close to another defense or outside the map).");
+            CancelDeployment(); // Cancel if placement is invalid
         }
     }
 
@@ -105,23 +113,104 @@ public class DeployManager : MonoBehaviour
     {
         isDeploying = false;
         currentDefenseData = null;
-        Debug.Log("Deployment cancelled.");
+        CleanupPreview();
+    }
+
+    private void CleanupPreview()
+    {
+        if (previewInstance != null)
+        {
+            Destroy(previewInstance);
+            previewInstance = null;
+        }
     }
 
     private bool IsDefenseInLocation(Vector3 position)
     {
-        float detectionRadius = 1.3f; // Minimum allowed distance between defenses
-
+        float detectionRadius = 1.3f;
         Collider[] colliders = Physics.OverlapSphere(position, detectionRadius);
-
         foreach (Collider collider in colliders)
         {
             if (collider.CompareTag("Defense"))
             {
-                return true; // A defense is already in this area
+                return true;
             }
         }
+        return false;
+    }
 
-        return false; // No defenses nearby
+    private bool IsInsideMap(Vector3 position)
+    {
+        // Get map's position and scale
+        Vector3 mapCenter = map.transform.position;
+        float mapRadius = map.transform.localScale.x * 0.5f; // Assuming X scale is the diameter
+
+        // Calculate distance from center (only XZ plane)
+        float distanceFromCenter = Vector3.Distance(new Vector3(position.x, mapCenter.y, position.z), new Vector3(mapCenter.x, mapCenter.y, mapCenter.z));
+
+        // Check if within map radius and on the top surface
+        bool isWithinRadius = distanceFromCenter <= mapRadius;
+        bool isOnTopSurface = position.y >= mapCenter.y; // Ensure placement is on top
+
+        return isWithinRadius && isOnTopSurface;
+    }
+
+    private void UpdatePreviewColor(bool isValid)
+    {
+        if (previewInstance == null) return;
+
+        // Get all MeshRenderers in the preview instance
+        MeshRenderer[] renderers = previewInstance.GetComponentsInChildren<MeshRenderer>();
+        if (renderers.Length == 0) return;
+
+        // Set color to all renderers
+        Color targetColor = isValid ? Color.white : new Color(1f, 0.5f, 0.5f, 1f); // Light red if invalid
+        foreach (MeshRenderer renderer in renderers)
+        {
+            MaterialPropertyBlock block = new MaterialPropertyBlock();
+            renderer.GetPropertyBlock(block);
+            block.SetColor("_Color", targetColor);
+            renderer.SetPropertyBlock(block);
+        }
+    }
+
+    private Vector3 GetFeetOffset()
+    {
+        if (currentDefenseData != null && currentDefenseData.prefab != null)
+        {
+            Transform feetTransform = currentDefenseData.prefab.transform.Find("Feet");
+            if (feetTransform != null)
+            {
+                return currentDefenseData.prefab.transform.position - feetTransform.position;
+            }
+        }
+        return Vector3.zero;
+    }
+
+    private void DisableCollisions(GameObject obj)
+    {
+        Collider[] colliders = obj.GetComponentsInChildren<Collider>();
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = false; // Disable collisions for preview
+        }
+    }
+
+    private void DisableScripts(GameObject obj)
+    {
+        MonoBehaviour[] scripts = obj.GetComponentsInChildren<MonoBehaviour>();
+
+        foreach (MonoBehaviour script in scripts)
+        {
+            // Skip disabling RotateTowardsEnemy to keep rotation working
+            if (script is RotateTowardsEnemy) continue;
+
+            if (script != this) // Don't disable DeployManager itself
+            {
+                script.enabled = false;
+                disabledScripts.Add(script);
+            }
+        }
     }
 }
+
