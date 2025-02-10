@@ -28,6 +28,8 @@ public class Damageable : MonoBehaviour
     {
         health -= damage;
 
+        StartCoroutine(FlashRedEffect());
+
         if (health <= 0)
         {
             Die();
@@ -60,5 +62,39 @@ public class Damageable : MonoBehaviour
         maxHealth += amount;
         health += amount; 
         health = Mathf.Min(health, maxHealth);
+    }
+
+    private IEnumerator FlashRedEffect()
+    {
+        // Store original colors
+        Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
+
+        // Get all MeshRenderers and SkinnedMeshRenderers
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        if (renderers.Length == 0)
+        {
+            Debug.LogError($"No Renderer found on {gameObject.name}");
+            yield break;
+        }
+
+        // Store original colors and apply red color
+        foreach (Renderer renderer in renderers)
+        {
+            originalColors[renderer] = renderer.material.color;
+            renderer.material.color = Color.red;
+        }
+
+        // Wait for 0.2 seconds
+        yield return new WaitForSeconds(0.2f);
+
+        // Restore original colors
+        foreach (Renderer renderer in renderers)
+        {
+            if (originalColors.ContainsKey(renderer))
+            {
+                renderer.material.color = originalColors[renderer];
+            }
+        }
     }
 }
