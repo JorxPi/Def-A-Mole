@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
@@ -144,6 +145,39 @@ public class LevelManager : MonoBehaviour
         if (levelText != null)
         {
             levelText.text = $"Round: {currentLevel}";
+
+            // Only animate from level 2 onwards
+            if (currentLevel > 1)
+            {
+                AnimateLevelText();
+            }
         }
+    }
+
+    private void AnimateLevelText()
+    {
+        if (levelText == null) return;
+        StartCoroutine(LevelUpAnimation());
+    }
+
+    private IEnumerator LevelUpAnimation()
+    {
+        float duration = 3f; // Total animation time
+        float elapsedTime = 0f;
+        Vector3 originalScale = levelText.transform.localScale;
+        Vector3 maxScale = originalScale * 1.3f;
+
+        while (elapsedTime < duration)
+        {
+            // Smooth scale transition using PingPong effect
+            float scaleFactor = Mathf.Lerp(1f, 1.3f, Mathf.PingPong(elapsedTime * 2, 1));
+            levelText.transform.localScale = originalScale * scaleFactor;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure scale resets to normal after the animation
+        levelText.transform.localScale = originalScale;
     }
 }
