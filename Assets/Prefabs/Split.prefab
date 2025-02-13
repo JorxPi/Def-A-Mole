@@ -243,7 +243,7 @@ MonoBehaviour:
   maxHealth: 100
   speed: 2
   damageAmount: 10
-  goldReward: 100
+  goldReward: 50
   damageable: {fileID: 0}
   enemyAI: {fileID: 0}
   smallerEnemyPrefab: {fileID: 0}
