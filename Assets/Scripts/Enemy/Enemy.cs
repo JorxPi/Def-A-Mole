@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [Header("Base Stats")]
-    public float maxHealth = 100f;
-    public float speed = 2f;
-    public float damageAmount = 10f;
-    public int goldReward = 100;
 
     public Damageable damageable;
     public EnemyAI enemyAI;
+
+    public int goldReward = 1;
 
     protected virtual void Start()
     {
@@ -19,17 +16,13 @@ public class Enemy : MonoBehaviour
         damageable = GetComponent<Damageable>();
         enemyAI = GetComponent<EnemyAI>();
         
+
         // Configurar stats iniciales
         if (damageable != null)
         {
-            damageable.maxHealth = maxHealth;
             damageable.OnDeath += HandleDeath;
         }
         
-        if (enemyAI != null)
-        {
-            enemyAI.damageAmount = damageAmount;
-        }
     }
 
     protected virtual void HandleDeath()

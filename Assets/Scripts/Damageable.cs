@@ -34,8 +34,6 @@ public class Damageable : MonoBehaviour
         {
             Die();
         }
-            
-        
     }
 
     private void Die()

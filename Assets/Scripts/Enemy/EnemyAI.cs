@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(Enemy))]
 public class EnemyAI : MonoBehaviour
 {
 
@@ -77,20 +78,6 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        /*
-        if (hasTarget)
-        {
-            // Establecer destino del agente
-            agent.destination = targetPoint;
-
-            // Comprobar si está cerca del objetivo
-            if (Vector3.Distance(transform.position, targetPoint) <= stopDistance)
-            {
-                StopAtEdge();
-            }
-        }
-
-*/
     }
 
     public void SetTarget(Vector3 target)
@@ -108,7 +95,6 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("WarningZone"))
@@ -125,13 +111,12 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-
     public void ApplySlow(float slowAmount, float slowDuration)
     {
         if(!isSlowed) {
             agent.speed = baseSpeed - slowAmount;
             Debug.Log($"{gameObject.name} ha sido ralentizado -{slowAmount}% durante {slowDuration} segundos. (vel: {agent.speed})");
-
+            
             isSlowed = true;
         }
         else
