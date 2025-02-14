@@ -9,6 +9,8 @@ public class EnemyAI : MonoBehaviour
     public float attackInterval = 1f;
     public float baseSpeed = 3.5f;
 
+    public float towerDetection = 1f;
+
     private Barrier targetBarrier;
 
     private Vector3 targetPoint;

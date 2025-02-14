@@ -6,6 +6,7 @@ using UnityEngine;
 public class Damageable : MonoBehaviour
 {
     public float health;
+    [HideInInspector]
     public float maxHealth;
 
     private Defense defense;

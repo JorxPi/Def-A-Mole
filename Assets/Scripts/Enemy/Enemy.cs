@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
+    [HideInInspector]
     public Damageable damageable;
+    [HideInInspector]
     public EnemyAI enemyAI;
 
     public int goldReward = 1;

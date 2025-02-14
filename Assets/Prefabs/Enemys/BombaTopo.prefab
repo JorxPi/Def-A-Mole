@@ -66,13 +66,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 118085405080642079}
+      addedObject: {fileID: -2429487247132140164}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4185090312090111848}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -2429487247132140164}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1640016630800336668}
@@ -97,7 +94,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
   m_PrefabInstance: {fileID: 2428446184364807225}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &118085405080642079
+--- !u!114 &-2429487247132140164
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,12 +103,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3274956001613883752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6faac03a48b9c2b488fd9fb5dc15f689, type: 3}
+  m_Script: {fileID: 11500000, guid: a2063934a56e12444ad6c1d9bffdf69b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damageable: {fileID: 0}
   enemyAI: {fileID: 0}
   goldReward: 50
+  explosionRadius: 3
+  explosionDamage: 50
 --- !u!114 &4185090312090111848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,23 +126,6 @@ MonoBehaviour:
   damageAmount: 10
   attackInterval: 1
   baseSpeed: 1.5
---- !u!114 &-2429487247132140164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3274956001613883752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2063934a56e12444ad6c1d9bffdf69b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageable: {fileID: 0}
-  enemyAI: {fileID: 0}
-  goldReward: 100
-  explosionRadius: 3
-  explosionDamage: 50
 --- !u!114 &1640016630800336668
 MonoBehaviour:
   m_ObjectHideFlags: 0
