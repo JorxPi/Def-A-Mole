@@ -12,9 +12,6 @@ public class Defense : MonoBehaviour
     public float attackDamage;
     public float attackSpeed;
 
-    [Header("Layer Settings")]
-    public LayerMask defenseLayer;
-
     protected float attackCooldown = 0f;
 
     protected virtual void Start()
@@ -36,8 +33,6 @@ public class Defense : MonoBehaviour
     {
         if (attackCooldown > 0f)
             attackCooldown -= Time.deltaTime;
-
-        DetectDefenseClick();
     }
 
     public bool CanAttack()
@@ -50,20 +45,8 @@ public class Defense : MonoBehaviour
         attackCooldown = 1f / attackSpeed;
     }
 
-    private void DetectDefenseClick()
+    private void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0)) 
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, defenseLayer.value))
-            {
-                if (hit.transform == transform) 
-                {
-                    Debug.Log($"Clicked on Defense: {gameObject.name}");
-                    UpgradeUI.Instance.ShowUpgradePanel(gameObject);
-                }
-            }
-        }
+        UpgradeUI.Instance.ShowUpgradePanel(gameObject);
     }
 }

@@ -141,9 +141,6 @@ MonoBehaviour:
   attackRange: 10
   attackDamage: 20
   attackSpeed: 0.5
-  defenseLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &5424226841354647242
 MonoBehaviour:
   m_ObjectHideFlags: 0

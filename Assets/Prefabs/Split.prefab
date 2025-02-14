@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       propertyPath: m_Name
-      value: TopoWalk
+      value: Split
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       propertyPath: m_TagString
@@ -59,7 +59,7 @@ PrefabInstance:
     - target: {fileID: 8605281350161846862, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7aa2ce6a9d0706041ae23b5163ef0602, type: 2}
+      objectReference: {fileID: 2100000, guid: 9fa605c1eb77ee94393eb2c0e0403ee6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -72,22 +72,25 @@ PrefabInstance:
       addedObject: {fileID: 155249578450510306}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -7354461679131820880}
+      addedObject: {fileID: 487063722340082242}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 195567021920374895}
+      addedObject: {fileID: -8256850858000285563}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7354461679131820880}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4185090312090111848}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3004620249168602626}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7705317026927498291}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -5740983151462170472}
+      addedObject: {fileID: 4562240743460312419}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4089755508706576602}
   m_SourcePrefab: {fileID: 100100000, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
 --- !u!1 &3274956001613883752 stripped
 GameObject:
@@ -127,6 +130,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cdfd37b75820a545921a23058752e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &487063722340082242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274956001613883752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 287195fb0218594458679b435cadb23b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  speed: 2
+  damageAmount: 10
+  goldReward: 100
+  damageable: {fileID: 0}
+  enemyAI: {fileID: 0}
+  smallerEnemyPrefab: {fileID: 0}
+  splitCount: 2
+--- !u!114 &-8256850858000285563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274956001613883752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26729e88667959e43b3d8ea9dfe97ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 0
 --- !u!136 &-7354461679131820880
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -150,21 +187,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &195567021920374895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3274956001613883752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6faac03a48b9c2b488fd9fb5dc15f689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageable: {fileID: 0}
-  enemyAI: {fileID: 0}
-  goldReward: 100
 --- !u!114 &4185090312090111848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,21 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 10
   attackInterval: 1
-  baseSpeed: 2
---- !u!114 &3004620249168602626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3274956001613883752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26729e88667959e43b3d8ea9dfe97ee1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 0
+  baseSpeed: 3.5
 --- !u!54 &7705317026927498291
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -221,7 +229,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!195 &-5740983151462170472
+--- !u!195 &4562240743460312419
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,7 +239,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -243,3 +251,16 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-4089755508706576602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274956001613883752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df8119c7dc4fd745b9de90096a7984e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetsTowers: 0

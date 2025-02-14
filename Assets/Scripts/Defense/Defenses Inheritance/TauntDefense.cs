@@ -6,32 +6,28 @@ public class TauntDefense : Defense
 {
     [Header("Taunt Defense Settings")]
     public float retaliatoryDamage = 10f;
+    private SphereCollider tauntRangeCollider;
 
     protected override void Start()
     {
         base.Start();
 
+        tauntRangeCollider = gameObject.AddComponent<SphereCollider>();
+        tauntRangeCollider.isTrigger = true;
+        tauntRangeCollider.radius = attackRange;
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
             Enemy enemy = other.GetComponent<Enemy>();
-
-            if (other is SphereCollider)
-            {                
-                enemy.enemyAI.SetTowerTarget(this.transform.position);
-               
-            }
-
-            if (other is BoxCollider)
+            if (enemy != null)
             {
-                enemy.enemyAI.AttackTower(this.GetComponent<Defense>());
+                enemy.SetPriorityTarget(this.transform);
             }
-
         }
-    }
+    }*/
 
     /*private void OnTriggerExit(Collider other)
     {
