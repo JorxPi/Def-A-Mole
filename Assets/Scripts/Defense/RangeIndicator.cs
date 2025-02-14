@@ -27,47 +27,55 @@ public class RangeIndicator : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
-    {
-        if (rangeIndicator != null)
-        {
-            rangeIndicator.SetActive(true);
-            isMouseDownOnDefense = true;
-        }
-    }
-
     private void Update()
     {
-        if (Input.GetMouseButton(0) && isMouseDownOnDefense)
+        if (Input.GetMouseButtonDown(0)) // Detect initial click
         {
-            if (!MouseOverDefense())
+            HandleClick();
+        }
+
+        if (Input.GetMouseButton(0) && isMouseDownOnDefense) // Maintain active state while clicking on defense
+        {
+            if (!MouseOverDefense()) // Check if the mouse moved away from the defense
             {
                 rangeIndicator.SetActive(false);
+                isMouseDownOnDefense = false;
             }
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0)) // Detect click release
         {
             rangeIndicator.SetActive(false);
             isMouseDownOnDefense = false;
         }
     }
 
-    private bool MouseOverDefense()
+    private void HandleClick()
     {
-        // Use a LayerMask to restrict the raycast
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        // Perform a raycast that only interacts with the "Defense" layer
+        // Raycast only against the specified layer (Defense)
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, defenseLayer))
         {
-            Debug.Log($"Raycast hit: {hit.transform.name} on layer {LayerMask.LayerToName(hit.transform.gameObject.layer)}");
+            if (hit.transform == transform) // Check if the click is on this specific defense
+            {
+                rangeIndicator.SetActive(true); // Activate the range indicator
+                isMouseDownOnDefense = true; // Flag that the click started on this defense
+            }
+        }
+    }
 
+    private bool MouseOverDefense()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        // Raycast only against the specified layer (Defense)
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, defenseLayer))
+        {
             // Check if the raycast hit this specific defense
             return hit.transform == transform;
         }
 
-        Debug.Log("Raycast did not hit anything on the Defense layer.");
         return false;
     }
 }

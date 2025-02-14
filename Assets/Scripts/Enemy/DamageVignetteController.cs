@@ -59,6 +59,14 @@ public class DamageVignetteController : MonoBehaviour
         }
     }
 
+    public void OnEnemyDeath(GameObject enemy)
+    {
+        if (enemiesOutside.Contains(enemy))
+        {
+            enemiesOutside.Remove(enemy);
+        }
+    }
+
     private void SetVignetteAlpha(float alpha)
     {
         Color color = vignetteImage.color;

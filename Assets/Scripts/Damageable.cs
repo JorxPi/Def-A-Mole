@@ -10,6 +10,7 @@ public class Damageable : MonoBehaviour
 
     private Defense defense;
 
+
     //Event used for gold update on enemy death
     public event Action OnDeath;
 
@@ -31,15 +32,25 @@ public class Damageable : MonoBehaviour
         {
             Die();
         }
-            
-        
     }
 
     private void Die()
     {
         OnDeath?.Invoke();
 
-        Destroy(gameObject); 
+        Enemy enemy = GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            DamageVignetteController vignetteController = FindObjectOfType<DamageVignetteController>();
+            if (vignetteController != null)
+            {
+                vignetteController.OnEnemyDeath(gameObject);
+            }
+            LevelManager levelManager = FindObjectOfType<LevelManager>();
+            levelManager.EnemyDied();
+        }
+
+        Destroy(gameObject);
     }
 
     public void IncreaseMaxHealth(float amount)

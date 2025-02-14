@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -6,7 +7,7 @@ public class EnemySpawner1 : MonoBehaviour
 {
     public GameObject[] enemyPrefabs; // Tipos de enemigos disponibles
     public Transform spawnPoint; // Punto de spawn
-    public float spawnInterval = 1f; // Tiempo entre spawns
+    public float spawnInterval = 2f; // Tiempo entre spawns
 
     private int enemiesToSpawn;
     private int enemiesSpawned;
@@ -45,20 +46,17 @@ public class EnemySpawner1 : MonoBehaviour
         GameObject enemy = Instantiate(selectedPrefab, spawnPoint.position, Quaternion.identity);
 
         levelManager.AssignTargetToEnemy(enemy.GetComponent<EnemyAI>());
+
+        levelManager.enemiesAlive++;
+        Debug.Log($"Enemigo ha sido creado. ({levelManager.enemiesAlive} enemigos)");
     }
 
     private int CalculateEnemiesForLevel(int level)
     {
         if (level <= 10)
-            return Mathf.RoundToInt(5 + Mathf.Pow(level, 1.5f));
+            return Mathf.RoundToInt(2 + Mathf.Pow(level, 1.5f));
         if (level <= 20)
             return Mathf.RoundToInt(30 + (level - 10) * 2);
-        return Mathf.Clamp(50 + (level - 20), 50, 100); // L�mite m�ximo
-    }
-
-    public float radius = 15;
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(transform.position, radius);
+        return Mathf.Clamp(50 + (level - 20), 50, 100);
     }
 }

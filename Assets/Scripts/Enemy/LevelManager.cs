@@ -1,26 +1,31 @@
 using UnityEngine;
+using TMPro;
 using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
     public float mapRadius = 35f;
+    public TextMeshProUGUI levelText;
 
     private int currentLevel;
     private List<Vector2> currentAngleRanges;
-
+    public int enemiesAlive;
     private void Start()
     {
         currentLevel = 1;
         SetAngleRangesForLevel(currentLevel);
+        UpdateLevelText();
     }
 
     public void AssignTargetToEnemy(EnemyAI enemyAI)
     {
+
         if (enemyAI != null)
         {
             Vector3 targetPoint = CalculateTargetPoint(out float targetAngle);
             Debug.Log($"Enemigo asignado al ángulo: {targetAngle}° en el nivel {currentLevel} y punto final {targetPoint}");
             enemyAI.SetTarget(targetPoint);
+            //enemies.Add(enemy);
         }
     }
 
@@ -107,9 +112,38 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    
+    private void CheckForNextLevel()
+    {
+        if (enemiesAlive == 0)
+        {
+            // Todos los enemigos han muerto, pasar al siguiente nivel
+            StartNextLevel();
+        }
+    }
+    
+
+    public void EnemyDied()
+    {
+        enemiesAlive--;
+        Debug.Log($"Un enemigo ha sido destruido. ({enemiesAlive} enemies)");
+        CheckForNextLevel();
+    }
+
     public void StartNextLevel()
     {
         currentLevel++;
         SetAngleRangesForLevel(currentLevel);
+        UpdateLevelText();
+        EnemySpawner1 enemySpawner = FindObjectOfType<EnemySpawner1>();
+        enemySpawner.StartLevel(currentLevel);
+    }
+
+    private void UpdateLevelText()
+    {
+        if (levelText != null)
+        {
+            levelText.text = $"Round: {currentLevel}";
+        }
     }
 }

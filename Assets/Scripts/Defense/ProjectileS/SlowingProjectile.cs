@@ -8,7 +8,7 @@ public class SlowingProjectile : Projectile
     public float height = 5f;
 
     public float explosionRadius { get; set; } = 3f; // Upgradeable
-    public float slowAmount { get; set; } = 0.5f;    // Upgradeable
+    public float slowAmount { get; set; } = 3f;    // Upgradeable
     public float slowDuration = 2f;
 
     private Vector3 startPoint;
