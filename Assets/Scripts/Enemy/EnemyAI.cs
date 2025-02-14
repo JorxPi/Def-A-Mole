@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(Enemy))]
 public class EnemyAI : MonoBehaviour
 {
 
@@ -115,7 +116,7 @@ public class EnemyAI : MonoBehaviour
         if(!isSlowed) {
             agent.speed = baseSpeed - slowAmount;
             Debug.Log($"{gameObject.name} ha sido ralentizado -{slowAmount}% durante {slowDuration} segundos. (vel: {agent.speed})");
-
+            
             isSlowed = true;
         }
         else
