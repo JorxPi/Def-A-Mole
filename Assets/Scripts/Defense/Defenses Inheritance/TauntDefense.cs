@@ -14,24 +14,26 @@ public class TauntDefense : Defense
     }
 
     private void OnTriggerEnter(Collider other)
+{
+    if (other.CompareTag("Enemy"))
     {
-        if (other.CompareTag("Enemy"))
-        {
-            Enemy enemy = other.GetComponent<Enemy>();
+        Enemy enemy = other.GetComponent<Enemy>();
 
+        if (enemy != null && enemy.enemyAI != null)
+        {
             if (other is SphereCollider)
             {                
-                enemy.enemyAI.SetTowerTarget(this.transform.position);
-               
+                enemy.enemyAI.SetTarget(this.transform.position); // Updated method
             }
 
             if (other is BoxCollider)
             {
-                enemy.enemyAI.AttackTower(this.GetComponent<Defense>());
+                enemy.enemyAI.AttackDefenseTarget(this.GetComponent<Defense>()); // Updated method
             }
-
         }
     }
+}
+
 
     /*private void OnTriggerExit(Collider other)
     {

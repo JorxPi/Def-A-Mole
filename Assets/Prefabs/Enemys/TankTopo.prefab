@@ -119,6 +119,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8979349907174846743}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9176973175178285751}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4514146961272700686}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -941397802927693648}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2586769464517181243}
   m_SourcePrefab: {fileID: 100100000, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
 --- !u!1 &3274956001613883752 stripped
 GameObject:
@@ -211,6 +223,7 @@ MonoBehaviour:
   damageAmount: 10
   attackInterval: 1
   baseSpeed: 1
+  towerDetection: 1
 --- !u!114 &1404217094341985366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,3 +302,117 @@ MonoBehaviour:
   healthText: {fileID: 0}
   healthBar: {fileID: 0}
   barrier: {fileID: 0}
+--- !u!114 &9176973175178285751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274956001613883752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50bb490eb6e32a94b8693e4d0a952378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleAnimationDuration: 0.5
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  useScaleAnimation: 1
+  riseHeight: 2
+  riseAnimationDuration: 0.5
+  riseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  useRiseAnimation: 1
+  spawnSound: {fileID: 8300000, guid: bf3f6fa3d07f12642bd326b8635f4b37, type: 3}
+  spawnSoundVolume: 0.5
+--- !u!114 &4514146961272700686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274956001613883752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e765f638c053c4d9eeddc43c538323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &-941397802927693648
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274956001613883752}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2586769464517181243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274956001613883752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe5ebfc097bdc6f4cbd75c25226c99b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 500
+  preferTowers: 1

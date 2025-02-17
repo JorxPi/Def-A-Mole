@@ -16,7 +16,7 @@ public class BarrierUI : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Barrier no está asignado en el Inspector.");
+            //Debug.LogError("Barrier no estï¿½ asignado en el Inspector.");
         }
     }
 
@@ -44,7 +44,7 @@ public class BarrierUI : MonoBehaviour
         }
         else
         {
-            Debug.LogError("healthText no está asignado en el Inspector.");
+            Debug.LogError("healthText no estï¿½ asignado en el Inspector.");
         }
 
         if (healthBar != null)
