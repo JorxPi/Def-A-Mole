@@ -50,6 +50,7 @@ public class EnemySpawner1 : MonoBehaviour
         levelManager.enemiesAlive++;
         Debug.Log($"Enemigo ha sido creado. ({levelManager.enemiesAlive} enemigos)");
     }
+    
 
     private int CalculateEnemiesForLevel(int level)
     {
