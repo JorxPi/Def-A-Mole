@@ -4,38 +4,40 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Enemy))]
 public class EnemyAI : MonoBehaviour
 {
-    [Header("Combat Settings")]
+
     public float damageAmount = 10f;
     public float attackInterval = 1f;
     public float baseSpeed = 3.5f;
-    public float towerDetectionRange = 1f;
-    public float attackRange = 2f; // Rango para atacar a las defensas
 
-    [Header("References")]
+    public float towerDetection = 1f;
+
     private Barrier targetBarrier;
-    private EnemyCombatAnimation combatAnimation;
-    private NavMeshAgent agent;
 
-    [Header("State Variables")]
-    private Vector3 originalTargetPoint;
-    private Vector3 currentTargetPoint;
+    private Vector3 targetPoint;
     private bool hasTarget = false;
     private bool isAttacking = false;
+    //nuevo
+    private Defense currentTargetDefense;
     private bool isAttackingDefense = false;
+    private Vector3 currentTargetPoint;
+    private Vector3 originalTargetPoint;
+
+    private NavMeshAgent agent;
     private float attackTimer;
+
     private bool isSlowed = false;
     private float slowTimer = 0f;
-    private Defense currentTargetDefense;
+
+    private bool isAttackingTower = false;
+    Defense targetDefense;
+    private Vector3 towerPoint;
+
 
     void Start()
     {
-        // Initialize components
         agent = GetComponent<NavMeshAgent>();
-        combatAnimation = GetComponent<EnemyCombatAnimation>();
         agent.speed = baseSpeed;
-        agent.stoppingDistance = attackRange; // Establecer la distancia de frenado
 
-        // Find and setup barrier
         GameObject barrierObject = GameObject.FindWithTag("Barrier");
         if (barrierObject != null)
         {
@@ -45,109 +47,59 @@ public class EnemyAI : MonoBehaviour
                 Debug.LogError("El objeto con tag 'Barrier' no tiene un componente Barrier.");
             }
         }
+        else
+        {
+            Debug.LogError("No se encontró ningún objeto con el tag 'Barrier' en la escena.");
+        }
     }
 
     private void Update()
     {
-        UpdateMovement();
-        UpdateCombat();
-        UpdateSlowEffect();
-    }
 
-    private void UpdateMovement()
-    {
-        if (combatAnimation != null)
-        {
-            combatAnimation.SetWalking(agent.velocity.magnitude > 0.1f);
-        }
+        agent.destination = targetPoint;
 
-        // Si está atacando una defensa, mantener la distancia
-        if (isAttackingDefense && currentTargetDefense != null)
+        if (isAttacking)
         {
-            float distanceToDefense = Vector3.Distance(transform.position, currentTargetDefense.transform.position);
-            if (distanceToDefense <= attackRange)
+            attackTimer += Time.deltaTime;
+            if (attackTimer >= attackInterval)
             {
-                agent.SetDestination(transform.position); // Mantener posición
-                transform.LookAt(currentTargetDefense.transform); // Mirar hacia la defensa
-            }
-            else
-            {
-                agent.SetDestination(currentTargetDefense.transform.position);
-            }
-        }
-        else if (!isAttacking) // Si no está atacando nada, seguir el camino original
-        {
-            agent.SetDestination(currentTargetPoint);
-        }
-    }
-
-    private void UpdateCombat()
-    {
-        attackTimer += Time.deltaTime;
-
-        if (isAttacking && attackTimer >= attackInterval)
-        {
-            AttackBarrier();
-            attackTimer = 0f;
-        }
-        else if (isAttackingDefense && currentTargetDefense != null && attackTimer >= attackInterval)
-        {
-            float distanceToDefense = Vector3.Distance(transform.position, currentTargetDefense.transform.position);
-            if (distanceToDefense <= attackRange)
-            {
-                AttackDefense();
+                AttackBarrier();
                 attackTimer = 0f;
             }
         }
-    }
 
-    private void AttackDefense()
-    {
-        if (currentTargetDefense != null)
+        if (isSlowed)
         {
-            if (combatAnimation != null)
+            slowTimer -= Time.deltaTime;
+            if (slowTimer <= 0f)
             {
-                combatAnimation.PlayAttackAnimation();
-            }
-
-            var damageable = currentTargetDefense.GetComponent<Damageable>();
-            if (damageable != null)
-            {
-                damageable.ApplyDamage(damageAmount);
-                Debug.Log($"Atacando defensa. Daño: {damageAmount}");
+                ResetSpeed();
             }
         }
+
+        if (isAttackingTower)
+        {
+            if (Vector3.Distance(transform.position, towerPoint) <= 0.5f)
+            {
+
+            }
+        }
+
     }
 
     public void SetTarget(Vector3 target)
     {
-        originalTargetPoint = target;
-        currentTargetPoint = target;
+        targetPoint = target;
         hasTarget = true;
     }
 
+
     private void AttackBarrier()
     {
-        if (targetBarrier != null)
-        {
-            if (combatAnimation != null)
-            {
-                combatAnimation.PlayAttackAnimation();
-            }
-            targetBarrier.TakeDamage(damageAmount);
-        }
-    }
+        // Aquí se debería restar vida a la barrera (esto se conecta con el sistema de vida de la barrera)
+        Debug.Log($"{gameObject.name} está atacando la barrera y causa {damageAmount} de daño.");
+        targetBarrier.TakeDamage(damageAmount);
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("WarningZone"))
-        {
-            isAttacking = false;
-            if (combatAnimation != null)
-            {
-                combatAnimation.SetWalking(true);
-            }
-        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -155,6 +107,14 @@ public class EnemyAI : MonoBehaviour
         if (other.CompareTag("WarningZone"))
         {
             isAttacking = true;
+            Debug.Log($"{gameObject.name} ha entrado de la zona de advertencia y comienza a atacar.");
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("WarningZone"))
+        {
+            isAttacking = false;
         }
     }
 
@@ -163,9 +123,14 @@ public class EnemyAI : MonoBehaviour
         if (!isSlowed)
         {
             agent.speed = baseSpeed - slowAmount;
+            Debug.Log($"{gameObject.name} ha sido ralentizado -{slowAmount}% durante {slowDuration} segundos. (vel: {agent.speed})");
+
             isSlowed = true;
         }
-        slowTimer = slowDuration;
+        else
+        {
+            slowTimer = slowDuration;
+        }
     }
 
     void ResetSpeed()
@@ -174,15 +139,19 @@ public class EnemyAI : MonoBehaviour
         isSlowed = false;
     }
 
-    private void UpdateSlowEffect()
+    public void SetTowerTarget(Vector3 tower)
     {
-        if (isSlowed)
+        towerPoint = tower;
+    }
+
+    public void AttackTower(Defense defense)
+    {
+        Damageable damageable = defense.GetComponent<Damageable>();
+        if (damageable != null)
         {
-            slowTimer -= Time.deltaTime;
-            if (slowTimer <= 0f)
-            {
-                ResetSpeed();
-            }
+            Defense targetDefense = defense;
+            isAttackingTower = true;
+
         }
     }
 
@@ -196,7 +165,6 @@ public class EnemyAI : MonoBehaviour
             attackTimer = attackInterval;
         }
     }
-
     public void StopAttackingDefense()
     {
         isAttackingDefense = false;
@@ -204,13 +172,5 @@ public class EnemyAI : MonoBehaviour
         currentTargetPoint = originalTargetPoint;
     }
 
-    public bool IsAttacking()
-    {
-        return isAttacking || isAttackingDefense;
-    }
 
-    public Vector3 GetTargetPosition()
-    {
-        return originalTargetPoint;
-    }
 }

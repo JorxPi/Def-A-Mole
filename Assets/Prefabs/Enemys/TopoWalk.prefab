@@ -159,7 +159,7 @@ MonoBehaviour:
   damageAmount: 20
   attackInterval: 1
   baseSpeed: 2
-  towerDetectionRange: 1
+  towerDetection: 1
 --- !u!114 &3004620249168602626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,4 +369,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRadius: 500
-  preferTowers: 1
+  preferDefenses: 0
