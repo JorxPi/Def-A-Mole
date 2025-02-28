@@ -8,7 +8,7 @@ public class SlowingProjectile : Projectile
     public float height = 5f;
 
     public float explosionRadius { get; set; } = 3f; // Upgradeable
-    public float slowAmount { get; set; } = 3f;    // Upgradeable
+    public float slowAmount { get; set; } = 50f;    // Upgradeable - Percentage
     public float slowDuration = 2f;
 
     private Vector3 startPoint;
@@ -20,7 +20,20 @@ public class SlowingProjectile : Projectile
     {
         base.Start();
         startPoint = transform.position;
-        targetPoint = target.position;
+
+        if (target != null && target.TryGetComponent<Enemy>(out Enemy enemy))
+        {
+            float estimatedTravelTime = Vector3.Distance(startPoint, target.position) / speed;
+            Vector3 predictedPosition = target.position + (enemy.enemyAI.GetVelocity() * estimatedTravelTime);
+
+            predictedPosition.y = target.position.y;
+
+            targetPoint = predictedPosition;
+        }
+        else
+        {
+            targetPoint = target.position;
+        }
 
         travelTime = Vector3.Distance(startPoint, targetPoint) / speed;
         elapsedTime = 0f;
@@ -28,12 +41,6 @@ public class SlowingProjectile : Projectile
 
     protected override void MoveTowardsTarget()
     {
-        if (target == null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         elapsedTime += Time.deltaTime;
         float progress = Mathf.Clamp01(elapsedTime / travelTime);
 

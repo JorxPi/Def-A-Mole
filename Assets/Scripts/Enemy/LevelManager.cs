@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -11,11 +12,33 @@ public class LevelManager : MonoBehaviour
     private int currentLevel;
     private List<Vector2> currentAngleRanges;
     public int enemiesAlive;
+
+    public List<DefenseData> unlockedDefenses = new List<DefenseData>();
+    public List<DefenseData> allDefenses;
+
+    public static LevelManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
         currentLevel = 1;
+        unlockedDefenses = new List<DefenseData>();
+
         SetAngleRangesForLevel(currentLevel);
+        UnlockDefensesForLevel(currentLevel);
         UpdateLevelText();
+        UpdateDefenseButtons();
     }
 
     public void AssignTargetToEnemy(EnemyAI enemyAI)
@@ -138,6 +161,9 @@ public class LevelManager : MonoBehaviour
         UpdateLevelText();
         EnemySpawner1 enemySpawner = FindObjectOfType<EnemySpawner1>();
         enemySpawner.StartLevel(currentLevel);
+
+        UnlockDefensesForLevel(currentLevel);
+        UpdateDefenseButtons();
     }
 
     private void UpdateLevelText()
@@ -179,5 +205,46 @@ public class LevelManager : MonoBehaviour
 
         // Ensure scale resets to normal after the animation
         levelText.transform.localScale = originalScale;
+    }
+
+    private void UnlockDefensesForLevel(int level)
+    {
+        switch (level)
+        {
+            case 1:
+                AddDefenseToUnlock("Ant");
+                AddDefenseToUnlock("Worm");
+                break;
+            case 3:
+                AddDefenseToUnlock("Snail");
+                break;
+            case 5:
+                AddDefenseToUnlock("Beatle");
+                break;
+            case 7:
+                AddDefenseToUnlock("Beehive");
+                break;
+        }
+
+        UpdateDefenseButtons(); // Refresh UI
+    }
+
+    private void AddDefenseToUnlock(string defenseName)
+    {
+        DefenseData defenseToUnlock = allDefenses.Find(d => d.defenseName == defenseName);
+        if (defenseToUnlock != null && !unlockedDefenses.Contains(defenseToUnlock))
+        {
+            unlockedDefenses.Add(defenseToUnlock);
+            Debug.Log($"Unlocked {defenseName} at level {currentLevel}");
+        }
+    }
+
+    public void UpdateDefenseButtons()
+    {
+        foreach (DeployButton button in FindObjectsOfType<DeployButton>())
+        {
+            bool isUnlocked = unlockedDefenses.Contains(button.defenseData);
+            button.GetComponent<Button>().interactable = isUnlocked; // Keep visible but disable interaction
+        }
     }
 }

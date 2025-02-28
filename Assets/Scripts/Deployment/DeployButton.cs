@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; 
 
 public class DeployButton : MonoBehaviour
 {
     public DefenseData defenseData;
+    private Button btn;
 
     private void Start()
     {
-        GetComponent<Button>().onClick.AddListener(OnDeployButtonClick);
+        btn = GetComponent<Button>(); 
+        btn.onClick.AddListener(OnDeployButtonClick);
+
+        if (!LevelManager.Instance.unlockedDefenses.Contains(defenseData))
+        {
+            btn.interactable = false; 
+        }
     }
 
     private void OnDeployButtonClick()

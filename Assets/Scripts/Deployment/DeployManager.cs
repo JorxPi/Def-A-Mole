@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public class DeployManager : MonoBehaviour
 {
@@ -42,16 +44,13 @@ public class DeployManager : MonoBehaviour
             currentDefenseData = defenseData;
             isDeploying = true;
 
-            // Instantiate the preview from the prefab inside defenseData
             if (currentDefenseData.prefab != null)
             {
                 previewInstance = Instantiate(currentDefenseData.prefab);
 
-                // Disable attack scripts and other behaviors
                 DisableScripts(previewInstance);
 
-                // Disable physics interactions for the preview
-                DisableCollisions(previewInstance);
+                SetCollidersEnabled(previewInstance, false);
             }
         }
         else
@@ -98,14 +97,17 @@ public class DeployManager : MonoBehaviour
 
         if (!IsDefenseInLocation(position) && IsInsideMap(position))
         {
-            Instantiate(currentDefenseData.prefab, position, Quaternion.identity);
+            GameObject placedDefense = Instantiate(currentDefenseData.prefab, position, Quaternion.identity);
+
+            SetCollidersEnabled(placedDefense, true);
+
             CurrencyManager.Instance.SpendGold(currentDefenseData.cost);
             CleanupPreview();
         }
         else
         {
             Debug.Log("Placement blocked (either too close to another defense or outside the map).");
-            CancelDeployment(); // Cancel if placement is invalid
+            CancelDeployment();
         }
     }
 
@@ -193,6 +195,21 @@ public class DeployManager : MonoBehaviour
         foreach (Collider collider in colliders)
         {
             collider.enabled = false; // Disable collisions for preview
+        }
+    }
+
+    private void SetCollidersEnabled(GameObject obj, bool enabled)
+    {
+        Collider[] colliders = obj.GetComponentsInChildren<Collider>();
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = enabled;
+        }
+
+        NavMeshObstacle[] navMeshObstacles = obj.GetComponentsInChildren<NavMeshObstacle>();
+        foreach (NavMeshObstacle obstacle in navMeshObstacles)
+        {
+            obstacle.enabled = enabled;
         }
     }
 

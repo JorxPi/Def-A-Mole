@@ -15,7 +15,7 @@ public class SlowingDefenseUH : BasicUH
                 slowingProjectile.explosionRadius += 0.5f;
                 break;
             case 1:
-                slowingProjectile.slowAmount += 0.2f; 
+                slowingProjectile.slowAmount += 10f; 
                 break;
         }
     }

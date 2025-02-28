@@ -115,16 +115,16 @@ public class EnemyAI : MonoBehaviour
 
     public void ApplySlow(float slowAmount, float slowDuration)
     {
-        if(!isSlowed) {
-            agent.speed = baseSpeed - slowAmount;
-            Debug.Log($"{gameObject.name} ha sido ralentizado -{slowAmount}% durante {slowDuration} segundos. (vel: {agent.speed})");
-            
-            isSlowed = true;
-        }
-        else
-        {
-            slowTimer = slowDuration;
-        }
+        float slowMultiplier = 1f - (slowAmount / 100f);
+        agent.speed = Mathf.Max(baseSpeed * slowMultiplier, 0.1f);
+
+        Debug.Log($"{gameObject.name} ha sido ralentizado en {slowAmount}% durante {slowDuration} segundos. (Nueva Vel: {agent.speed})");
+
+        isSlowed = true;
+        slowTimer = slowDuration;
+
+        agent.velocity = agent.desiredVelocity.normalized * agent.speed;
+        agent.isStopped = false;
     }
 
     void ResetSpeed()
@@ -147,5 +147,10 @@ public class EnemyAI : MonoBehaviour
             isAttackingTower = true;
 
         }
+    }
+
+    public Vector3 GetVelocity()
+    {
+        return agent.velocity;
     }
 }
