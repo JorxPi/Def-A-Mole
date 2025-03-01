@@ -3,26 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
-    public Button pauseButton;   
-    public GameObject pauseText;
+    public GameObject pausePanel;
+    public Button resumeButton;
+    public Button quitButton;
+    public Text pauseText;
     public List<Button> uiButtonsToDisable;
 
     private bool isPaused = false;
+    private List<GameObject> defenses = new List<GameObject>();
 
     void Start()
     {
-        if (pauseButton != null)
-        {
-            pauseButton.onClick.AddListener(PauseGame); 
-        }
-
         if (pauseText != null)
-        {
-            pauseText.SetActive(false);
-        }
+            pauseText.gameObject.SetActive(false);
+
+        if (pausePanel != null)
+            pausePanel.SetActive(false); 
+
+        if (resumeButton != null)
+            resumeButton.onClick.AddListener(ResumeGame);
+
+        if (quitButton != null)
+            quitButton.onClick.AddListener(QuitToMainMenu);
+
+        // Find all defenses at start
+        defenses.AddRange(GameObject.FindGameObjectsWithTag("Defense"));
     }
 
     void PauseGame()
@@ -31,28 +40,49 @@ public class PauseManager : MonoBehaviour
         {
             isPaused = true;
             Time.timeScale = 0f;
-            pauseText.SetActive(true);
+            if (pauseText != null)
+                pauseText.gameObject.SetActive(true);
+
+            if (pausePanel != null)
+                pausePanel.SetActive(true);
+
             DisableUIButtons();
+            DisableDefenses(); 
         }
     }
 
-    void UnpauseGame()
+    void ResumeGame()
     {
-        if (isPaused) 
+        if (isPaused)
         {
             isPaused = false;
             Time.timeScale = 1f;
-            pauseText.SetActive(false);
+            if (pauseText != null)
+                pauseText.gameObject.SetActive(false);
+
+            if (pausePanel != null)
+                pausePanel.SetActive(false);
+
             EnableUIButtons();
+            EnableDefenses(); 
         }
     }
 
     void Update()
     {
-        if (isPaused && Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            UnpauseGame();
+            if (isPaused)
+                ResumeGame();
+            else
+                PauseGame();
         }
+    }
+
+    void QuitToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("StartScreen");
     }
 
     void DisableUIButtons()
@@ -72,9 +102,67 @@ public class PauseManager : MonoBehaviour
         {
             if (button != null)
             {
-                button.interactable = true;
+                DeployButton deployButton = button.GetComponent<DeployButton>();
+
+                if (deployButton != null && LevelManager.Instance != null)
+                {
+                    bool isUnlocked = LevelManager.Instance.unlockedDefenses.Contains(deployButton.defenseData);
+                    button.interactable = isUnlocked;
+                }
+                else
+                {
+                    button.interactable = true;
+                }
+            }
+        }
+    }
+
+    void DisableDefenses()
+    {
+        defenses.Clear();
+        defenses.AddRange(GameObject.FindGameObjectsWithTag("Defense")); // Refresh list
+
+        foreach (GameObject defense in defenses)
+        {
+            if (defense != null)
+            {
+                // Disable collider to prevent clicks
+                Collider collider = defense.GetComponent<Collider>();
+                if (collider != null)
+                {
+                    collider.enabled = false;
+                }
+
+                // Disable RangeIndicator script
+                RangeIndicator rangeIndicator = defense.GetComponent<RangeIndicator>();
+                if (rangeIndicator != null)
+                {
+                    rangeIndicator.enabled = false;
+                }
+            }
+        }
+    }
+
+    void EnableDefenses()
+    {
+        foreach (GameObject defense in defenses)
+        {
+            if (defense != null)
+            {
+                // Re-enable collider
+                Collider collider = defense.GetComponent<Collider>();
+                if (collider != null)
+                {
+                    collider.enabled = true;
+                }
+
+                // Re-enable RangeIndicator script
+                RangeIndicator rangeIndicator = defense.GetComponent<RangeIndicator>();
+                if (rangeIndicator != null)
+                {
+                    rangeIndicator.enabled = true;
+                }
             }
         }
     }
 }
-

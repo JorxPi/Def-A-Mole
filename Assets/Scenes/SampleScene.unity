@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &19741006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1926229351215144593, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+  m_PrefabInstance: {fileID: 799323612}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &48092098 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6686512699028549081, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
@@ -392,6 +403,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 1.0000001}
   m_Center: {x: 0.00000005960464, y: 0, z: -0.00000008940696}
+--- !u!1 &506232956 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7391674770292163061, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+  m_PrefabInstance: {fileID: 799323612}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &554535734 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5081224312630719823, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
@@ -432,8 +448,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210278f3da989b843b54363d8a545926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseButton: {fileID: 1323670473}
-  pauseText: {fileID: 1329144838}
+  pausePanel: {fileID: 506232956}
+  resumeButton: {fileID: 1909272718}
+  quitButton: {fileID: 19741006}
+  pauseText: {fileID: 1329144840}
   uiButtonsToDisable:
   - {fileID: 860591328}
   - {fileID: 674779245}
@@ -1139,6 +1157,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 141
       objectReference: {fileID: 0}
+    - target: {fileID: 7391674770292163061, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7433085602656052832, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
       propertyPath: m_margin.w
       value: 421.17224
@@ -1433,6 +1455,13 @@ MonoBehaviour:
   mapRadius: 35
   levelText: {fileID: 2123312588}
   enemiesAlive: 0
+  unlockedDefenses: []
+  allDefenses:
+  - {fileID: 11400000, guid: 15d278821a197c24eaa0415da2d29542, type: 2}
+  - {fileID: 11400000, guid: 590904c2073302345a14fa6d141a94c5, type: 2}
+  - {fileID: 11400000, guid: e9e848c708fa16549b33de85e2b4a905, type: 2}
+  - {fileID: 11400000, guid: c35ad8caae2df744a973dd6c2e280439, type: 2}
+  - {fileID: 11400000, guid: 725222fe27f91864892c6f8739f70198, type: 2}
 --- !u!4 &1239178932
 Transform:
   m_ObjectHideFlags: 0
@@ -1596,11 +1625,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff8d5567e7078764baf194abd4696753, type: 3}
---- !u!1 &1329144838 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1399996391613611272, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+--- !u!114 &1329144840 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 928408003369731991, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
   m_PrefabInstance: {fileID: 799323612}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1394933959 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8272557268826730084, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
@@ -1896,6 +1931,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 410935240}
   m_SourcePrefab: {fileID: 100100000, guid: 3f549234005796142a3a661acad4d6ba, type: 3}
+--- !u!114 &1909272718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7286205594732940226, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+  m_PrefabInstance: {fileID: 799323612}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2119143359
 GameObject:
   m_ObjectHideFlags: 0
