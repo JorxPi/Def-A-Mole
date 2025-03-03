@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 [RequireComponent(typeof(Enemy))]
 public class EnemyAI : MonoBehaviour
@@ -8,57 +9,105 @@ public class EnemyAI : MonoBehaviour
     public float damageAmount = 10f;
     public float attackInterval = 1f;
     public float baseSpeed = 3.5f;
+    public float attackRange = 2f;
+    public float aggroRange = 1f;
 
-    public float towerDetection = 1f;
-
-    private Barrier targetBarrier;
-
-    private Vector3 targetPoint;
-    private bool hasTarget = false;
-    private bool isAttacking = false;
-
-    private NavMeshAgent agent;
-    private float attackTimer;
+    private Vector3 barrierPoint;
+    private bool isAttackingDefense = false;
+    [HideInInspector]
+    public bool isAttackingBarrier = false, isInBarrier = false;
+    private bool canAttack = false;
 
     private bool isSlowed = false;
     private float slowTimer = 0f;
 
-    private bool isAttackingTower = false;
-    Defense targetDefense;
-    private Vector3 towerPoint;
+    private Vector3 defensePoint;
+
+    private NavMeshAgent agent;
+    private Barrier targetBarrier;
+    private Defense targetDefense;
+    private float attackTimer;
+    private DamageVignetteController vignetteController;
+
+    void OnEnable()
+    {
+        Defense.OnDefenseSpawned += HandleDefenseSpawned;
+        Defense.OnDefenseDestroyed += HandleDefenseDestroyed;
+    }
+
+    void OnDisable()
+    {
+        Defense.OnDefenseSpawned -= HandleDefenseSpawned;
+        Defense.OnDefenseDestroyed -= HandleDefenseDestroyed;
+    }
 
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = baseSpeed;
+        agent.SetDestination(barrierPoint);
 
         GameObject barrierObject = GameObject.FindWithTag("Barrier");
         if (barrierObject != null)
         {
             targetBarrier = barrierObject.GetComponent<Barrier>();
-            if (targetBarrier == null)
-            {
-                Debug.LogError("El objeto con tag 'Barrier' no tiene un componente Barrier.");
-            }
         }
-        else
-        {
-            Debug.LogError("No se encontró ningún objeto con el tag 'Barrier' en la escena.");
-        }
+        vignetteController = FindObjectOfType<DamageVignetteController>();
     }
 
     private void Update()
     {
 
-        agent.destination = targetPoint;
+        if(isAttackingDefense && targetDefense != null)
+        {
+            float distanceToDefense = Vector3.Distance(transform.position, targetDefense.transform.position);
+            if (distanceToDefense <= attackRange)
+            {
+                if (!canAttack)
+                {
+                    canAttack = true;
+                }
+            }
+            else
+            {
+                if (canAttack)
+                {
+                    canAttack = false;
+                }
+            }
+        }
+        else
+        {
+            agent.SetDestination(barrierPoint);
+            if (isInBarrier && !isAttackingBarrier)
+            {
+                isAttackingBarrier = true;
+                vignetteController.SumEnemyAttacking();
+                canAttack = true;
+            }
+            else if (!isInBarrier && isAttackingBarrier)
+            {
+                isAttackingBarrier = false;
+                vignetteController.DecreaseEnemiesAttacking();
+                canAttack = false;
+            }
+        }
 
-        if (isAttacking)
+        if ((isAttackingBarrier || isAttackingDefense) && canAttack)
         {
             attackTimer += Time.deltaTime;
             if (attackTimer >= attackInterval)
             {
-                AttackBarrier();
+                if (isAttackingBarrier)
+                {
+                    AttackBarrier();
+
+                }
+                if (isAttackingDefense && targetDefense != null)
+                {
+                    AttackDefense();
+                }
                 attackTimer = 0f;
             }
         }
@@ -72,46 +121,56 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        if (isAttackingTower)
-        {
-            if (Vector3.Distance(transform.position, towerPoint) <= 0.5f)
-            {
-                
-            }
-        }
-
     }
 
     public void SetTarget(Vector3 target)
     {
-        targetPoint = target;
-        hasTarget = true;
+        barrierPoint = target;
     }
-
 
     private void AttackBarrier()
     {
-        // Aquí se debería restar vida a la barrera (esto se conecta con el sistema de vida de la barrera)
         Debug.Log($"{gameObject.name} está atacando la barrera y causa {damageAmount} de daño.");
         targetBarrier.TakeDamage(damageAmount);
+        
+    }
 
+    private void AttackDefense()
+    {
+        if (targetDefense != null)
+        {
+            Debug.Log($"{gameObject.name} ataca la defensa causando {damageAmount} de daño.");
+            targetDefense.TryGetComponent<Damageable>(out Damageable damageable);
+            damageable.ApplyDamage(damageAmount);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("WarningZone"))
+        {
+            isInBarrier = false;
+        }
+        if (other.CompareTag("Defense"))
+        {
+            if (!isAttackingDefense)
+            {
+                isAttackingDefense = true;
+                targetDefense = other.GetComponent<Defense>();
+                agent.SetDestination(targetDefense.transform.position);
+
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("WarningZone"))
         {
-            isAttacking = true;
-            Debug.Log($"{gameObject.name} ha entrado de la zona de advertencia y comienza a atacar.");
+            isInBarrier = true;
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("WarningZone"))
-        {
-            isAttacking = false;
-        }
-    }
+
 
     public void ApplySlow(float slowAmount, float slowDuration)
     {
@@ -133,24 +192,81 @@ public class EnemyAI : MonoBehaviour
         isSlowed = false;
     }
 
-    public void SetTowerTarget(Vector3 tower)
-    {
-        towerPoint = tower;
-    }
-
-    public void AttackTower(Defense defense)
-    {
-        Damageable damageable = defense.GetComponent<Damageable>();
-        if (damageable != null)
-        {
-            Defense targetDefense = defense;
-            isAttackingTower = true;
-
-        }
-    }
-
     public Vector3 GetVelocity()
     {
         return agent.velocity;
+    }
+
+    private void HandleDefenseSpawned(Defense newDefense)
+    {
+        if (targetDefense == null && Vector3.Distance(transform.position, newDefense.transform.position) <= aggroRange+newDefense.attractionRange)
+        {
+            if (isAttackingDefense && (newDefense.priority > targetDefense.priority))
+                {
+                targetDefense = newDefense;
+                isAttackingDefense = true;
+                agent.SetDestination(newDefense.transform.position);
+            }
+            if (isAttackingBarrier && (newDefense.priority > 2))
+            {
+                targetDefense = newDefense;
+                isAttackingDefense = true;
+                isAttackingBarrier = false;
+                vignetteController.DecreaseEnemiesAttacking();
+                agent.SetDestination(newDefense.transform.position);
+            }
+        }
+    }
+
+    private void HandleDefenseDestroyed(Defense destroyedDefense)
+    {
+        if (targetDefense == destroyedDefense)
+        {
+            targetDefense = null;
+            Defense defenseInRange = FindNearestDefense();
+            if (defenseInRange != null)
+            {
+                targetDefense = defenseInRange;
+                isAttackingDefense = true;
+                agent.SetDestination(defenseInRange.transform.position);
+            }
+            else
+            {
+                isAttackingDefense = false;
+                agent.SetDestination(barrierPoint);
+            }
+        }
+    }
+
+    private Defense FindNearestDefense()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, aggroRange);
+        Defense nearestDefense = null;
+        float nearestDistance = float.MaxValue;
+
+        foreach (Collider col in colliders)
+        {
+            if (col.CompareTag("Defense"))
+            {
+                Defense defense = col.GetComponent<Defense>();
+                if (defense != null)
+                {
+                    float distance = Vector3.Distance(transform.position, defense.transform.position);
+                    if (distance < nearestDistance)
+                    {
+                        nearestDefense = defense;
+                        nearestDistance = distance;
+                    }
+                }
+            }
+        }
+
+        return nearestDefense;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, aggroRange);
     }
 }

@@ -103,10 +103,10 @@ GameObject:
   - component: {fileID: 2371962979334954500}
   - component: {fileID: 7609471828731768681}
   - component: {fileID: 5243618959386572683}
-  - component: {fileID: 360827043488038552}
   - component: {fileID: 7914850780502491183}
   - component: {fileID: 1750561317419946305}
   - component: {fileID: 3681498986163521474}
+  - component: {fileID: -4341653035015065922}
   m_Layer: 6
   m_Name: BeehiveDefense
   m_TagString: Defense
@@ -182,27 +182,6 @@ MonoBehaviour:
   defenseLayer:
     serializedVersion: 2
     m_Bits: 64
---- !u!65 &360827043488038552
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6465396792212365923}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.08144, y: 2.887938, z: 2.0906045}
-  m_Center: {x: 0, y: 1.4663594, z: -0.004582286}
 --- !u!114 &7914850780502491183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +224,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.41, z: 0}
   m_TimeToStationary: 0.5
+--- !u!135 &-4341653035015065922
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6465396792212365923}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.59
+  m_Center: {x: 0, y: 1.21, z: 0}
 --- !u!1001 &276454596078635270
 PrefabInstance:
   m_ObjectHideFlags: 0

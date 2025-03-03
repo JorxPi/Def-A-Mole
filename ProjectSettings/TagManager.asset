@@ -9,6 +9,8 @@ TagManager:
   - WarningZone
   - Barrier
   - GameOverController
+  - Aggro
+  - Attraction
   layers:
   - Default
   - TransparentFX

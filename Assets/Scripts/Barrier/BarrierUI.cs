@@ -14,10 +14,6 @@ public class BarrierUI : MonoBehaviour
         {
             barrier.onHealthChanged += UpdateHealthDisplay;
         }
-        else
-        {
-            Debug.LogError("Barrier no está asignado en el Inspector.");
-        }
     }
 
     private void OnDisable()

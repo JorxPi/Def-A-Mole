@@ -214,15 +214,18 @@ public class LevelManager : MonoBehaviour
             case 1:
                 AddDefenseToUnlock("Ant");
                 AddDefenseToUnlock("Worm");
+                AddDefenseToUnlock("Snail");
+                AddDefenseToUnlock("Beatle");
+                AddDefenseToUnlock("Beehive");
                 break;
             case 3:
-                AddDefenseToUnlock("Snail");
+                //AddDefenseToUnlock("Snail");
                 break;
             case 5:
-                AddDefenseToUnlock("Beatle");
+                //AddDefenseToUnlock("Beatle");
                 break;
             case 7:
-                AddDefenseToUnlock("Beehive");
+                //AddDefenseToUnlock("Beehive");
                 break;
         }
 

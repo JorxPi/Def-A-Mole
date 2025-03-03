@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 3511514277595503184}
   - component: {fileID: 1605639306107857064}
   - component: {fileID: 6678614022737644577}
-  - component: {fileID: 2043030198407045751}
   - component: {fileID: 2432234949646163510}
   - component: {fileID: 5765661220492178506}
+  - component: {fileID: 5518112665023191837}
   m_Layer: 6
   m_Name: SniperDefense
   m_TagString: Defense
@@ -163,27 +163,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 70
   maxHealth: 0
---- !u!65 &2043030198407045751
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 284601796826560135}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1.4789704, z: 4.7359667}
-  m_Center: {x: 0, y: 0.74240404, z: -0.443048}
 --- !u!114 &2432234949646163510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +191,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.73, z: -0.4}
   m_TimeToStationary: 0.5
+--- !u!135 &5518112665023191837
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284601796826560135}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.41
+  m_Center: {x: 0, y: 0.33, z: -0.3}
 --- !u!1 &677232443766038339
 GameObject:
   m_ObjectHideFlags: 0

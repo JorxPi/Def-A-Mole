@@ -10,7 +10,8 @@ public class DamageVignetteController : MonoBehaviour
     [SerializeField] private float maxAlpha = 1f;
     [SerializeField] private float minAlpha = 0f;
 
-    private List<GameObject> enemiesOutside = new List<GameObject>();
+    //private List<GameObject> enemiesOutside = new List<GameObject>();
+    private int enemiesAttacking = 0;
     private bool isBlinking = false;
     private float currentAlpha = 0f;
 
@@ -23,11 +24,11 @@ public class DamageVignetteController : MonoBehaviour
     private void Update()
     {
         // Verificar si hay enemigos fuera
-        if (enemiesOutside.Count > 0 && !isBlinking)
+        if (enemiesAttacking > 0 && !isBlinking)
         {
             isBlinking = true;
         }
-        else if (enemiesOutside.Count == 0 && isBlinking)
+        else if (enemiesAttacking == 0 && isBlinking)
         {
             isBlinking = false;
             SetVignetteAlpha(0f);
@@ -43,27 +44,16 @@ public class DamageVignetteController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void SumEnemyAttacking()
     {
-        if (other.CompareTag("Enemy") && !enemiesOutside.Contains(other.gameObject))
-        {
-            enemiesOutside.Add(other.gameObject);
-        }
+        enemiesAttacking++;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void DecreaseEnemiesAttacking()
     {
-        if (other.CompareTag("Enemy"))
+        if (enemiesAttacking > 0)
         {
-            enemiesOutside.Remove(other.gameObject);
-        }
-    }
-
-    public void OnEnemyDeath(GameObject enemy)
-    {
-        if (enemiesOutside.Contains(enemy))
-        {
-            enemiesOutside.Remove(enemy);
+            enemiesAttacking--;
         }
     }
 

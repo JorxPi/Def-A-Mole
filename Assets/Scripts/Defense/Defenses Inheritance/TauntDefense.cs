@@ -7,12 +7,7 @@ public class TauntDefense : Defense
     [Header("Taunt Defense Settings")]
     public float retaliatoryDamage = 10f;
 
-    protected override void Start()
-    {
-        base.Start();
-
-    }
-
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
@@ -32,6 +27,7 @@ public class TauntDefense : Defense
 
         }
     }
+    */
 
     /*private void OnTriggerExit(Collider other)
     {

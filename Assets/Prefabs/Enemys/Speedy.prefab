@@ -160,7 +160,10 @@ MonoBehaviour:
   damageAmount: 10
   attackInterval: 1
   baseSpeed: 4
-  towerDetection: 1
+  attackRange: 2.12
+  aggroRange: 1
+  isAttackingBarrier: 0
+  isInBarrier: 0
 --- !u!114 &-8644947309289141299
 MonoBehaviour:
   m_ObjectHideFlags: 0

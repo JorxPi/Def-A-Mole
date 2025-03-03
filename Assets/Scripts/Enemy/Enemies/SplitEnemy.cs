@@ -12,7 +12,8 @@ public class SplitEnemy : Enemy
     {
         // Obtener la posición objetivo del enemigo actual
         Vector3 currentPosition = transform.position;
-        
+        LevelManager levelManager = FindObjectOfType<LevelManager>();
+
         for (int i = 0; i < splitCount; i++)
         {
             // Calcular una posición offset aleatoria en el plano XZ
@@ -27,6 +28,8 @@ public class SplitEnemy : Enemy
             {
                 ai.SetTarget(transform.position + transform.forward * 10f);
             }
+            levelManager.enemiesAlive++;
+
         }
 
         // Llamar al HandleDeath base después de crear los enemigos pequeños

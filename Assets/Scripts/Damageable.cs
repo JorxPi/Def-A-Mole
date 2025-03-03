@@ -45,9 +45,9 @@ public class Damageable : MonoBehaviour
         if (enemy != null)
         {
             DamageVignetteController vignetteController = FindObjectOfType<DamageVignetteController>();
-            if (vignetteController != null)
+            if (vignetteController != null && enemy.enemyAI.isAttackingBarrier)
             {
-                vignetteController.OnEnemyDeath(gameObject);
+                vignetteController.DecreaseEnemiesAttacking();
             }
             LevelManager levelManager = FindObjectOfType<LevelManager>();
             levelManager.EnemyDied();

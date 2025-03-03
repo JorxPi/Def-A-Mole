@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -28,6 +29,11 @@ public class Enemy : MonoBehaviour
 
     protected virtual void HandleDeath()
     {
+        if (enemyAI.isAttackingBarrier)
+        {
+            DamageVignetteController vignetteController = FindObjectOfType<DamageVignetteController>();
+            vignetteController.DecreaseEnemiesAttacking();
+        }
         CurrencyManager.Instance.AddGold(goldReward);
         Destroy(gameObject);
     }

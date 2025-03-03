@@ -71,7 +71,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8320018264277997311}
-  - component: {fileID: 7381130512213875888}
   - component: {fileID: 6604349479811413185}
   - component: {fileID: 5424226841354647242}
   - component: {fileID: 4580387028194097726}
@@ -79,6 +78,7 @@ GameObject:
   - component: {fileID: 3048010536843556484}
   - component: {fileID: 5381714424416599589}
   - component: {fileID: 1080882868053465217}
+  - component: {fileID: 7351925462538959040}
   m_Layer: 6
   m_Name: SlowingDefense
   m_TagString: Defense
@@ -104,27 +104,6 @@ Transform:
   - {fileID: 5991152925838957374}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7381130512213875888
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6319336131982888255}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.3630571, y: 2.9880743, z: 4.0954595}
-  m_Center: {x: 0.013190746, y: 1.505867, z: 0.008793592}
 --- !u!114 &6604349479811413185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +211,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.49, z: 0}
   m_TimeToStationary: 0.5
+--- !u!135 &7351925462538959040
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319336131982888255}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.28
+  m_Center: {x: 0, y: 1.11, z: 0}
 --- !u!1001 &7938639667169887800
 PrefabInstance:
   m_ObjectHideFlags: 0
