@@ -10,7 +10,7 @@ public class EnemyAI : MonoBehaviour
     public float attackInterval = 1f;
     public float baseSpeed = 3.5f;
     public float attackRange = 2f;
-    public float aggroRange = 1f;
+    public float aggroRange = 3f;
 
     private Vector3 barrierPoint;
     private bool isAttackingDefense = false;
@@ -264,7 +264,7 @@ public class EnemyAI : MonoBehaviour
         return nearestDefense;
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, aggroRange);

@@ -10,6 +10,8 @@ public class DeployManager : MonoBehaviour
 
     public GameObject map; // Reference to the map GameObject
     public LayerMask mapLayer; // Assign the "Map" layer in the Inspector
+    public SphereCollider restrictedZone; // Zona prohibida (spawner de enemigos)
+
 
     private bool isDeploying = false;
     private DefenseData currentDefenseData;
@@ -82,7 +84,7 @@ public class DeployManager : MonoBehaviour
             previewInstance.transform.position = hit.point + feetOffset;
 
             // Check if placement is valid (not on another defense AND inside the map boundaries)
-            bool isValidPlacement = !IsDefenseInLocation(hit.point) && IsInsideMap(hit.point);
+            bool isValidPlacement = !IsDefenseInLocation(hit.point) && IsInsideMap(hit.point) && !IsInsideRestrictedZone(hit.point);
 
             // Update preview color based on placement validity
             UpdatePreviewColor(isValidPlacement);
@@ -95,7 +97,7 @@ public class DeployManager : MonoBehaviour
 
         Vector3 position = previewInstance.transform.position;
 
-        if (!IsDefenseInLocation(position) && IsInsideMap(position))
+        if (!IsDefenseInLocation(position) && IsInsideMap(position) && !IsInsideRestrictedZone(position))
         {
             GameObject placedDefense = Instantiate(currentDefenseData.prefab, position, Quaternion.identity);
 
@@ -156,6 +158,18 @@ public class DeployManager : MonoBehaviour
 
         return isWithinRadius && isOnTopSurface;
     }
+
+    private bool IsInsideRestrictedZone(Vector3 position)
+    {
+        if (restrictedZone == null) return false;
+
+        // Obtener el punto más cercano en el SphereCollider
+        Vector3 closestPoint = restrictedZone.ClosestPoint(position);
+
+        // Si la posición está dentro del radio del collider, significa que está en la zona restringida
+        return Vector3.Distance(closestPoint, position) < 0.01f;
+    }
+
 
     private void UpdatePreviewColor(bool isValid)
     {

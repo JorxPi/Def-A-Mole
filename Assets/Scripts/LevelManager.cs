@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI levelText;
 
     private int currentLevel;
-    private List<Vector2> currentAngleRanges;
+    public List<Vector2> currentAngleRanges;
     public int enemiesAlive;
 
     public List<DefenseData> unlockedDefenses = new List<DefenseData>();
