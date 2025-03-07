@@ -84,12 +84,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf4ee912c1f0b44697605f2c96d832c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  priority: 3
   baseStats: {fileID: 11400000, guid: c35ad8caae2df744a973dd6c2e280439, type: 2}
   attackRange: 7
   attackDamage: 0
   attackSpeed: 0
   attractionRange: 0
-  priority: 3
   defenseLayer:
     serializedVersion: 2
     m_Bits: 64
