@@ -10,6 +10,7 @@ public class DefenseButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("...");
         if (defenseData != null)
         {
             DefenseInfoUI.instance.ShowInfo(defenseData);
@@ -18,6 +19,7 @@ public class DefenseButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        Debug.Log("!!!");
         DefenseInfoUI.instance.HideInfo();
     }
 }
