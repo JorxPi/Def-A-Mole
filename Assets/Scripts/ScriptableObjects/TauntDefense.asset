@@ -21,3 +21,5 @@ MonoBehaviour:
   upgradeCosts: 3c0000005a000000
   defenseIcon: {fileID: 0}
   prefab: {fileID: 6138668607168900822, guid: 23874fd1156c79b40858b728aeb75d33, type: 3}
+  description: The Beatle is a high health unit which attracts all enemys within
+    its range and retaliates some damage everytime it is attacked.

@@ -21,3 +21,4 @@ MonoBehaviour:
   upgradeCosts: 6400000082000000
   defenseIcon: {fileID: 0}
   prefab: {fileID: 6465396792212365923, guid: 6c260768e9f541342aef93f352cd87ee, type: 3}
+  description: The beehive deals damage to it's surrondings passively each second.

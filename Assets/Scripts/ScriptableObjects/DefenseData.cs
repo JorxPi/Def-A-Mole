@@ -14,4 +14,7 @@ public class DefenseData : ScriptableObject
     public int[] upgradeCosts;
     public Sprite defenseIcon; 
     public GameObject prefab;
+
+    [TextArea(3, 5)]
+    public string description;
 }
