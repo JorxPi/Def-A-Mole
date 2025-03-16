@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BasicDefense
   m_EditorClassIdentifier: 
   defenseName: Ant
-  attackRange: 5
+  attackRange: 9
   attackDamage: 20
   attackSpeed: 1
   maxHealth: 100

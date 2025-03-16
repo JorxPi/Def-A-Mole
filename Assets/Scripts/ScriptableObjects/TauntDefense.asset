@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TauntDefense
   m_EditorClassIdentifier: 
   defenseName: Beatle
-  attackRange: 7
+  attackRange: 10
   attackDamage: 0
   attackSpeed: 0
   maxHealth: 300

@@ -83,10 +83,14 @@ public class DeployManager : MonoBehaviour
             Vector3 feetOffset = GetFeetOffset();
             previewInstance.transform.position = hit.point + feetOffset;
 
-            // Check if placement is valid (not on another defense AND inside the map boundaries)
-            bool isValidPlacement = !IsDefenseInLocation(hit.point) && IsInsideMap(hit.point) && !IsInsideRestrictedZone(hit.point);
+            Transform previewBase = previewInstance.transform.Find("Base");
+            if (previewBase == null)
+            {
+                Debug.LogError("Preview Base not found!");
+                return;
+            }
 
-            // Update preview color based on placement validity
+            bool isValidPlacement = !IsDefenseInLocation() && IsInsideMap(hit.point) && !IsInsideRestrictedZone(hit.point);
             UpdatePreviewColor(isValidPlacement);
         }
     }
@@ -95,20 +99,16 @@ public class DeployManager : MonoBehaviour
     {
         if (previewInstance == null) return;
 
-        Vector3 position = previewInstance.transform.position;
-
-        if (!IsDefenseInLocation(position) && IsInsideMap(position) && !IsInsideRestrictedZone(position))
+        if (!IsDefenseInLocation() && IsInsideMap(previewInstance.transform.position) && !IsInsideRestrictedZone(previewInstance.transform.position))
         {
-            GameObject placedDefense = Instantiate(currentDefenseData.prefab, position, Quaternion.identity);
-
+            GameObject placedDefense = Instantiate(currentDefenseData.prefab, previewInstance.transform.position, Quaternion.identity);
             SetCollidersEnabled(placedDefense, true);
-
             CurrencyManager.Instance.SpendGold(currentDefenseData.cost);
             CleanupPreview();
         }
         else
         {
-            Debug.Log("Placement blocked (either too close to another defense or outside the map).");
+            Debug.Log("Placement blocked: base is overlapping another defense.");
             CancelDeployment();
         }
     }
@@ -129,19 +129,29 @@ public class DeployManager : MonoBehaviour
         }
     }
 
-    private bool IsDefenseInLocation(Vector3 position)
+    private bool IsDefenseInLocation()
     {
-        float detectionRadius = 1.3f;
-        Collider[] colliders = Physics.OverlapSphere(position, detectionRadius);
+        if (previewInstance == null) return false;
+
+        Transform previewBase = previewInstance.transform.Find("Base");
+        Collider previewBaseCollider = previewBase.GetComponent<Collider>();
+
+        float radius = previewBaseCollider.bounds.extents.x;
+        Vector3 center = previewBaseCollider.bounds.center;
+
+        Collider[] colliders = Physics.OverlapSphere(center, radius, LayerMask.GetMask("BaseLayer"));
+
         foreach (Collider collider in colliders)
         {
-            if (collider.CompareTag("Defense"))
+            if (collider.gameObject != previewBase.gameObject)
             {
                 return true;
             }
         }
+
         return false;
     }
+
 
     private bool IsInsideMap(Vector3 position)
     {
@@ -217,7 +227,14 @@ public class DeployManager : MonoBehaviour
         Collider[] colliders = obj.GetComponentsInChildren<Collider>();
         foreach (Collider collider in colliders)
         {
-            collider.enabled = enabled;
+            if (collider.gameObject.layer == LayerMask.NameToLayer("BaseLayer"))
+            {
+                collider.isTrigger = !enabled; // Make it a trigger during preview
+            }
+            else
+            {
+                collider.enabled = enabled; // Fully enable for non-base colliders
+            }
         }
 
         NavMeshObstacle[] navMeshObstacles = obj.GetComponentsInChildren<NavMeshObstacle>();

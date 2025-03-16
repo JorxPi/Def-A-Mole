@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &44292343569337914
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7110963221417399505}
-  m_Layer: 6
-  m_Name: Feet
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7110963221417399505
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44292343569337914}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1227434928360325971}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1794806941682628281
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,7 +12,8 @@ GameObject:
   - component: {fileID: 353672669836644721}
   - component: {fileID: 459322038471896009}
   - component: {fileID: 2014239407678678279}
-  m_Layer: 0
+  - component: {fileID: 3940675115887358136}
+  m_Layer: 8
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 1794806941682628281}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.45, z: 0.28580177}
-  m_LocalScale: {x: 5.586, y: 0.42, z: 5.586}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 0.4511278, z: 6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1600291450697929272}
@@ -131,6 +101,29 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!136 &3940675115887358136
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794806941682628281}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000001
+  m_Height: 2.0000002
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &5910615741488697568
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,12 +133,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1227434928360325971}
-  - component: {fileID: 1080834205860439764}
-  - component: {fileID: 141795018570433319}
-  - component: {fileID: 100884563820789383}
-  - component: {fileID: 5916907084267873403}
-  - component: {fileID: 7844417312085197665}
-  - component: {fileID: 581214893715124725}
   m_Layer: 6
   m_Name: BeehiveDefense
   m_TagString: Defense
@@ -162,114 +149,14 @@ Transform:
   m_GameObject: {fileID: 5910615741488697568}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.84, z: 0}
+  m_LocalPosition: {x: 0, y: 0.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3333033392416300498}
-  - {fileID: 7110963221417399505}
   - {fileID: 4337632776897998189}
   m_Father: {fileID: 1600291450697929272}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1080834205860439764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5910615741488697568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbcd7dd08c313424997d810d257ae8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
-  firePoint: {fileID: 0}
---- !u!114 &141795018570433319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5910615741488697568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0adf5e0337d4e3a46b3551d6f66b1348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  priority: 1
-  baseStats: {fileID: 11400000, guid: 725222fe27f91864892c6f8739f70198, type: 2}
-  attackRange: 8
-  attackDamage: 5
-  attackSpeed: 1.2
-  attractionRange: 0
-  defenseLayer:
-    serializedVersion: 2
-    m_Bits: 64
---- !u!114 &100884563820789383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5910615741488697568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc85dfa606b7c1b49b105c3dd1221925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rangeIndicatorPrefab: {fileID: 3279891831375080189, guid: 6bc7cc1d168503f4492e638bfd534ee1, type: 3}
-  feetPosition: {fileID: 7110963221417399505}
-  defenseLayer:
-    serializedVersion: 2
-    m_Bits: 64
---- !u!114 &5916907084267873403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5910615741488697568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26729e88667959e43b3d8ea9dfe97ee1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 160
-  maxHealth: 0
---- !u!114 &7844417312085197665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5910615741488697568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dbda3eb6d9e35a49acd1e11492c016c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!135 &581214893715124725
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5910615741488697568}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.59
-  m_Center: {x: 0, y: 1.21, z: 0}
 --- !u!1 &6465396792212365923
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,7 +171,6 @@ GameObject:
   - component: {fileID: 5243618959386572683}
   - component: {fileID: 7914850780502491183}
   - component: {fileID: 1750561317419946305}
-  - component: {fileID: 3681498986163521474}
   - component: {fileID: -4341653035015065922}
   m_Layer: 6
   m_Name: BeehiveDefense
@@ -358,10 +244,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeIndicatorPrefab: {fileID: 3279891831375080189, guid: 6bc7cc1d168503f4492e638bfd534ee1, type: 3}
-  feetPosition: {fileID: 0}
-  defenseLayer:
+  baseTransform: {fileID: 2299265324230422719}
+  baseLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 256
 --- !u!114 &7914850780502491183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,22 +274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbda3eb6d9e35a49acd1e11492c016c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!208 &3681498986163521474
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6465396792212365923}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.75, y: 1.355, z: 0.75}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1.41, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!135 &-4341653035015065922
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -424,7 +294,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 1.59
-  m_Center: {x: 0, y: 1.21, z: 0}
+  m_Center: {x: 0, y: 1.6, z: 0}
 --- !u!1 &7423570188215275992
 GameObject:
   m_ObjectHideFlags: 0

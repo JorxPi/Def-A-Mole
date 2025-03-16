@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BeehiveDefense
   m_EditorClassIdentifier: 
   defenseName: Beehive
-  attackRange: 7
+  attackRange: 8
   attackDamage: 5
   attackSpeed: 1.2
   maxHealth: 130

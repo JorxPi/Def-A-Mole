@@ -11,6 +11,7 @@ TagManager:
   - GameOverController
   - Aggro
   - Attraction
+  - Base
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - UI
   - Defense
   - PreviewOnly
-  - 
+  - BaseLayer
   - 
   - 
   - 
