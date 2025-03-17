@@ -25,11 +25,6 @@ public class DefenseInfoUI : MonoBehaviour
         {
             panel.SetActive(true);
             defenseNameText.text = defenseData.defenseName;
-            defenseStatsText.text = $"Range: {defenseData.attackRange}\n" +
-                                    $"Damage: {defenseData.attackDamage}\n" +
-                                    $"Speed: {defenseData.attackSpeed}\n" +
-                                    $"Health: {defenseData.maxHealth}\n" +
-                                    $"Cost: {defenseData.cost}";
             defenseDescriptionText.text = defenseData.description;
         }
     }

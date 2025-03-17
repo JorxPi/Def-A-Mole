@@ -11,6 +11,8 @@ public class Damageable : MonoBehaviour
 
     private Defense defense;
 
+    private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>(); //(stores original color to change back after the red effect)
+
 
     //Event used for gold update on enemy death
     public event Action OnDeath;
@@ -23,13 +25,30 @@ public class Damageable : MonoBehaviour
             maxHealth = defense.baseStats.maxHealth;
             health = maxHealth; 
         }
+
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            if (!originalColors.ContainsKey(renderer))
+            {
+                originalColors[renderer] = renderer.material.color;
+            }
+        }
     }
 
-    public void ApplyDamage(float damage)
+    public void ApplyDamage(float damage, GameObject attacker = null)
     {
         health -= damage;
 
         StartCoroutine(FlashRedEffect());
+
+        // !! ONLY FOR TAUNTDEFENSE !!
+        TauntDefense tauntDefense = GetComponent<TauntDefense>();
+        if (tauntDefense != null && attacker != null)
+        {
+            tauntDefense.ApplyRetaliationDamage(attacker);
+        }
+        // !! ONLY FOR TAUNTDEFENSE !!
 
         if (health <= 0)
         {
@@ -65,10 +84,6 @@ public class Damageable : MonoBehaviour
 
     private IEnumerator FlashRedEffect()
     {
-        // Store original colors
-        Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
-
-        // Get all MeshRenderers and SkinnedMeshRenderers
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
 
         if (renderers.Length == 0)
@@ -77,22 +92,21 @@ public class Damageable : MonoBehaviour
             yield break;
         }
 
-        // Store original colors and apply red color
+        // Apply red color
         foreach (Renderer renderer in renderers)
         {
-            originalColors[renderer] = renderer.material.color;
             renderer.material.color = Color.red;
         }
 
         // Wait for 0.2 seconds
         yield return new WaitForSeconds(0.2f);
 
-        // Restore original colors
+        // Restore the original color from the stored dictionary
         foreach (Renderer renderer in renderers)
         {
-            if (originalColors.ContainsKey(renderer))
+            if (originalColors.TryGetValue(renderer, out Color originalColor))
             {
-                renderer.material.color = originalColors[renderer];
+                renderer.material.color = originalColor;
             }
         }
     }

@@ -38,7 +38,7 @@ public abstract class Projectile : MonoBehaviour
             if (owner is Defense defense)
             {
                 float damage = defense.attackDamage;
-                damageable.ApplyDamage(damage);
+                damageable.ApplyDamage(damage, defense.gameObject);
             }
         }
 

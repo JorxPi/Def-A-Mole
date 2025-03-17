@@ -62,15 +62,23 @@ public class Defense : MonoBehaviour
 
     private void DetectDefenseClick()
     {
-        if (Input.GetMouseButtonDown(0)) 
+        Transform baseTransform = transform.Find("Base"); // Find Base automatically
+
+        if (baseTransform == null)
+        {
+            Debug.LogError($"Base not found under {gameObject.name}!");
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, defenseLayer.value))
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("BaseLayer")))
             {
-                if (hit.transform == transform) 
+                if (hit.transform == baseTransform) // Ensure click is on this defense's base
                 {
-                    Debug.Log($"Clicked on Defense: {gameObject.name}");
+                    Debug.Log($"Clicked on Base of: {gameObject.name}");
                     UpgradeUI.Instance.ShowUpgradePanel(gameObject);
                 }
             }

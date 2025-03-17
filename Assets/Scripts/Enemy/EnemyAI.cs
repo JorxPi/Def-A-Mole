@@ -130,9 +130,14 @@ public class EnemyAI : MonoBehaviour
 
     private void AttackBarrier()
     {
-        Debug.Log($"{gameObject.name} está atacando la barrera y causa {damageAmount} de daño.");
         targetBarrier.TakeDamage(damageAmount);
-        
+
+        Damageable damageable = GetComponent<Damageable>();
+        if (damageable != null)
+        {
+            float fatalDamage = damageable.health;
+            damageable.ApplyDamage(fatalDamage);
+        }
     }
 
     private void AttackDefense()
@@ -141,7 +146,7 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.Log($"{gameObject.name} ataca la defensa causando {damageAmount} de daño.");
             targetDefense.TryGetComponent<Damageable>(out Damageable damageable);
-            damageable.ApplyDamage(damageAmount);
+            damageable.ApplyDamage(damageAmount, gameObject);
         }
     }
 

@@ -21,5 +21,5 @@ MonoBehaviour:
   upgradeCosts: 3200000046000000
   defenseIcon: {fileID: 0}
   prefab: {fileID: 284601796826560135, guid: 93a1569517840f7469e31d50c884c08f, type: 3}
-  description: The Worm is a high range unit which priorize attacking the lower enemy
-    within it's range.
+  description: The Worm is a high range unit which priorize attacking the lowest
+    health enemy within it's range.

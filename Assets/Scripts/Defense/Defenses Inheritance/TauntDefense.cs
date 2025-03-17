@@ -7,37 +7,29 @@ public class TauntDefense : Defense
     [Header("Taunt Defense Settings")]
     public float retaliatoryDamage = 10f;
 
-    /*
-    private void OnTriggerEnter(Collider other)
+    private Damageable damageable;
+
+    protected override void Start()
     {
-        if (other.CompareTag("Enemy"))
+        base.Start();
+        damageable = GetComponent<Damageable>();
+
+        if (damageable == null)
         {
-            Enemy enemy = other.GetComponent<Enemy>();
-
-            if (other is SphereCollider)
-            {                
-                enemy.enemyAI.SetTowerTarget(this.transform.position);
-               
-            }
-
-            if (other is BoxCollider)
-            {
-                enemy.enemyAI.AttackTower(this.GetComponent<Defense>());
-            }
-
+            Debug.LogError($"Damageable component missing on {gameObject.name}!");
         }
     }
-    */
 
-    /*private void OnTriggerExit(Collider other)
+    public void ApplyRetaliationDamage(GameObject attacker)
     {
-        if (other.CompareTag("Enemy"))
+        if (attacker == null) return;
+
+        Damageable enemyDamageable = attacker.GetComponent<Damageable>();
+
+        if (enemyDamageable != null)
         {
-            Enemy enemy = other.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.ResetTargetPriority();
-            }
+            Debug.Log($"{gameObject.name} retaliates against {attacker.name} for {retaliatoryDamage} damage!");
+            enemyDamageable.ApplyDamage(retaliatoryDamage);
         }
-    }*/
+    }
 }
