@@ -11,9 +11,12 @@ public class RotateTowardsEnemy : MonoBehaviour
     private DBrain brain;
     private Transform target;
 
+    private GameObject defenseModel;
+
     private void Start()
     {
         brain = GetComponent<DBrain>();
+        defenseModel = transform.GetChild(0).gameObject;
     }
 
     private void Update()
@@ -40,7 +43,7 @@ public class RotateTowardsEnemy : MonoBehaviour
 
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)); // Lock rotation to horizontal
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+        defenseModel.transform.rotation = Quaternion.Slerp(defenseModel.transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
     }
 
     private Transform FindClosestEnemy()

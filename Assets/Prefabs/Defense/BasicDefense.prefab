@@ -165,7 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5569827630962453424}
   m_Layer: 6
-  m_Name: BasicDefense
+  m_Name: Model
   m_TagString: Defense
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -339,7 +339,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2
+  m_Radius: 2.09
   m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1001 &8489243746708973861
 PrefabInstance:

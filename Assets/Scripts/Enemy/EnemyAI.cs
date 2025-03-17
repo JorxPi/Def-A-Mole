@@ -58,9 +58,10 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-
+        
         if(isAttackingDefense && targetDefense != null)
         {
+
             float distanceToDefense = Vector3.Distance(transform.position, targetDefense.transform.position);
             if (distanceToDefense <= attackRange)
             {
@@ -77,6 +78,7 @@ public class EnemyAI : MonoBehaviour
                 }
             }
         }
+
         else
         {
             agent.SetDestination(barrierPoint);
@@ -92,6 +94,11 @@ public class EnemyAI : MonoBehaviour
                 vignetteController.DecreaseEnemiesAttacking();
                 canAttack = false;
             }
+        }
+
+        for (int i = 0; i < agent.path.corners.Length - 1; i++)
+        {
+            Debug.DrawLine(agent.path.corners[i], agent.path.corners[i + 1], Color.cyan);
         }
 
         if ((isAttackingBarrier || isAttackingDefense) && canAttack)

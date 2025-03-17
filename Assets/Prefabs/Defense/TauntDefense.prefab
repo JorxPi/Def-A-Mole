@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3113044860018570038}
   - component: {fileID: 7485739069439218067}
   - component: {fileID: 8518705525414740728}
+  - component: {fileID: 2869984014308030865}
   m_Layer: 8
   m_Name: Base
   m_TagString: Untagged
@@ -107,6 +108,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.00000005960467, y: 0, z: -0.00000008940701}
+--- !u!208 &2869984014308030865
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515479563199483865}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &2151361504511999570
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2655690633629649358}
   m_Layer: 6
-  m_Name: TauntDefense
+  m_Name: Model
   m_TagString: Defense
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

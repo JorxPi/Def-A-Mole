@@ -288,7 +288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3488021565073275753}
   m_Layer: 6
-  m_Name: SlowingDefense
+  m_Name: Model
   m_TagString: Defense
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
