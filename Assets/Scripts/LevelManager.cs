@@ -16,6 +16,10 @@ public class LevelManager : MonoBehaviour
     public List<DefenseData> unlockedDefenses = new List<DefenseData>();
     public List<DefenseData> allDefenses;
 
+    private int totalEnemiesThisWave;
+
+    private BarrierIndicator barrierIndicator;
+
     public static LevelManager Instance { get; private set; }
 
     private void Awake()
@@ -34,6 +38,8 @@ public class LevelManager : MonoBehaviour
     {
         currentLevel = 1;
         unlockedDefenses = new List<DefenseData>();
+
+        barrierIndicator = FindObjectOfType<BarrierIndicator>();
 
         SetAngleRangesForLevel(currentLevel);
         UnlockDefensesForLevel(currentLevel);
@@ -129,6 +135,16 @@ public class LevelManager : MonoBehaviour
             Debug.Log($"- Rango: {range.x}° a {range.y}°");
         }
 
+        if (barrierIndicator != null)
+        {
+            Debug.Log("Calling DrawIndicators()...");
+            barrierIndicator.DrawIndicators(currentAngleRanges);
+        }
+        else
+        {
+            Debug.LogError("BarrierIndicator is NULL in LevelManager!");
+        }
+
         if (currentAngleRanges.Count == 0)
         {
             Debug.LogWarning($"No se definieron rangos de ángulos para el nivel {level}. Usando rango predeterminado.");
@@ -150,7 +166,8 @@ public class LevelManager : MonoBehaviour
     public void EnemyDied()
     {
         enemiesAlive--;
-        Debug.Log($"Un enemigo ha sido destruido. ({enemiesAlive} enemies)");
+        Debug.Log($"Un enemigo ha sido destruido. Enemigos restantes: {enemiesAlive} / {totalEnemiesThisWave}");
+
         CheckForNextLevel();
     }
 
@@ -159,11 +176,29 @@ public class LevelManager : MonoBehaviour
         currentLevel++;
         SetAngleRangesForLevel(currentLevel);
         UpdateLevelText();
-        EnemySpawner1 enemySpawner = FindObjectOfType<EnemySpawner1>();
-        enemySpawner.StartLevel(currentLevel);
 
         UnlockDefensesForLevel(currentLevel);
         UpdateDefenseButtons();
+
+        if (barrierIndicator != null)
+        {
+            barrierIndicator.ClearIndicators();
+            barrierIndicator.DrawIndicators(currentAngleRanges);
+        }
+
+        DayNightManager.Instance.StartDayMode();
+    }
+
+    public void StartEnemyWave()
+    {
+        EnemySpawner1 enemySpawner = FindObjectOfType<EnemySpawner1>();
+
+        totalEnemiesThisWave = enemySpawner.GetEnemiesToSpawn(currentLevel);
+        enemiesAlive = totalEnemiesThisWave;
+
+        enemySpawner.StartLevel(currentLevel);
+
+        Debug.Log($"[Level {currentLevel}] Iniciando oleada nocturna con {totalEnemiesThisWave} enemigos.");
     }
 
     private void UpdateLevelText()

@@ -17,7 +17,6 @@ public class EnemySpawner1 : MonoBehaviour
     private void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
-        StartLevel(1); // Comienza en el nivel 1
     }
 
     public void StartLevel(int level)
@@ -47,7 +46,6 @@ public class EnemySpawner1 : MonoBehaviour
 
         levelManager.AssignTargetToEnemy(enemy.GetComponent<EnemyAI>());
 
-        levelManager.enemiesAlive++;
         Debug.Log($"Enemigo ha sido creado. ({levelManager.enemiesAlive} enemigos)");
     }
 
@@ -58,5 +56,10 @@ public class EnemySpawner1 : MonoBehaviour
         if (level <= 20)
             return Mathf.RoundToInt(30 + (level - 10) * 2);
         return Mathf.Clamp(50 + (level - 20), 50, 100);
+    }
+
+    public int GetEnemiesToSpawn(int level)
+    {
+        return CalculateEnemiesForLevel(level);
     }
 }

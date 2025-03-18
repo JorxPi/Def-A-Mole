@@ -41,7 +41,9 @@ public class DeployManager : MonoBehaviour
 
     public void StartDeployment(DefenseData defenseData)
     {
-        if (CurrencyManager.Instance.HasEnoughGold(defenseData.cost))
+        int adjustedCost = DayNightManager.Instance.IsNightMode ? Mathf.CeilToInt(defenseData.cost * 1.3f) : defenseData.cost;
+
+        if (CurrencyManager.Instance.HasEnoughGold(adjustedCost))
         {
             currentDefenseData = defenseData;
             isDeploying = true;
@@ -99,11 +101,14 @@ public class DeployManager : MonoBehaviour
     {
         if (previewInstance == null) return;
 
+        int adjustedCost = DayNightManager.Instance.IsNightMode ? Mathf.CeilToInt(currentDefenseData.cost * 1.3f) : currentDefenseData.cost;
+
         if (!IsDefenseInLocation() && IsInsideMap(previewInstance.transform.position) && !IsInsideRestrictedZone(previewInstance.transform.position))
         {
             GameObject placedDefense = Instantiate(currentDefenseData.prefab, previewInstance.transform.position, Quaternion.identity);
             SetCollidersEnabled(placedDefense, true);
-            CurrencyManager.Instance.SpendGold(currentDefenseData.cost);
+
+            CurrencyManager.Instance.SpendGold(adjustedCost);
             CleanupPreview();
         }
         else
