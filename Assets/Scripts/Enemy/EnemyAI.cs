@@ -54,6 +54,7 @@ public class EnemyAI : MonoBehaviour
             targetBarrier = barrierObject.GetComponent<Barrier>();
         }
         vignetteController = FindObjectOfType<DamageVignetteController>();
+
     }
 
     private void Update()
@@ -63,7 +64,7 @@ public class EnemyAI : MonoBehaviour
         {
 
             float distanceToDefense = Vector3.Distance(transform.position, targetDefense.transform.position);
-            if (distanceToDefense <= attackRange)
+            if (distanceToDefense <= attackRange + 3)
             {
                 if (!canAttack)
                 {
@@ -133,6 +134,11 @@ public class EnemyAI : MonoBehaviour
     public void SetTarget(Vector3 target)
     {
         barrierPoint = target;
+    }
+
+    public Vector3 GetBarrierPoint()
+    {
+        return barrierPoint;
     }
 
     private void AttackBarrier()
@@ -280,5 +286,8 @@ public class EnemyAI : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, aggroRange);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
