@@ -94,7 +94,7 @@ public class LevelManager : MonoBehaviour
         return Random.Range(selectedRange.x, selectedRange.y);
     }
 
-    private void SetAngleRangesForLevel(int level)
+    /*private void SetAngleRangesForLevel(int level)
     {
 
         if (currentAngleRanges == null)
@@ -128,13 +128,6 @@ public class LevelManager : MonoBehaviour
             currentAngleRanges.Add(new Vector2(120, 160));
         }
 
-        // Registrar en consola los rangos definidos para el nivel actual
-        Debug.Log($"Rangos de ángulos para el nivel {level}:");
-        foreach (Vector2 range in currentAngleRanges)
-        {
-            Debug.Log($"- Rango: {range.x}° a {range.y}°");
-        }
-
         if (barrierIndicator != null)
         {
             Debug.Log("Calling DrawIndicators()...");
@@ -144,15 +137,44 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogError("BarrierIndicator is NULL in LevelManager!");
         }
+    }*/
 
-        if (currentAngleRanges.Count == 0)
+    private void SetAngleRangesForLevel(int level)
+    {
+        if (currentAngleRanges == null)
+            currentAngleRanges = new List<Vector2>();
+        else
+            currentAngleRanges.Clear(); // Clear previous ranges
+
+        int anglesToGenerate = Mathf.Min(level, 24); // Max 24 sets (360° / 15°)
+
+        HashSet<int> usedAngles = new HashSet<int>(); // To track already used angles
+
+        for (int i = 0; i < anglesToGenerate; i++)
         {
-            Debug.LogWarning($"No se definieron rangos de ángulos para el nivel {level}. Usando rango predeterminado.");
-            currentAngleRanges.Add(new Vector2(0, 360)); // Rango predeterminado
+            int randomAngle;
+            do
+            {
+                randomAngle = Random.Range(0, 24) * 15; // Only multiples of 15
+            } while (usedAngles.Contains(randomAngle)); // Ensure no duplicates
+
+            usedAngles.Add(randomAngle);
+            currentAngleRanges.Add(new Vector2(randomAngle, randomAngle + 15));
+        }
+
+        Debug.Log($"Level {level} Angle Ranges: {string.Join(" | ", currentAngleRanges)}");
+
+        if (barrierIndicator != null)
+        {
+            barrierIndicator.DrawIndicators(currentAngleRanges); // Update visualization
+        }
+        else
+        {
+            Debug.LogError("BarrierIndicator is NULL in LevelManager!");
         }
     }
 
-    
+
     private void CheckForNextLevel()
     {
         if (enemiesAlive == 0)
