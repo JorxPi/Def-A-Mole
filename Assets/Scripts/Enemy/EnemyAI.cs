@@ -44,16 +44,24 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
+        Debug.Log($"START ENEMY");
         agent = GetComponent<NavMeshAgent>();
         agent.speed = baseSpeed;
+
         agent.SetDestination(barrierPoint);
 
         GameObject barrierObject = GameObject.FindWithTag("Barrier");
-        if (barrierObject != null)
-        {
-            targetBarrier = barrierObject.GetComponent<Barrier>();
-        }
+        targetBarrier = barrierObject.GetComponent<Barrier>();
+
         vignetteController = FindObjectOfType<DamageVignetteController>();
+
+        Defense defenseInRange = FindNearestDefense();
+        if (defenseInRange != null)
+        {
+            targetDefense = defenseInRange;
+            isAttackingDefense = true;
+            agent.SetDestination(defenseInRange.transform.position);
+        }
 
     }
 
