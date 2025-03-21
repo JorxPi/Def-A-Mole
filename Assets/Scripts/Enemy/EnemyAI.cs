@@ -152,12 +152,10 @@ public class EnemyAI : MonoBehaviour
     private IEnumerator PlaySpawnThenWalk()
     {
         animController.PlaySpawn();
-        agent.isStopped = true; // Stop movement during spawn
 
-        yield return new WaitForSeconds(1.2f); // Adjust based on animation length
+        yield return new WaitForSeconds(1.2f); 
 
         animController.PlayWalk();
-        agent.isStopped = false; // Resume movement after spawn
     }
 
     public void Die()
@@ -167,10 +165,8 @@ public class EnemyAI : MonoBehaviour
             vignetteController.DecreaseEnemiesAttacking();
         }
 
-        agent.isStopped = true; // Stop enemy movement
-        animController.PlayDead(); // Play death animation
-
-        Destroy(gameObject, 2f); // Destroy after animation plays
+        agent.isStopped = true;
+        animController.PlayDead();
     }
 
     // Animation finish
