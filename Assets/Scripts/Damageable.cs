@@ -70,9 +70,11 @@ public class Damageable : MonoBehaviour
             }
             LevelManager levelManager = FindObjectOfType<LevelManager>();
             levelManager.EnemyDied();
+
+            enemy.enemyAI.Die();
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject, 2f);
     }
 
     public void IncreaseMaxHealth(float amount)

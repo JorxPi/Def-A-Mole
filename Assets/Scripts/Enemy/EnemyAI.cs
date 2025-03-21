@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using System;
@@ -29,6 +30,8 @@ public class EnemyAI : MonoBehaviour
     private float attackTimer;
     private DamageVignetteController vignetteController;
 
+    private EnemyAnimatorController animController;
+
     void OnEnable()
     {
         Defense.OnDefenseSpawned += HandleDefenseSpawned;
@@ -45,6 +48,9 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         Debug.Log($"START ENEMY");
+
+        animController = GetComponent<EnemyAnimatorController>();
+
         agent = GetComponent<NavMeshAgent>();
         agent.speed = baseSpeed;
 
@@ -62,6 +68,8 @@ public class EnemyAI : MonoBehaviour
             isAttackingDefense = true;
             agent.SetDestination(defenseInRange.transform.position);
         }
+
+        StartCoroutine(PlaySpawnThenWalk());
 
     }
 
@@ -139,6 +147,34 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    // Animation
+
+    private IEnumerator PlaySpawnThenWalk()
+    {
+        animController.PlaySpawn();
+        agent.isStopped = true; // Stop movement during spawn
+
+        yield return new WaitForSeconds(1.2f); // Adjust based on animation length
+
+        animController.PlayWalk();
+        agent.isStopped = false; // Resume movement after spawn
+    }
+
+    public void Die()
+    {
+        if (isAttackingBarrier)
+        {
+            vignetteController.DecreaseEnemiesAttacking();
+        }
+
+        agent.isStopped = true; // Stop enemy movement
+        animController.PlayDead(); // Play death animation
+
+        Destroy(gameObject, 2f); // Destroy after animation plays
+    }
+
+    // Animation finish
+
     public void SetTarget(Vector3 target)
     {
         barrierPoint = target;
@@ -151,6 +187,7 @@ public class EnemyAI : MonoBehaviour
 
     private void AttackBarrier()
     {
+        animController.PlayAttack();
         targetBarrier.TakeDamage(damageAmount);
 
         Damageable damageable = GetComponent<Damageable>();
@@ -165,6 +202,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (targetDefense != null)
         {
+            animController.PlayAttack();
             Debug.Log($"{gameObject.name} ataca la defensa causando {damageAmount} de daño.");
             targetDefense.TryGetComponent<Damageable>(out Damageable damageable);
             damageable.ApplyDamage(damageAmount, gameObject);
