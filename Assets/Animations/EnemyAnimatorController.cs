@@ -9,7 +9,7 @@ public class EnemyAnimatorController : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         enemyAI = GetComponent<EnemyAI>();
     }
 
