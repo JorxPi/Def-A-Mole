@@ -13,9 +13,11 @@ public class Damageable : MonoBehaviour
 
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>(); //(stores original color to change back after the red effect)
 
-
     //Event used for gold update on enemy death
     public event Action OnDeath;
+    
+    //Nuevo evento para reproducir sonido cuando recibe daño
+    public event Action OnDamageReceived;
 
     private void Awake()
     {
@@ -40,6 +42,9 @@ public class Damageable : MonoBehaviour
     {
         health -= damage;
 
+        // Invocar evento OnDamageReceived para el sonido de daño
+        OnDamageReceived?.Invoke();
+
         StartCoroutine(FlashRedEffect());
 
         // !! ONLY FOR TAUNTDEFENSE !!
@@ -58,6 +63,7 @@ public class Damageable : MonoBehaviour
 
     private void Die()
     {
+        // Llamar al evento OnDeath antes de destruir el objeto
         OnDeath?.Invoke();
 
         Enemy enemy = GetComponent<Enemy>();
@@ -72,6 +78,18 @@ public class Damageable : MonoBehaviour
             levelManager.EnemyDied();
         }
 
+        // Retrasamos la destrucción del objeto para que la animación de muerte pueda reproducirse
+        StartCoroutine(DelayedDestroy());
+    }
+
+    private IEnumerator DelayedDestroy()
+    {
+        // Esperar un tiempo para que la animación de muerte termine
+        EnemySpawnEffects spawnEffects = GetComponent<EnemySpawnEffects>();
+        float delay = spawnEffects != null ? spawnEffects.deathAnimationDuration + 0.1f : 0.6f;
+        
+        yield return new WaitForSeconds(delay);
+        
         Destroy(gameObject);
     }
 

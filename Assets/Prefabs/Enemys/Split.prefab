@@ -327,8 +327,39 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   useRiseAnimation: 1
-  spawnSound: {fileID: 8300000, guid: a4ea1cefb4ddb4b46b91aa05d8c05ae4, type: 3}
+  spawnSound: {fileID: 8300000, guid: 4639ad1bfa4879748b68a74d6ca5c4d4, type: 3}
+  damageSound: {fileID: 8300000, guid: 52d1ef97b23de8c44a3297be4691e22a, type: 3}
+  deathSound: {fileID: 8300000, guid: 920043981911b9240b2c9ed7efe11f5b, type: 3}
   spawnSoundVolume: 0.5
+  damageSoundVolume: 0.5
+  deathSoundVolume: 0.7
+  deathAnimationDuration: 0.5
+  deathScaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  deathRotationSpeed: 360
+  deathColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1001 &5183004112962561641
 PrefabInstance:
   m_ObjectHideFlags: 0

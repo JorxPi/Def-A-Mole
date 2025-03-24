@@ -18,13 +18,11 @@ public class Enemy : MonoBehaviour
         damageable = GetComponent<Damageable>();
         enemyAI = GetComponent<EnemyAI>();
         
-
         // Configurar stats iniciales
         if (damageable != null)
         {
             damageable.OnDeath += HandleDeath;
         }
-        
     }
 
     protected virtual void HandleDeath()
@@ -34,8 +32,13 @@ public class Enemy : MonoBehaviour
             DamageVignetteController vignetteController = FindObjectOfType<DamageVignetteController>();
             vignetteController.DecreaseEnemiesAttacking();
         }
+        
+        // Añadir la recompensa de oro
         CurrencyManager.Instance.AddGold(goldReward);
-        Destroy(gameObject);
+        
+        // Ya no destruimos el objeto aquí, ahora se maneja en el Damageable
+        // para permitir que la animación de muerte termine
+        // La lógica de destrucción se mueve a Damageable.DelayedDestroy()
     }
 
     private void OnDestroy()

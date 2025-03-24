@@ -3,7 +3,13 @@ guid: 994882666d88e914cb7ad8c6437090fa
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - map: {instanceID: 0}
+  - restrictedZone: {instanceID: 0}
+  - deploySuccessSound: {fileID: 8300000, guid: 58b62ef024fd4864db328145dd369339, type: 3}
+  - deployFailSound: {fileID: 8300000, guid: 5cdc320e2129b344286b751333ea39df, type: 3}
+  - deploySelectSound: {fileID: 8300000, guid: 255fe7d60d091d24b9ff95a87ca6373e, type: 3}
+  - deployCancelSound: {fileID: 8300000, guid: 0ddefe1bf67967749a5d97a7e624a51d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

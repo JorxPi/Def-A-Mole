@@ -12,11 +12,19 @@ public class DeployManager : MonoBehaviour
     public LayerMask mapLayer; // Assign the "Map" layer in the Inspector
     public SphereCollider restrictedZone; // Zona prohibida (spawner de enemigos)
 
+    [Header("Defense Deployment Sounds")]
+    public AudioClip deploySuccessSound; // Sonido cuando la defensa se coloca correctamente
+    public AudioClip deployFailSound; // Sonido cuando no se puede colocar la defensa
+    public AudioClip deploySelectSound; // Sonido cuando se selecciona una defensa para desplegar
+    public AudioClip deployCancelSound; // Sonido cuando se cancela la colocación
+    [Range(0f, 1f)]
+    public float deploymentSoundVolume = 0.7f;
 
     private bool isDeploying = false;
     private DefenseData currentDefenseData;
     private GameObject previewInstance;
     private List<MonoBehaviour> disabledScripts = new List<MonoBehaviour>();
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -28,6 +36,11 @@ public class DeployManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // Inicializar el AudioSource
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.volume = deploymentSoundVolume;
     }
 
     private void Update()
@@ -48,18 +61,21 @@ public class DeployManager : MonoBehaviour
             currentDefenseData = defenseData;
             isDeploying = true;
 
+            // Reproducir sonido de selección
+            PlaySound(deploySelectSound);
+
             if (currentDefenseData.prefab != null)
             {
                 previewInstance = Instantiate(currentDefenseData.prefab);
-
                 DisableScripts(previewInstance);
-
                 SetCollidersEnabled(previewInstance, false);
             }
         }
         else
         {
             Debug.Log("Not enough gold to deploy this defense!");
+            // Reproducir sonido de fallo al no tener suficiente oro
+            PlaySound(deployFailSound);
         }
     }
 
@@ -109,11 +125,19 @@ public class DeployManager : MonoBehaviour
             SetCollidersEnabled(placedDefense, true);
 
             CurrencyManager.Instance.SpendGold(adjustedCost);
+            
+            // Reproducir sonido de éxito en la colocación
+            PlaySound(deploySuccessSound);
+            
             CleanupPreview();
         }
         else
         {
             Debug.Log("Placement blocked: base is overlapping another defense.");
+            
+            // Reproducir sonido de fallo en la colocación
+            PlaySound(deployFailSound);
+            
             CancelDeployment();
         }
     }
@@ -122,6 +146,10 @@ public class DeployManager : MonoBehaviour
     {
         isDeploying = false;
         currentDefenseData = null;
+        
+        // Reproducir sonido de cancelación
+        PlaySound(deployCancelSound);
+        
         CleanupPreview();
     }
 
@@ -178,10 +206,10 @@ public class DeployManager : MonoBehaviour
     {
         if (restrictedZone == null) return false;
 
-        // Obtener el punto m�s cercano en el SphereCollider
+        // Obtener el punto más cercano en el SphereCollider
         Vector3 closestPoint = restrictedZone.ClosestPoint(position);
 
-        // Si la posici�n est� dentro del radio del collider, significa que est� en la zona restringida
+        // Si la posición está dentro del radio del collider, significa que está en la zona restringida
         return Vector3.Distance(closestPoint, position) < 0.01f;
     }
 
@@ -265,5 +293,14 @@ public class DeployManager : MonoBehaviour
             }
         }
     }
+    
+    // Método para reproducir sonidos
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
+    }
 }
-

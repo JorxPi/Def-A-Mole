@@ -5,7 +5,6 @@ using System;
 [RequireComponent(typeof(Enemy))]
 public class EnemyAI : MonoBehaviour
 {
-
     public float damageAmount = 10f;
     public float attackInterval = 1f;
     public float baseSpeed = 3.5f;
@@ -20,6 +19,10 @@ public class EnemyAI : MonoBehaviour
 
     private bool isSlowed = false;
     private float slowTimer = 0f;
+    
+    // Añadir una variable para controlar si el enemigo está muriendo
+    [HideInInspector]
+    public bool isDying = false;
 
     private Vector3 defensePoint;
 
@@ -41,17 +44,23 @@ public class EnemyAI : MonoBehaviour
         Defense.OnDefenseDestroyed -= HandleDefenseDestroyed;
     }
 
-
     void Start()
     {
         Debug.Log($"START ENEMY");
         agent = GetComponent<NavMeshAgent>();
         agent.speed = baseSpeed;
 
-        agent.SetDestination(barrierPoint);
+        // Solo establecer el destino si el punto no es cero
+        if (barrierPoint != Vector3.zero)
+        {
+            agent.SetDestination(barrierPoint);
+        }
 
         GameObject barrierObject = GameObject.FindWithTag("Barrier");
-        targetBarrier = barrierObject.GetComponent<Barrier>();
+        if (barrierObject != null)
+        {
+            targetBarrier = barrierObject.GetComponent<Barrier>();
+        }
 
         vignetteController = FindObjectOfType<DamageVignetteController>();
 
@@ -62,15 +71,18 @@ public class EnemyAI : MonoBehaviour
             isAttackingDefense = true;
             agent.SetDestination(defenseInRange.transform.position);
         }
-
     }
 
     private void Update()
     {
-        
-        if(isAttackingDefense && targetDefense != null)
+        // No actualizar la lógica si el enemigo está muriendo o si el agente no está activo
+        if (isDying || agent == null || !agent.isOnNavMesh || !agent.enabled)
         {
-
+            return;
+        }
+        
+        if (isAttackingDefense && targetDefense != null)
+        {
             float distanceToDefense = Vector3.Distance(transform.position, targetDefense.transform.position);
             if (distanceToDefense <= attackRange + 3)
             {
@@ -87,10 +99,21 @@ public class EnemyAI : MonoBehaviour
                 }
             }
         }
-
         else
         {
-            agent.SetDestination(barrierPoint);
+            // Verificar que barrierPoint no sea cero y que el agente esté activo
+            if (barrierPoint != Vector3.zero && agent.isOnNavMesh)
+            {
+                try
+                {
+                    agent.SetDestination(barrierPoint);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning("Error al establecer destino: " + e.Message);
+                }
+            }
+            
             if (isInBarrier && !isAttackingBarrier)
             {
                 isAttackingBarrier = true;
@@ -105,9 +128,13 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < agent.path.corners.Length - 1; i++)
+        // Solo dibujar líneas de debug si el agente tiene una ruta válida
+        if (agent.hasPath)
         {
-            Debug.DrawLine(agent.path.corners[i], agent.path.corners[i + 1], Color.cyan);
+            for (int i = 0; i < agent.path.corners.Length - 1; i++)
+            {
+                Debug.DrawLine(agent.path.corners[i], agent.path.corners[i + 1], Color.cyan);
+            }
         }
 
         if ((isAttackingBarrier || isAttackingDefense) && canAttack)
@@ -118,7 +145,6 @@ public class EnemyAI : MonoBehaviour
                 if (isAttackingBarrier)
                 {
                     AttackBarrier();
-
                 }
                 if (isAttackingDefense && targetDefense != null)
                 {
@@ -136,12 +162,24 @@ public class EnemyAI : MonoBehaviour
                 ResetSpeed();
             }
         }
-
     }
 
     public void SetTarget(Vector3 target)
     {
         barrierPoint = target;
+        
+        // Solo establecer el destino si el agente está activo
+        if (agent != null && agent.isOnNavMesh && agent.enabled && !isDying)
+        {
+            try
+            {
+                agent.SetDestination(target);
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("Error al establecer destino en SetTarget: " + e.Message);
+            }
+        }
     }
 
     public Vector3 GetBarrierPoint()
@@ -151,13 +189,16 @@ public class EnemyAI : MonoBehaviour
 
     private void AttackBarrier()
     {
-        targetBarrier.TakeDamage(damageAmount);
-
-        Damageable damageable = GetComponent<Damageable>();
-        if (damageable != null)
+        if (targetBarrier != null)
         {
-            float fatalDamage = damageable.health;
-            damageable.ApplyDamage(fatalDamage);
+            targetBarrier.TakeDamage(damageAmount);
+
+            Damageable damageable = GetComponent<Damageable>();
+            if (damageable != null)
+            {
+                float fatalDamage = damageable.health;
+                damageable.ApplyDamage(fatalDamage);
+            }
         }
     }
 
@@ -165,14 +206,20 @@ public class EnemyAI : MonoBehaviour
     {
         if (targetDefense != null)
         {
-            Debug.Log($"{gameObject.name} ataca la defensa causando {damageAmount} de da�o.");
+            Debug.Log($"{gameObject.name} ataca la defensa causando {damageAmount} de daño.");
             targetDefense.TryGetComponent<Damageable>(out Damageable damageable);
-            damageable.ApplyDamage(damageAmount, gameObject);
+            if (damageable != null)
+            {
+                damageable.ApplyDamage(damageAmount, gameObject);
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // No procesar si está muriendo
+        if (isDying) return;
+        
         if (other.CompareTag("WarningZone"))
         {
             isInBarrier = false;
@@ -183,23 +230,39 @@ public class EnemyAI : MonoBehaviour
             {
                 isAttackingDefense = true;
                 targetDefense = other.GetComponent<Defense>();
-                agent.SetDestination(targetDefense.transform.position);
-
+                
+                // Verificar que el agente esté activo
+                if (agent != null && agent.isOnNavMesh && agent.enabled)
+                {
+                    try
+                    {
+                        agent.SetDestination(targetDefense.transform.position);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogWarning("Error al establecer destino en OnTriggerEnter: " + e.Message);
+                    }
+                }
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        // No procesar si está muriendo
+        if (isDying) return;
+        
         if (other.CompareTag("WarningZone"))
         {
             isInBarrier = true;
         }
     }
 
-
     public void ApplySlow(float slowAmount, float slowDuration)
     {
+        // No aplicar ralentización si está muriendo o el agente no está activo
+        if (isDying || agent == null || !agent.enabled) return;
+        
         float slowMultiplier = 1f - (slowAmount / 100f);
         agent.speed = Mathf.Max(baseSpeed * slowMultiplier, 0.1f);
 
@@ -208,64 +271,128 @@ public class EnemyAI : MonoBehaviour
         isSlowed = true;
         slowTimer = slowDuration;
 
-        agent.velocity = agent.desiredVelocity.normalized * agent.speed;
-        agent.isStopped = false;
+        if (agent.isOnNavMesh)
+        {
+            agent.velocity = agent.desiredVelocity.normalized * agent.speed;
+            agent.isStopped = false;
+        }
     }
 
     void ResetSpeed()
     {
-        agent.speed = baseSpeed;
+        if (agent != null && agent.enabled)
+        {
+            agent.speed = baseSpeed;
+        }
         isSlowed = false;
     }
 
     public Vector3 GetVelocity()
     {
-        return agent.velocity;
+        return agent != null && agent.enabled ? agent.velocity : Vector3.zero;
     }
 
     private void HandleDefenseSpawned(Defense newDefense)
     {
-        if (targetDefense == null && Vector3.Distance(transform.position, newDefense.transform.position) <= aggroRange+newDefense.attractionRange)
+        // No procesar si está muriendo
+        if (isDying) return;
+        
+        if (newDefense != null && Vector3.Distance(transform.position, newDefense.transform.position) <= aggroRange + newDefense.attractionRange)
         {
-            if (isAttackingDefense && (newDefense.priority > targetDefense.priority))
-                {
+            if (isAttackingDefense && targetDefense != null && (newDefense.priority > targetDefense.priority))
+            {
                 targetDefense = newDefense;
                 isAttackingDefense = true;
-                agent.SetDestination(newDefense.transform.position);
+                
+                if (agent != null && agent.isOnNavMesh && agent.enabled)
+                {
+                    try
+                    {
+                        agent.SetDestination(newDefense.transform.position);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogWarning("Error al establecer destino en HandleDefenseSpawned: " + e.Message);
+                    }
+                }
             }
-            if (isAttackingBarrier && (newDefense.priority > 2))
+            else if (isAttackingBarrier && (newDefense.priority > 2))
             {
                 targetDefense = newDefense;
                 isAttackingDefense = true;
                 isAttackingBarrier = false;
-                vignetteController.DecreaseEnemiesAttacking();
-                agent.SetDestination(newDefense.transform.position);
+                
+                if (vignetteController != null)
+                {
+                    vignetteController.DecreaseEnemiesAttacking();
+                }
+                
+                if (agent != null && agent.isOnNavMesh && agent.enabled)
+                {
+                    try
+                    {
+                        agent.SetDestination(newDefense.transform.position);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogWarning("Error al establecer destino en HandleDefenseSpawned (2): " + e.Message);
+                    }
+                }
             }
         }
     }
 
     private void HandleDefenseDestroyed(Defense destroyedDefense)
     {
+        // No procesar si está muriendo
+        if (isDying) return;
+        
         if (targetDefense == destroyedDefense)
         {
             targetDefense = null;
             Defense defenseInRange = FindNearestDefense();
+            
             if (defenseInRange != null)
             {
                 targetDefense = defenseInRange;
                 isAttackingDefense = true;
-                agent.SetDestination(defenseInRange.transform.position);
+                
+                if (agent != null && agent.isOnNavMesh && agent.enabled)
+                {
+                    try
+                    {
+                        agent.SetDestination(defenseInRange.transform.position);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogWarning("Error al establecer destino en HandleDefenseDestroyed: " + e.Message);
+                    }
+                }
             }
             else
             {
                 isAttackingDefense = false;
-                agent.SetDestination(barrierPoint);
+                
+                if (agent != null && agent.isOnNavMesh && agent.enabled && barrierPoint != Vector3.zero)
+                {
+                    try
+                    {
+                        agent.SetDestination(barrierPoint);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogWarning("Error al establecer destino en HandleDefenseDestroyed (2): " + e.Message);
+                    }
+                }
             }
         }
     }
 
     private Defense FindNearestDefense()
     {
+        // No buscar si está muriendo
+        if (isDying) return null;
+        
         Collider[] colliders = Physics.OverlapSphere(transform.position, aggroRange);
         Defense nearestDefense = null;
         float nearestDistance = float.MaxValue;
@@ -288,6 +415,21 @@ public class EnemyAI : MonoBehaviour
         }
 
         return nearestDefense;
+    }
+
+    // Método para ser llamado cuando el enemigo comienza a morir
+    public void StartDying()
+    {
+        isDying = true;
+        
+        // Desactivar NavMeshAgent
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.updatePosition = false;
+            agent.updateRotation = false;
+            // No deshabilitamos el componente completo para evitar errores en otros scripts
+        }
     }
 
     private void OnDrawGizmos()
