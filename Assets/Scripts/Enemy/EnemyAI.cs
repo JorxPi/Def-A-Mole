@@ -18,6 +18,8 @@ public class EnemyAI : MonoBehaviour
     [HideInInspector]
     public bool isAttackingBarrier = false, isInBarrier = false;
     private bool canAttack = false;
+    private bool isAnimatingAttack = false;
+
 
     private bool isSlowed = false;
     private float slowTimer = 0f;
@@ -68,9 +70,6 @@ public class EnemyAI : MonoBehaviour
             isAttackingDefense = true;
             agent.SetDestination(defenseInRange.transform.position);
         }
-
-        StartCoroutine(PlaySpawnThenWalk());
-
     }
 
     private void Update()
@@ -118,7 +117,22 @@ public class EnemyAI : MonoBehaviour
             Debug.DrawLine(agent.path.corners[i], agent.path.corners[i + 1], Color.cyan);
         }
 
-        if ((isAttackingBarrier || isAttackingDefense) && canAttack)
+        bool shouldBeAttacking = (isAttackingBarrier || isAttackingDefense) && canAttack;
+
+        // Manage animation transition ONLY when state changes
+        if (shouldBeAttacking && !isAnimatingAttack)
+        {
+            animController.PlayAttack();
+            isAnimatingAttack = true;
+        }
+        else if (!shouldBeAttacking && isAnimatingAttack)
+        {
+            animController.StopAttack();
+            isAnimatingAttack = false;
+        }
+
+        // Proceed with attack logic if allowed
+        if (shouldBeAttacking)
         {
             attackTimer += Time.deltaTime;
             if (attackTimer >= attackInterval)
@@ -126,15 +140,16 @@ public class EnemyAI : MonoBehaviour
                 if (isAttackingBarrier)
                 {
                     AttackBarrier();
-
                 }
-                if (isAttackingDefense && targetDefense != null)
+                else if (isAttackingDefense && targetDefense != null)
                 {
                     AttackDefense();
                 }
+
                 attackTimer = 0f;
             }
         }
+
 
         if (isSlowed)
         {
@@ -148,15 +163,6 @@ public class EnemyAI : MonoBehaviour
     }
 
     // Animation
-
-    private IEnumerator PlaySpawnThenWalk()
-    {
-        animController.PlaySpawn();
-
-        yield return new WaitForSeconds(1.2f); 
-
-        animController.PlayWalk();
-    }
 
     public void Die()
     {
