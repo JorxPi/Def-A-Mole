@@ -72,6 +72,25 @@ public class Damageable : MonoBehaviour
             levelManager.EnemyDied();
 
             enemy.enemyAI.Die();
+
+            Collider[] colliders = GetComponentsInChildren<Collider>();
+            foreach (var col in colliders)
+            {
+                col.enabled = false;
+            }
+
+            UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+            if (agent != null)
+            {
+                agent.isStopped = true;
+                agent.enabled = false;
+            }
+
+            EnemyAI ai = GetComponent<EnemyAI>();
+            if (ai != null) ai.enabled = false;
+
+            gameObject.tag = "Untagged";
+            gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         }
 
         Destroy(gameObject, 2f);

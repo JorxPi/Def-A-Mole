@@ -8,9 +8,10 @@ public class DeployManager : MonoBehaviour
 {
     public static DeployManager Instance { get; private set; }
 
-    public GameObject map; // Reference to the map GameObject
-    public LayerMask mapLayer; // Assign the "Map" layer in the Inspector
-    public SphereCollider restrictedZone; // Zona prohibida (spawner de enemigos)
+    public GameObject map; 
+    public LayerMask mapLayer; 
+    public SphereCollider restrictedZone;
+    public float mapRadius;
 
 
     private bool isDeploying = false;
@@ -92,6 +93,11 @@ public class DeployManager : MonoBehaviour
                 return;
             }
 
+            Debug.Log(!IsDefenseInLocation());
+            Debug.Log(IsInsideMap(hit.point));
+            Debug.Log(!IsInsideRestrictedZone(hit.point));
+
+
             bool isValidPlacement = !IsDefenseInLocation() && IsInsideMap(hit.point) && !IsInsideRestrictedZone(hit.point);
             UpdatePreviewColor(isValidPlacement);
         }
@@ -162,7 +168,6 @@ public class DeployManager : MonoBehaviour
     {
         // Get map's position and scale
         Vector3 mapCenter = map.transform.position;
-        float mapRadius = map.transform.localScale.x * 0.5f; // Assuming X scale is the diameter
 
         // Calculate distance from center (only XZ plane)
         float distanceFromCenter = Vector3.Distance(new Vector3(position.x, mapCenter.y, position.z), new Vector3(mapCenter.x, mapCenter.y, mapCenter.z));

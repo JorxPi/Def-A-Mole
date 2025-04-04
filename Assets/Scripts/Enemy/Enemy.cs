@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
             vignetteController.DecreaseEnemiesAttacking();
         }
         CurrencyManager.Instance.AddGold(goldReward);
-        Destroy(gameObject);
+        //Destroy(gameObject, 2f);
     }
 
     private void OnDestroy()

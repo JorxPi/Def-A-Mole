@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    public float mapRadius = 35f;
+    public float mapRadius;
     public TextMeshProUGUI levelText;
 
     private int currentLevel;

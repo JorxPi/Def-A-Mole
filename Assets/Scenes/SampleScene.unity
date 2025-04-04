@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5015748, g: 0.27015787, b: 0.21001217, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -833,7 +833,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 8
+  m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &339298383
 GameObject:
@@ -915,7 +915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db930e1518675eb4d9f1ba1421cfd084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 35
+  radius: 50
   segments: 30
   indicatorColor: {r: 1, g: 0, b: 0, a: 1}
   baseCircleColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -1554,7 +1554,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.08, y: 1.1026, z: 0.2}
-  m_LocalScale: {x: 25, y: 3.6809127, z: 25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1594,7 +1594,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.3249213
+  m_Radius: 48
   m_Height: 22.331928
   m_Direction: 1
   m_Center: {x: 0.000000043920547, y: -0.7428608, z: -0.000000087841094}
@@ -3299,11 +3299,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994882666d88e914cb7ad8c6437090fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 1132249149}
+  map: {fileID: 1944760635}
   mapLayer:
     serializedVersion: 2
     m_Bits: 8
   restrictedZone: {fileID: 262209975}
+  mapRadius: 50
 --- !u!4 &1120445304
 Transform:
   m_ObjectHideFlags: 0
@@ -3757,7 +3758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c9ea9be50f39d45bb67fd35413f013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapRadius: 35
+  mapRadius: 50
   levelText: {fileID: 2123312588}
   currentAngleRanges: []
   enemiesAlive: 0
@@ -5453,6 +5454,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2913716906351398205, guid: b4ce6116b5f00ab41b6bd2b2f6603ece, type: 3}
   m_PrefabInstance: {fileID: 1939714383}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1944760635 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5435257435386847727, guid: 04628fe7ba4207749a81e9274befca29, type: 3}
+  m_PrefabInstance: {fileID: 1059990449297134954}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2005231242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5643,8 +5649,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 3274956001613883752, guid: af80ab9109e89dd418a3c20df45bf70a, type: 3}
-  - {fileID: 3274956001613883752, guid: 4ee2932fa35dfd941b974f268534a74c, type: 3}
-  - {fileID: 3274956001613883752, guid: f567673d05e41dd4381c7b85bf8db7d3, type: 3}
   spawnPoint: {fileID: 262209974}
   spawnInterval: 2
 --- !u!114 &2123312588 stripped
@@ -5710,16 +5714,99 @@ PrefabInstance:
       propertyPath: m_Name
       value: floor_walkable
       objectReference: {fileID: 0}
+    - target: {fileID: 5435257435386847727, guid: 04628fe7ba4207749a81e9274befca29, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5435257435386847727, guid: 04628fe7ba4207749a81e9274befca29, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1059990449297134960}
+    - targetCorrespondingSourceObject: {fileID: 5435257435386847727, guid: 04628fe7ba4207749a81e9274befca29, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1059990449297134959}
+    - targetCorrespondingSourceObject: {fileID: 5435257435386847727, guid: 04628fe7ba4207749a81e9274befca29, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1059990449297134958}
   m_SourcePrefab: {fileID: 100100000, guid: 04628fe7ba4207749a81e9274befca29, type: 3}
 --- !u!4 &1059990449297134955 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4622445270162537301, guid: 04628fe7ba4207749a81e9274befca29, type: 3}
   m_PrefabInstance: {fileID: 1059990449297134954}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1059990449297134958
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944760635}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 106.895805, y: 0.000017404556, z: 106.895805}
+  m_Center: {x: 0, y: 1.2263753, z: 0}
+--- !u!54 &1059990449297134959
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944760635}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &1059990449297134960
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944760635}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7249674705078748186, guid: 8201dba9b9b9ebd41a38c4716c858282, type: 3}
 --- !u!1001 &5357002732362983587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5772,6 +5859,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: floor_hole
       objectReference: {fileID: 0}
+    - target: {fileID: 7654096632575897860, guid: 1d31397544cb482429c9757526ec6b87, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5793,6 +5884,10 @@ PrefabInstance:
     - target: {fileID: 7401765534271204441, guid: e108d7d4d818a304fbf61948607f92b1, type: 3}
       propertyPath: m_Name
       value: floor_non-walkable
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401765534271204441, guid: e108d7d4d818a304fbf61948607f92b1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7922828061501208291, guid: e108d7d4d818a304fbf61948607f92b1, type: 3}
       propertyPath: m_LocalPosition.x
