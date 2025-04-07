@@ -3994,11 +3994,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: zoomSpeed
-      value: 7
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: radiusOffset
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
+      propertyPath: orbitDistance
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: verticalSpeed
@@ -4007,6 +4011,18 @@ PrefabInstance:
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: horizontalSpeed
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
+      propertyPath: maxZoomDistance
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
+      propertyPath: minZoomDistance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
+      propertyPath: startDistanceFromCenter
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3741515077531456077, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5648,7 +5664,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
+  - {fileID: 3274956001613883752, guid: f567673d05e41dd4381c7b85bf8db7d3, type: 3}
   - {fileID: 3274956001613883752, guid: af80ab9109e89dd418a3c20df45bf70a, type: 3}
+  - {fileID: 3274956001613883752, guid: 4ee2932fa35dfd941b974f268534a74c, type: 3}
   spawnPoint: {fileID: 262209974}
   spawnInterval: 2
 --- !u!114 &2123312588 stripped

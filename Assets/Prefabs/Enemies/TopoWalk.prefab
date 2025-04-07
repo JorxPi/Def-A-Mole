@@ -54,6 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb347f7ca64ce1449a9f0b85a0b85080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 846711632746759277}
 --- !u!136 &-7354461679131820880
 CapsuleCollider:
   m_ObjectHideFlags: 0

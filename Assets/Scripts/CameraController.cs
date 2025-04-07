@@ -5,39 +5,37 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Collider mapBounds;
+
+    [Header("Orbit Controls")]
+    public float orbitDistance = 55f;
+    public float minZoomDistance = 25f;
+    public float maxZoomDistance = 55f;
+    public float zoomSpeed = 10f;
+
+    [Header("Camera Rotation")]
     public float horizontalSpeed = 30f;
     public float verticalSpeed = 10f;
     public float minHeight = 6f;
     public float maxHeight = 25f;
-    public float radiusOffset = 5f;
-    public float zoomSpeed = 5f;
-    public float minZoom = 2f; 
-
 
     private float currentAngle = 0f;
     private float currentHeight;
     private Vector3 mapCenter;
-    private float halfWidth;
-    private float halfLength;
-    private float zoomDistance;
+    private float targetOrbitDistance;
+    public float zoomLerpSpeed = 10f; 
 
     void Start()
     {
-        CalculateMapCenterAndRadius();
+        CalculateMapCenter();
         currentHeight = minHeight;
-        zoomDistance = radiusOffset;
+        targetOrbitDistance = orbitDistance;
     }
 
     void Update()
     {
-        // Calculem angle horitzontal
         HandleHorizontalRotation();
-        // Calculem la posició vertical
         HandleVerticalRotation();
-
         HandleZoom();
-
-        // Actualitzem posició de la camera
         UpdateCameraPosition();
     }
 
@@ -69,20 +67,23 @@ public class CameraController : MonoBehaviour
 
     void HandleZoom()
     {
-        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        if (scrollInput != 0)
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (Mathf.Abs(scroll) > 0.01f)
         {
-            zoomDistance = Mathf.Clamp(zoomDistance - scrollInput * zoomSpeed, minZoom, radiusOffset);
+            targetOrbitDistance -= scroll * zoomSpeed;
+            targetOrbitDistance = Mathf.Clamp(targetOrbitDistance, minZoomDistance, maxZoomDistance);
         }
+        orbitDistance = Mathf.Lerp(orbitDistance, targetOrbitDistance, Time.deltaTime * zoomLerpSpeed);
+
     }
 
     void UpdateCameraPosition()
     {
-        float x = mapCenter.x + (halfWidth + zoomDistance) * Mathf.Cos(currentAngle * Mathf.Deg2Rad);
-        float z = mapCenter.z + (halfLength + zoomDistance) * Mathf.Sin(currentAngle * Mathf.Deg2Rad);
+        float x = mapCenter.x + orbitDistance * Mathf.Cos(currentAngle * Mathf.Deg2Rad);
+        float z = mapCenter.z + orbitDistance * Mathf.Sin(currentAngle * Mathf.Deg2Rad);
 
-        Vector3 topPosition = new Vector3(mapCenter.x, maxHeight, mapCenter.z); 
-        Vector3 currentCirclePosition = new Vector3(x, currentHeight, z);       
+        Vector3 topPosition = new Vector3(mapCenter.x, maxHeight, mapCenter.z);
+        Vector3 currentCirclePosition = new Vector3(x, currentHeight, z);
 
         float heightRatio = Mathf.Clamp01((currentHeight - minHeight) / (maxHeight - minHeight) * 0.999f);
         transform.position = Vector3.Lerp(currentCirclePosition, topPosition, heightRatio);
@@ -90,11 +91,8 @@ public class CameraController : MonoBehaviour
         transform.LookAt(new Vector3(mapCenter.x, 0, mapCenter.z));
     }
 
-    void CalculateMapCenterAndRadius()
+    void CalculateMapCenter()
     {
         mapCenter = mapBounds.transform.position;
-
-        halfWidth = mapBounds.transform.localScale.x / 2;
-        halfLength = mapBounds.transform.localScale.z / 2;
     }
 }
