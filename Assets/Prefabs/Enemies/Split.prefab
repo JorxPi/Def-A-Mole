@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageable: {fileID: 0}
   enemyAI: {fileID: 0}
-  goldReward: 50
+  goldReward: 20
   smallerEnemyPrefab: {fileID: 3274956001613883752, guid: 81c15d740104519419bcb23fd3b29769, type: 3}
   splitCount: 2
   spawnRadius: 0.5

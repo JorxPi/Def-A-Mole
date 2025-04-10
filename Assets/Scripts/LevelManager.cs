@@ -53,7 +53,6 @@ public class LevelManager : MonoBehaviour
         if (enemyAI != null)
         {
             Vector3 targetPoint = CalculateTargetPoint(out float targetAngle);
-            Debug.Log($"Enemigo asignado al ángulo: {targetAngle}° en el nivel {currentLevel} y punto final {targetPoint}");
             enemyAI.SetTarget(targetPoint);
             //enemies.Add(enemy);
         }
@@ -63,7 +62,6 @@ public class LevelManager : MonoBehaviour
     {
         if (currentAngleRanges == null || currentAngleRanges.Count == 0)
         {
-            Debug.LogError("No se pueden calcular puntos objetivo. currentAngleRanges está vacío o es null.");
             selectedAngle = 0;
             return Vector3.zero;
         }
@@ -161,9 +159,6 @@ public class LevelManager : MonoBehaviour
             usedAngles.Add(randomAngle);
             currentAngleRanges.Add(new Vector2(randomAngle, randomAngle + 15));
         }
-
-        Debug.Log($"Level {level} Angle Ranges: {string.Join(" | ", currentAngleRanges)}");
-
         if (barrierIndicator != null)
         {
             barrierIndicator.DrawIndicators(currentAngleRanges); // Update visualization
@@ -295,7 +290,6 @@ public class LevelManager : MonoBehaviour
         if (defenseToUnlock != null && !unlockedDefenses.Contains(defenseToUnlock))
         {
             unlockedDefenses.Add(defenseToUnlock);
-            Debug.Log($"Unlocked {defenseName} at level {currentLevel}");
         }
     }
 

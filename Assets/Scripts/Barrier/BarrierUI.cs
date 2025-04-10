@@ -4,48 +4,44 @@ using TMPro;
 
 public class BarrierUI : MonoBehaviour
 {
-    public TMP_Text healthText; // Asigna esto en el Inspector
-    public Slider healthBar;
-    public Barrier barrier; // Asigna esto en el Inspector
+    public TMP_Text healthText;  
+    public Slider healthBar;        
+    public Barrier barrier;         
 
-    private void OnEnable()
-    {
-        if (barrier != null)
-        {
-            barrier.onHealthChanged += UpdateHealthDisplay;
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (barrier != null)
-        {
-            barrier.onHealthChanged -= UpdateHealthDisplay;
-        }
-    }
+    private float lastHealth = -1f;
 
     private void Start()
     {
+        UpdateHealthUI(barrier.GetCurrentHealth());
+
+        barrier.onHealthChanged += HandleHealthChanged;
+    }
+
+    private void OnDestroy()
+    {
         if (barrier != null)
         {
-            UpdateHealthDisplay(barrier.GetCurrentHealth());
+            barrier.onHealthChanged -= HandleHealthChanged;
         }
     }
 
-    private void UpdateHealthDisplay(float currentHealth)
+    private void HandleHealthChanged(float newHealth)
     {
-        if (healthText != null)
+        if (!Mathf.Approximately(newHealth, lastHealth))
         {
-            healthText.text = $"HP: {currentHealth}";
+            UpdateHealthUI(newHealth);
         }
-        else
-        {
-            Debug.LogError("healthText no está asignado en el Inspector.");
-        }
+    }
 
-        if (healthBar != null)
-        {
-            healthBar.value = currentHealth / barrier.maxHealth; 
-        }
+    private void UpdateHealthUI(float currentHealth)
+    {
+        lastHealth = currentHealth;
+
+        healthText.text = $"HP: {Mathf.RoundToInt(currentHealth)}";
+
+        float normalized = Mathf.Clamp01(currentHealth / barrier.maxHealth);
+        healthBar.value = normalized;
     }
 }
+
+

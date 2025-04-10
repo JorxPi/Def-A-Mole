@@ -7,38 +7,43 @@ public class SplitEnemy : Enemy
     public GameObject smallerEnemyPrefab;
     public int splitCount = 2;
     public float spawnRadius = 0.5f; // Radio para el spawn de los enemigos pequeños
-    
+
     protected override void HandleDeath()
     {
-        // Obtener la posición objetivo del enemigo actual
+        SpawnChildren();
+
+        // Now call base Die manually
+        Damageable damageable = GetComponent<Damageable>();
+        damageable.OnDeath -= HandleDeath; // Avoid double calls
+        StartCoroutine(DieAfterSplit());
+    }
+
+    private void SpawnChildren()
+    {
         Vector3 currentPosition = transform.position;
         LevelManager levelManager = FindObjectOfType<LevelManager>();
-        DamageVignetteController warningZone = FindObjectOfType<DamageVignetteController>();
 
         for (int i = 0; i < splitCount; i++)
         {
-            // Calcular una posición offset aleatoria en el plano XZ
             Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
             Vector3 offset = new Vector3(randomCircle.x, 0, randomCircle.y);
-            
-            // Instanciar el enemigo pequeño
+
             GameObject smallerEnemy = Instantiate(smallerEnemyPrefab, currentPosition + offset, transform.rotation);
-            
-            // Si el enemigo pequeño tiene un EnemyAI, establecer su objetivo
-            if (smallerEnemy.TryGetComponent<EnemyAI>(out EnemyAI ai) && this.TryGetComponent<EnemyAI>(out EnemyAI thisAI))
+
+            if (smallerEnemy.TryGetComponent<EnemyAI>(out EnemyAI ai) && GetComponent<EnemyAI>() is EnemyAI thisAI)
             {
                 ai.SetTarget(thisAI.GetBarrierPoint());
             }
+
             levelManager.enemiesAlive++;
-
-            if (IsInsideWarningZone(smallerEnemy))
-            {
-                ai.isInBarrier = true;
-            }
-
         }
+    }
 
-        // Llamar al HandleDeath base después de crear los enemigos pequeños
+    private IEnumerator DieAfterSplit()
+    {
+        yield return null; // Wait one frame
+
+        // Proceed with normal death behavior
         base.HandleDeath();
     }
 

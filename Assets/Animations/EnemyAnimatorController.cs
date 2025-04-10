@@ -26,7 +26,6 @@ public class EnemyAnimatorController : MonoBehaviour
 
     public void PlayDead()
     {
-        Debug.Log("die");
         animator.SetBool("isAttacking", false);
         animator.SetBool("isDead", true);
     }

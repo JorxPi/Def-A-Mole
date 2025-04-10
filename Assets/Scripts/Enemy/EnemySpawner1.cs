@@ -45,8 +45,6 @@ public class EnemySpawner1 : MonoBehaviour
         GameObject enemy = Instantiate(selectedPrefab, spawnPoint.position, Quaternion.identity);
 
         levelManager.AssignTargetToEnemy(enemy.GetComponent<EnemyAI>());
-
-        Debug.Log($"Enemigo ha sido creado. ({levelManager.enemiesAlive} enemigos)");
     }
 
     private int CalculateEnemiesForLevel(int level)

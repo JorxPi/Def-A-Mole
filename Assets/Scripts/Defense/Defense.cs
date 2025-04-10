@@ -78,7 +78,6 @@ public class Defense : MonoBehaviour
             {
                 if (hit.transform == baseTransform) // Ensure click is on this defense's base
                 {
-                    Debug.Log($"Clicked on Base of: {gameObject.name}");
                     UpgradeUI.Instance.ShowUpgradePanel(gameObject);
                 }
             }

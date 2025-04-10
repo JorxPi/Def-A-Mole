@@ -42,7 +42,7 @@ public class DeployManager : MonoBehaviour
 
     public void StartDeployment(DefenseData defenseData)
     {
-        int adjustedCost = DayNightManager.Instance.IsNightMode ? Mathf.CeilToInt(defenseData.cost * 1.3f) : defenseData.cost;
+        int adjustedCost = DayNightManager.Instance.IsNightMode ? Mathf.CeilToInt(defenseData.cost * 1.5f) : defenseData.cost;
 
         if (CurrencyManager.Instance.HasEnoughGold(adjustedCost))
         {
@@ -89,14 +89,8 @@ public class DeployManager : MonoBehaviour
             Transform previewBase = previewInstance.transform.Find("Base");
             if (previewBase == null)
             {
-                Debug.LogError("Preview Base not found!");
                 return;
             }
-
-            Debug.Log(!IsDefenseInLocation());
-            Debug.Log(IsInsideMap(hit.point));
-            Debug.Log(!IsInsideRestrictedZone(hit.point));
-
 
             bool isValidPlacement = !IsDefenseInLocation() && IsInsideMap(hit.point) && !IsInsideRestrictedZone(hit.point);
             UpdatePreviewColor(isValidPlacement);
@@ -107,7 +101,7 @@ public class DeployManager : MonoBehaviour
     {
         if (previewInstance == null) return;
 
-        int adjustedCost = DayNightManager.Instance.IsNightMode ? Mathf.CeilToInt(currentDefenseData.cost * 1.3f) : currentDefenseData.cost;
+        int adjustedCost = DayNightManager.Instance.IsNightMode ? Mathf.CeilToInt(currentDefenseData.cost * 1.5f) : currentDefenseData.cost;
 
         if (!IsDefenseInLocation() && IsInsideMap(previewInstance.transform.position) && !IsInsideRestrictedZone(previewInstance.transform.position))
         {

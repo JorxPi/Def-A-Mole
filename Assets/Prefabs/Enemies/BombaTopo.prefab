@@ -955,7 +955,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageable: {fileID: 0}
   enemyAI: {fileID: 0}
-  goldReward: 50
+  goldReward: 15
   explosionRadius: 3
   explosionDamage: 50
 --- !u!114 &4185090312090111848

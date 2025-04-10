@@ -10,6 +10,7 @@ public class Damageable : MonoBehaviour
     public float maxHealth;
 
     private Defense defense;
+    private bool isDead = false;
 
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>(); //(stores original color to change back after the red effect)
 
@@ -58,8 +59,12 @@ public class Damageable : MonoBehaviour
 
     private void Die()
     {
+        if (isDead) return; 
+        isDead = true;
+
         OnDeath?.Invoke();
 
+        Debug.Log("Die-Damageable");
         Enemy enemy = GetComponent<Enemy>();
         if (enemy != null)
         {

@@ -17,7 +17,7 @@ MonoBehaviour:
   attackDamage: 0
   attackSpeed: 0
   maxHealth: 300
-  cost: 70
+  cost: 60
   upgradeCosts: 3c0000005a000000
   defenseIcon: {fileID: 0}
   prefab: {fileID: 6138668607168900822, guid: 23874fd1156c79b40858b728aeb75d33, type: 3}

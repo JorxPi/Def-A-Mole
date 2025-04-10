@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
 
     public int goldReward = 1;
 
+    private bool hasHandledDeath = false;
+
     protected virtual void Start()
     {
         // Inicializar componentes
@@ -29,6 +31,10 @@ public class Enemy : MonoBehaviour
 
     protected virtual void HandleDeath()
     {
+        if (hasHandledDeath) return; 
+        hasHandledDeath = true;
+
+        Debug.Log("HandleDeath");
         if (enemyAI.isAttackingBarrier)
         {
             DamageVignetteController vignetteController = FindObjectOfType<DamageVignetteController>();

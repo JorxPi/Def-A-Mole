@@ -66,15 +66,9 @@ public class RangeIndicator : MonoBehaviour
 
             if (hit.transform.gameObject == baseTransform.gameObject)
             {
-                Debug.Log("Base clicked, showing range indicator.");
                 if (rangeIndicator != null)
                 {
                     rangeIndicator.SetActive(true);
-                    Debug.Log("Range indicator activated.");
-                }
-                else
-                {
-                    Debug.LogError("Range indicator is NULL!");
                 }
                 isMouseDownOnDefense = true;
             }

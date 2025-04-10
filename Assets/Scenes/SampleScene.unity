@@ -450,7 +450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c707f660953cdce40a646e200ec35383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingGold: 100
+  startingGold: 20
 --- !u!4 &112543002
 Transform:
   m_ObjectHideFlags: 0
@@ -3588,7 +3588,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1201170505}
-  - component: {fileID: 1201170504}
+  - component: {fileID: 1201170506}
   m_Layer: 0
   m_Name: BarrierUI
   m_TagString: Untagged
@@ -3596,21 +3596,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1201170504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1201170503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13de60a3107e4764f86f8c1deac6f5a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthText: {fileID: 1125016865}
-  healthBar: {fileID: 554535734}
-  barrier: {fileID: 339298384}
 --- !u!4 &1201170505
 Transform:
   m_ObjectHideFlags: 0
@@ -3626,6 +3611,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1201170506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201170503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13de60a3107e4764f86f8c1deac6f5a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthText: {fileID: 1125016865}
+  healthBar: {fileID: 554535734}
+  barrier: {fileID: 339298384}
 --- !u!1001 &1230622203
 PrefabInstance:
   m_ObjectHideFlags: 0

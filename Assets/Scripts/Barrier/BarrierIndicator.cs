@@ -40,7 +40,6 @@ public class BarrierIndicator : MonoBehaviour
     {
         if (angleRanges == null || angleRanges.Count == 0)
         {
-            Debug.LogWarning("No angle ranges provided. Skipping visualization.");
             return;
         }
 
@@ -48,8 +47,6 @@ public class BarrierIndicator : MonoBehaviour
 
         foreach (Vector2 range in angleRanges)
         {
-            Debug.Log($"Drawing indicator for angle range: {range.x}° to {range.y}°");
-
             LineRenderer newRenderer = CreateNewLineRenderer(indicatorColor, 1.0f);
             activeAngleRenderers.Add(newRenderer);
 
@@ -67,8 +64,6 @@ public class BarrierIndicator : MonoBehaviour
             newRenderer.positionCount = points.Count;
             newRenderer.SetPositions(points.ToArray());
         }
-
-        Debug.Log($"Total indicators drawn: {activeAngleRenderers.Count}");
     }
 
     private LineRenderer CreateNewLineRenderer(Color color, float width)

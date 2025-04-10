@@ -49,8 +49,6 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        Debug.Log($"START ENEMY");
-
         animController = GetComponent<EnemyAnimatorController>();
 
         agent = GetComponent<NavMeshAgent>();
@@ -242,8 +240,6 @@ public class EnemyAI : MonoBehaviour
     {
         float slowMultiplier = 1f - (slowAmount / 100f);
         agent.speed = Mathf.Max(baseSpeed * slowMultiplier, 0.1f);
-
-        Debug.Log($"{gameObject.name} ha sido ralentizado en {slowAmount}% durante {slowDuration} segundos. (Nueva Vel: {agent.speed})");
 
         isSlowed = true;
         slowTimer = slowDuration;
