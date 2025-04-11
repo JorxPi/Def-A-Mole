@@ -76,9 +76,11 @@ public class Defense : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("BaseLayer")))
             {
-                if (hit.transform == baseTransform) // Ensure click is on this defense's base
+                if (hit.transform == baseTransform) 
                 {
                     UpgradeUI.Instance.ShowUpgradePanel(gameObject);
+
+                    SellUI.Instance.ShowSellPanel(gameObject);
                 }
             }
         }
