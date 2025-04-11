@@ -77,7 +77,7 @@ public class EnemyAI : MonoBehaviour
         {
 
             float distanceToDefense = Vector3.Distance(transform.position, targetDefense.transform.position);
-            if (distanceToDefense <= attackRange + 3)
+            if (distanceToDefense <= attackRange + 3.5)
             {
                 if (!canAttack)
                 {
