@@ -4,8 +4,8 @@ using TMPro;
 
 public class BarrierUI : MonoBehaviour
 {
-    public TMP_Text healthText;  
-    public Slider healthBar;        
+    public TMP_Text healthText;
+    public Image healthFillImage;
     public Barrier barrier;         
 
     private float lastHealth = -1f;
@@ -40,7 +40,9 @@ public class BarrierUI : MonoBehaviour
         healthText.text = $"HP: {Mathf.RoundToInt(currentHealth)}";
 
         float normalized = Mathf.Clamp01(currentHealth / barrier.maxHealth);
-        healthBar.value = normalized;
+        healthFillImage.fillAmount = normalized;
+        //healthBar.value = normalized;
+        // get component image . fillAmount
     }
 }
 

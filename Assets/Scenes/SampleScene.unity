@@ -1418,17 +1418,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7391674770292163061, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
   m_PrefabInstance: {fileID: 799323612}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &554535734 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5081224312630719823, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
-  m_PrefabInstance: {fileID: 799323612}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &579030241
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,15 +2229,20 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1824941295}
+    - target: {fileID: 5081224312630719823, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5432178594204631803, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 6594850249220650256, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5081224312630719823, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2752,6 +2746,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 351fddb729d6fdf4d8e6a813ad69930a, type: 3}
   m_PrefabInstance: {fileID: 1057240171}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1096133337 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 680179214530479791, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+  m_PrefabInstance: {fileID: 799323612}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1101888834
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3180,7 +3185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthText: {fileID: 1125016865}
-  healthBar: {fileID: 554535734}
+  healthFillImage: {fileID: 1096133337}
   barrier: {fileID: 339298384}
 --- !u!1001 &1230622203
 PrefabInstance:

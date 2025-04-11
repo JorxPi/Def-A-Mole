@@ -20,6 +20,12 @@ public class LevelManager : MonoBehaviour
 
     private BarrierIndicator barrierIndicator;
 
+    public int GetEnemyHpBonus() => enemyHpBonus;
+    public int GetEnemyDamageBonus() => enemyDamageBonus;
+
+    private int enemyHpBonus = 0;
+    private int enemyDamageBonus = 0;
+
     public static LevelManager Instance { get; private set; }
 
     private void Awake()
@@ -191,6 +197,9 @@ public class LevelManager : MonoBehaviour
     public void StartNextLevel()
     {
         currentLevel++;
+
+        ScaleEnemyStats();
+
         SetAngleRangesForLevel(currentLevel);
         UpdateLevelText();
 
@@ -299,6 +308,17 @@ public class LevelManager : MonoBehaviour
         {
             bool isUnlocked = unlockedDefenses.Contains(button.defenseData);
             button.GetComponent<Button>().interactable = isUnlocked; // Keep visible but disable interaction
+        }
+    }
+
+    private void ScaleEnemyStats()
+    {
+        if ((currentLevel - 1) % 5 == 0 && currentLevel > 1)
+        {
+            enemyHpBonus += 50;
+            enemyDamageBonus += 10;
+
+            Debug.Log($"[Level {currentLevel}] Enemy bonus increased: +{enemyHpBonus} HP, +{enemyDamageBonus} DMG");
         }
     }
 }

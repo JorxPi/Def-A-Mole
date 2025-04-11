@@ -41,8 +41,23 @@ public class EnemySpawner1 : MonoBehaviour
     private void SpawnEnemy()
     {
         GameObject selectedPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-
         GameObject enemy = Instantiate(selectedPrefab, spawnPoint.position, Quaternion.identity);
+
+        int hpBonus = levelManager.GetEnemyHpBonus();
+        int damageBonus = levelManager.GetEnemyDamageBonus();
+
+        Damageable dmg = enemy.GetComponent<Damageable>();
+        if (dmg != null)
+        {
+            dmg.health += hpBonus;
+            dmg.maxHealth = dmg.health;
+        }
+
+        EnemyAI ai = enemy.GetComponent<EnemyAI>();
+        if (ai != null)
+        {
+            ai.damageAmount += damageBonus;
+        }
 
         levelManager.AssignTargetToEnemy(enemy.GetComponent<EnemyAI>());
     }
