@@ -293,8 +293,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.59
-  m_Center: {x: 0, y: 1.6, z: 0}
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7423570188215275992
 GameObject:
   m_ObjectHideFlags: 0
