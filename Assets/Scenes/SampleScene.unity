@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c707f660953cdce40a646e200ec35383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingGold: 20
+  startingGold: 300
 --- !u!4 &112543002
 Transform:
   m_ObjectHideFlags: 0
@@ -5309,11 +5309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 3274956001613883752, guid: af80ab9109e89dd418a3c20df45bf70a, type: 3}
   - {fileID: 3274956001613883752, guid: 1e0748bd770dfe84cb448f8d5ebcca43, type: 3}
-  - {fileID: 3274956001613883752, guid: 4ee2932fa35dfd941b974f268534a74c, type: 3}
-  - {fileID: 3274956001613883752, guid: f567673d05e41dd4381c7b85bf8db7d3, type: 3}
-  - {fileID: 3274956001613883752, guid: f802724348fb48b46afe1666625a7015, type: 3}
   spawnPoint: {fileID: 262209974}
   spawnInterval: 2
 --- !u!114 &2123312588 stripped
