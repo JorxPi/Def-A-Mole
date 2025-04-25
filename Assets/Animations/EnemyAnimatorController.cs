@@ -6,6 +6,7 @@ public class EnemyAnimatorController : MonoBehaviour
 {
     public Animator animator;
 
+
     private void Awake()
     {
         if(animator == null)
@@ -14,19 +15,18 @@ public class EnemyAnimatorController : MonoBehaviour
 
     public void PlayAttack()
     {
-        Debug.Log("playttack");
-        animator.SetBool("isAttacking", true);
+        animator.ResetTrigger("attack"); 
+        animator.SetTrigger("attack");
     }
 
-    public void StopAttack()
+    /*public void StopAttack()
     {
         Debug.Log("StopAttack");
         animator.SetBool("isAttacking", false);
-    }
+    }*/
 
     public void PlayDead()
     {
-        animator.SetBool("isAttacking", false);
         animator.SetBool("isDead", true);
     }
 }

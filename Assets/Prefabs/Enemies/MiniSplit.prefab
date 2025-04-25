@@ -196,6 +196,7 @@ MonoBehaviour:
   aggroRange: 1
   isAttackingBarrier: 0
   isInBarrier: 0
+  attackLoopClip: {fileID: 1843676088249042896, guid: 55283fc70964a654a8cdc3a390d6625d, type: 3}
 --- !u!114 &3004620249168602626
 MonoBehaviour:
   m_ObjectHideFlags: 0

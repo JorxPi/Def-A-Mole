@@ -34,6 +34,9 @@ public class EnemyAI : MonoBehaviour
 
     private EnemyAnimatorController animController;
 
+    [Header("Animation Timing")]
+    public AnimationClip attackLoopClip;
+
     void OnEnable()
     {
         Defense.OnDefenseSpawned += HandleDefenseSpawned;
@@ -67,6 +70,17 @@ public class EnemyAI : MonoBehaviour
             targetDefense = defenseInRange;
             isAttackingDefense = true;
             agent.SetDestination(defenseInRange.transform.position);
+        }
+
+        if (attackLoopClip != null)
+        {
+            float clipLength = attackLoopClip.length;
+            float speed = clipLength / attackInterval;
+            animController.animator.SetFloat("attackSpeed", speed);
+        }
+        else
+        {
+            Debug.LogWarning("Assign the looping attack clip in EnemyAI.");
         }
     }
 
@@ -117,16 +131,31 @@ public class EnemyAI : MonoBehaviour
 
         bool shouldBeAttacking = (isAttackingBarrier || isAttackingDefense) && canAttack;
 
-        // Manage animation transition ONLY when state changes
-        if (shouldBeAttacking && !isAnimatingAttack)
+        // Tick attack timer
+        if (shouldBeAttacking)
         {
-            animController.PlayAttack();
-            isAnimatingAttack = true;
+            attackTimer += Time.deltaTime;
+            if (attackTimer >= attackInterval)
+            {
+                // Play attack animation
+                animController.PlayAttack();
+
+                // Apply damage
+                if (isAttackingBarrier)
+                {
+                    AttackBarrier();
+                }
+                else if (isAttackingDefense && targetDefense != null)
+                {
+                    AttackDefense();
+                }
+
+                attackTimer = 0f;
+            }
         }
-        else if (!shouldBeAttacking && isAnimatingAttack)
+        else
         {
-            animController.StopAttack();
-            isAnimatingAttack = false;
+            attackTimer = 0f; // reset if not in range
         }
 
         // Proceed with attack logic if allowed
@@ -187,7 +216,7 @@ public class EnemyAI : MonoBehaviour
 
     private void AttackBarrier()
     {
-        animController.PlayAttack();
+        //animController.PlayAttack();
         targetBarrier.TakeDamage(damageAmount);
 
         Damageable damageable = GetComponent<Damageable>();
@@ -202,7 +231,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (targetDefense != null)
         {
-            animController.PlayAttack();
+            //animController.PlayAttack();
             Debug.Log($"{gameObject.name} ataca la defensa causando {damageAmount} de daño.");
             targetDefense.TryGetComponent<Damageable>(out Damageable damageable);
             damageable.ApplyDamage(damageAmount, gameObject);
