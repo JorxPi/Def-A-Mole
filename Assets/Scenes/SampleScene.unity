@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.5015748, g: 0.27015787, b: 0.21001217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c707f660953cdce40a646e200ec35383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingGold: 300
+  startingGold: 20
 --- !u!4 &112543002
 Transform:
   m_ObjectHideFlags: 0
@@ -1825,7 +1825,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1834,10 +1834,10 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.243
     m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NormalBias: 0.88
+    m_NearPlane: 0.1
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -5309,7 +5309,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
+  - {fileID: 3274956001613883752, guid: af80ab9109e89dd418a3c20df45bf70a, type: 3}
   - {fileID: 3274956001613883752, guid: 1e0748bd770dfe84cb448f8d5ebcca43, type: 3}
+  - {fileID: 3274956001613883752, guid: 4ee2932fa35dfd941b974f268534a74c, type: 3}
+  - {fileID: 3274956001613883752, guid: f567673d05e41dd4381c7b85bf8db7d3, type: 3}
+  - {fileID: 3274956001613883752, guid: f802724348fb48b46afe1666625a7015, type: 3}
   spawnPoint: {fileID: 262209974}
   spawnInterval: 2
 --- !u!114 &2123312588 stripped
@@ -5337,7 +5341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4622445270162537301, guid: 04628fe7ba4207749a81e9274befca29, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.799999
+      value: 9.32
       objectReference: {fileID: 0}
     - target: {fileID: 4622445270162537301, guid: 04628fe7ba4207749a81e9274befca29, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5482,7 +5486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7021957313842080702, guid: 1d31397544cb482429c9757526ec6b87, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.799999
+      value: 9.3099985
       objectReference: {fileID: 0}
     - target: {fileID: 7021957313842080702, guid: 1d31397544cb482429c9757526ec6b87, type: 3}
       propertyPath: m_LocalPosition.z
