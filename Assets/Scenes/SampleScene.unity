@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5015748, g: 0.27015787, b: 0.21001217, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5274,6 +5274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2119143361}
   - component: {fileID: 2119143362}
+  - component: {fileID: 2119143363}
   m_Layer: 0
   m_Name: EnemySpawn
   m_TagString: Untagged
@@ -5308,14 +5309,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db237d689391f4d4dabf5377ff4b47b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 3274956001613883752, guid: af80ab9109e89dd418a3c20df45bf70a, type: 3}
-  - {fileID: 3274956001613883752, guid: 1e0748bd770dfe84cb448f8d5ebcca43, type: 3}
-  - {fileID: 3274956001613883752, guid: 4ee2932fa35dfd941b974f268534a74c, type: 3}
-  - {fileID: 3274956001613883752, guid: f567673d05e41dd4381c7b85bf8db7d3, type: 3}
-  - {fileID: 3274956001613883752, guid: f802724348fb48b46afe1666625a7015, type: 3}
-  spawnPoint: {fileID: 262209974}
-  spawnInterval: 2
+  director: {fileID: 2119143363}
+  spawnPoints:
+  - {fileID: 2119143361}
+--- !u!114 &2119143363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119143359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 620dae2d2e26e4e4490b6d0fee0e77ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyTypes:
+  - enemyPrefab: {fileID: 3274956001613883752, guid: 4ee2932fa35dfd941b974f268534a74c, type: 3}
+    cost: 2
+    weight: 5
+  - enemyPrefab: {fileID: 3274956001613883752, guid: af80ab9109e89dd418a3c20df45bf70a, type: 3}
+    cost: 4
+    weight: 3
+  - enemyPrefab: {fileID: 3274956001613883752, guid: f802724348fb48b46afe1666625a7015, type: 3}
+    cost: 3
+    weight: 1
+  - enemyPrefab: {fileID: 3274956001613883752, guid: 1e0748bd770dfe84cb448f8d5ebcca43, type: 3}
+    cost: 3
+    weight: 4
+  - enemyPrefab: {fileID: 3274956001613883752, guid: f567673d05e41dd4381c7b85bf8db7d3, type: 3}
+    cost: 5
+    weight: 2
+  baseSalary: 4
+  salaryIncreasePerLevel: 4
 --- !u!114 &2123312588 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 352771580724756076, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
