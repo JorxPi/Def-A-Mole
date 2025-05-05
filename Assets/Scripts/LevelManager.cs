@@ -219,13 +219,14 @@ public class LevelManager : MonoBehaviour
     {
         EnemySpawner1 enemySpawner = FindObjectOfType<EnemySpawner1>();
 
+        enemySpawner.StartLevel(currentLevel);
+
         totalEnemiesThisWave = enemySpawner.GetEnemiesToSpawn(currentLevel);
         enemiesAlive = totalEnemiesThisWave;
 
-        enemySpawner.StartLevel(currentLevel);
-
         Debug.Log($"[Level {currentLevel}] Iniciando oleada nocturna con {totalEnemiesThisWave} enemigos.");
     }
+
 
     private void UpdateLevelText()
     {

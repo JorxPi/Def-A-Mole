@@ -1,78 +1,47 @@
 using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
-
 
 public class EnemySpawner1 : MonoBehaviour
 {
-    public GameObject[] enemyPrefabs; // Tipos de enemigos disponibles
-    public Transform spawnPoint; // Punto de spawn
-    public float spawnInterval = 2f; // Tiempo entre spawns
+    public Director director;
+    public Transform[] spawnPoints;
+    public float spawnInterval = 0.5f;
 
-    private int enemiesToSpawn;
-    private int enemiesSpawned;
-
-    private LevelManager levelManager;
-
-    private void Start()
-    {
-        levelManager = FindObjectOfType<LevelManager>();
-    }
+    private List<GameObject> currentWave; // Cached wave
 
     public void StartLevel(int level)
     {
-        enemiesToSpawn = CalculateEnemiesForLevel(level);
-        enemiesSpawned = 0;
-
-        // Comienza a spawnear enemigos
-        StartCoroutine(SpawnEnemies());
+        currentWave = director.GenerateEnemyWave(level);
+        StartCoroutine(SpawnWaveCoroutine(currentWave));
     }
 
-    private IEnumerator SpawnEnemies()
+    private IEnumerator SpawnWaveCoroutine(List<GameObject> wave)
     {
-        while (enemiesSpawned < enemiesToSpawn)
+        foreach (GameObject enemyPrefab in wave)
         {
-            SpawnEnemy();
-            enemiesSpawned++;
+            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            GameObject enemyGO = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+
+            EnemyAI enemyAI = enemyGO.GetComponent<EnemyAI>();
+            if (enemyAI != null)
+            {
+                LevelManager.Instance.AssignTargetToEnemy(enemyAI);
+            }
+
             yield return new WaitForSeconds(spawnInterval);
         }
     }
 
-    private void SpawnEnemy()
-    {
-        GameObject selectedPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-        GameObject enemy = Instantiate(selectedPrefab, spawnPoint.position, Quaternion.identity);
-
-        int hpBonus = levelManager.GetEnemyHpBonus();
-        int damageBonus = levelManager.GetEnemyDamageBonus();
-
-        Damageable dmg = enemy.GetComponent<Damageable>();
-        if (dmg != null)
-        {
-            dmg.health += hpBonus;
-            dmg.maxHealth = dmg.health;
-        }
-
-        EnemyAI ai = enemy.GetComponent<EnemyAI>();
-        if (ai != null)
-        {
-            ai.damageAmount += damageBonus;
-        }
-
-        levelManager.AssignTargetToEnemy(enemy.GetComponent<EnemyAI>());
-    }
-
-    private int CalculateEnemiesForLevel(int level)
-    {
-        if (level <= 10)
-            return Mathf.RoundToInt(2 + Mathf.Pow(level, 1.5f));
-        if (level <= 20)
-            return Mathf.RoundToInt(30 + (level - 10) * 2);
-        return Mathf.Clamp(50 + (level - 20), 50, 100);
-    }
-
     public int GetEnemiesToSpawn(int level)
     {
-        return CalculateEnemiesForLevel(level);
+        // Return size of cached wave if available and same level
+        if (currentWave != null)
+            return currentWave.Count;
+
+        // Fallback if StartLevel hasn't been called yet
+        List<GameObject> tempWave = director.GenerateEnemyWave(level);
+        return tempWave.Count;
     }
 }
+
