@@ -17,7 +17,7 @@ public class Damageable : MonoBehaviour
     private Defense defense;
     private bool isDead = false;
 
-    private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>(); //(stores original color to change back after the red effect)
+    private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>(); //(stores original color to change back after the red effect)   
 
 
     public event Action OnDeath;
@@ -28,7 +28,11 @@ public class Damageable : MonoBehaviour
         if (defense != null && defense.baseStats != null)
         {
             maxHealth = defense.baseStats.maxHealth;
-            health = maxHealth; 
+            health = maxHealth;
+        }
+        else
+        {
+            maxHealth = health;
         }
 
         UpdateHealthBar();
@@ -145,6 +149,7 @@ public class Damageable : MonoBehaviour
     {
         if (healthBar != null)
         {
+            Debug.Log(health+" - "+ maxHealth);
             float normalized = Mathf.Clamp01(health / maxHealth);
             healthBar.fillAmount = normalized;
         }
