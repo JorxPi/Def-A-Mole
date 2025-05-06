@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Environment/grass.prefab.meta
+guid: 2158ae61c25c2af47b7eb5029f520835
+PrefabImporter:
+========
 guid: 641541af1902feb4897fdc8dd4a00193
 folderAsset: yes
 DefaultImporter:
+>>>>>>>> origin/temp2:Assets/FBX/Gradient defense.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
