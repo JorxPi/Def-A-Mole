@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageable: {fileID: 0}
   enemyAI: {fileID: 0}
-  goldReward: 10
+  goldReward: 15
 --- !u!114 &4185090312090111848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d214cb0bdb3fa6f43b08d06805d55243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
-  attackInterval: 1
+  damageAmount: 20
+  attackInterval: 2
   baseSpeed: 4
   attackRange: 2.12
   aggroRange: 1

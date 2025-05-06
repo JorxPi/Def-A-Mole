@@ -120,9 +120,6 @@ PrefabInstance:
       addedObject: {fileID: -5333959171225172069}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8979349907174846743}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -6421857834724344473}
   m_SourcePrefab: {fileID: 100100000, guid: f201f1fe4fd064d4caf1ff02e3cbde3f, type: 3}
 --- !u!4 &2754280533072212946 stripped
@@ -185,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageable: {fileID: 0}
   enemyAI: {fileID: 0}
-  goldReward: 15
+  goldReward: 25
 --- !u!114 &4185090312090111848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d214cb0bdb3fa6f43b08d06805d55243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
+  damageAmount: 30
   attackInterval: 1
   baseSpeed: 1
   attackRange: 2.12
@@ -218,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26729e88667959e43b3d8ea9dfe97ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 220
   maxHealth: 0
 --- !u!54 &7705317026927498291
 Rigidbody:
@@ -269,21 +266,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8979349907174846743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3274956001613883752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13de60a3107e4764f86f8c1deac6f5a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthText: {fileID: 0}
-  healthFillImage: {fileID: 0}
-  barrier: {fileID: 0}
 --- !u!114 &-6421857834724344473
 MonoBehaviour:
   m_ObjectHideFlags: 0
