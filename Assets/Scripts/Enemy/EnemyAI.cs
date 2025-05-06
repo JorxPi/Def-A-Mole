@@ -6,7 +6,6 @@ using System;
 [RequireComponent(typeof(Enemy))]
 public class EnemyAI : MonoBehaviour
 {
-
     public float damageAmount = 10f;
     public float attackInterval = 1f;
     public float baseSpeed = 3.5f;
@@ -14,11 +13,11 @@ public class EnemyAI : MonoBehaviour
     public float aggroRange = 3f;
 
     private Vector3 barrierPoint;
+    private float distanceToBarrier;
     private bool isAttackingDefense = false;
     [HideInInspector]
     public bool isAttackingBarrier = false, isInBarrier = false;
     private bool canAttack = false;
-    private bool isAnimatingAttack = false;
 
 
     private bool isSlowed = false;
@@ -86,10 +85,12 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        
-        if(isAttackingDefense && targetDefense != null)
-        {
+        distanceToBarrier =  Vector3.Distance(transform.position, barrierPoint);
 
+        Debug.Log($"Distance to barrier: {distanceToBarrier}");
+
+        if (isAttackingDefense && targetDefense != null)
+        {
             float distanceToDefense = Vector3.Distance(transform.position, targetDefense.transform.position);
             if (distanceToDefense <= attackRange + 3.5)
             {
@@ -110,13 +111,14 @@ public class EnemyAI : MonoBehaviour
         else
         {
             agent.SetDestination(barrierPoint);
-            if (isInBarrier && !isAttackingBarrier)
+
+            if(distanceToBarrier <= attackRange && !isAttackingBarrier)
             {
                 isAttackingBarrier = true;
                 vignetteController.SumEnemyAttacking();
                 canAttack = true;
             }
-            else if (!isInBarrier && isAttackingBarrier)
+            else if(distanceToBarrier > attackRange && isAttackingBarrier)
             {
                 isAttackingBarrier = false;
                 vignetteController.DecreaseEnemiesAttacking();
@@ -190,7 +192,6 @@ public class EnemyAI : MonoBehaviour
     }
 
     // Animation
-
     public void Die()
     {
         if (isAttackingBarrier)
@@ -203,7 +204,6 @@ public class EnemyAI : MonoBehaviour
     }
 
     // Animation finish
-
     public void SetTarget(Vector3 target)
     {
         barrierPoint = target;
@@ -216,7 +216,6 @@ public class EnemyAI : MonoBehaviour
 
     private void AttackBarrier()
     {
-        //animController.PlayAttack();
         targetBarrier.TakeDamage(damageAmount);
 
         Damageable damageable = GetComponent<Damageable>();
@@ -231,7 +230,6 @@ public class EnemyAI : MonoBehaviour
     {
         if (targetDefense != null)
         {
-            //animController.PlayAttack();
             Debug.Log($"{gameObject.name} ataca la defensa causando {damageAmount} de daño.");
             targetDefense.TryGetComponent<Damageable>(out Damageable damageable);
             damageable.ApplyDamage(damageAmount, gameObject);
@@ -240,10 +238,6 @@ public class EnemyAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("WarningZone"))
-        {
-            isInBarrier = false;
-        }
         if (other.CompareTag("Defense"))
         {
             if (!isAttackingDefense)
@@ -255,15 +249,6 @@ public class EnemyAI : MonoBehaviour
             }
         }
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("WarningZone"))
-        {
-            isInBarrier = true;
-        }
-    }
-
 
     public void ApplySlow(float slowAmount, float slowDuration)
     {

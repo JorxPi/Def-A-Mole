@@ -13,7 +13,6 @@ public class DamageVignetteController : MonoBehaviour
     //private List<GameObject> enemiesOutside = new List<GameObject>();
     private int enemiesAttacking = 0;
     private bool isBlinking = false;
-    private float currentAlpha = 0f;
 
     private void Start()
     {
