@@ -69,7 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageable: {fileID: 0}
   enemyAI: {fileID: 0}
-  goldReward: 15
+  goldReward: 20
   explosionRadius: 3
   explosionDamage: 50
 --- !u!114 &4185090312090111848
@@ -84,11 +84,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d214cb0bdb3fa6f43b08d06805d55243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
-  attackInterval: 1
+  damageAmount: 20
+  attackInterval: 1.5
   baseSpeed: 1.5
   attackRange: 2.96
-  aggroRange: 1
+  aggroRange: 1.5
   isAttackingBarrier: 0
   isInBarrier: 0
   attackLoopClip: {fileID: 5425013585217817929, guid: 7cab30f4a81edc744b9fd762c0fb4356, type: 3}
@@ -104,8 +104,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26729e88667959e43b3d8ea9dfe97ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 140
   maxHealth: 0
+  healthBar: {fileID: 0}
 --- !u!114 &155249578450510306
 MonoBehaviour:
   m_ObjectHideFlags: 0
