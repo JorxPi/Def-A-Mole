@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Damageable : MonoBehaviour
 {
@@ -9,13 +11,15 @@ public class Damageable : MonoBehaviour
     [HideInInspector]
     public float maxHealth;
 
+    [Header("Optional")]
+    public Image healthBar;
+
     private Defense defense;
     private bool isDead = false;
 
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>(); //(stores original color to change back after the red effect)
 
 
-    //Event used for gold update on enemy death
     public event Action OnDeath;
 
     private void Awake()
@@ -24,8 +28,10 @@ public class Damageable : MonoBehaviour
         if (defense != null && defense.baseStats != null)
         {
             maxHealth = defense.baseStats.maxHealth;
-            health = maxHealth; 
+            health = maxHealth;
         }
+
+        UpdateHealthBar();
 
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
@@ -40,6 +46,8 @@ public class Damageable : MonoBehaviour
     public void ApplyDamage(float damage, GameObject attacker = null)
     {
         health -= damage;
+
+        UpdateHealthBar();
 
         StartCoroutine(FlashRedEffect());
 
@@ -59,7 +67,7 @@ public class Damageable : MonoBehaviour
 
     private void Die()
     {
-        if (isDead) return; 
+        if (isDead) return;
         isDead = true;
 
         OnDeath?.Invoke();
@@ -104,7 +112,7 @@ public class Damageable : MonoBehaviour
     public void IncreaseMaxHealth(float amount)
     {
         maxHealth += amount;
-        health += amount; 
+        health += amount;
         health = Mathf.Min(health, maxHealth);
     }
 
@@ -118,22 +126,27 @@ public class Damageable : MonoBehaviour
             yield break;
         }
 
-        // Apply red color
         foreach (Renderer renderer in renderers)
         {
             renderer.material.color = Color.red;
         }
 
-        // Wait for 0.2 seconds
         yield return new WaitForSeconds(0.2f);
 
-        // Restore the original color from the stored dictionary
         foreach (Renderer renderer in renderers)
         {
             if (originalColors.TryGetValue(renderer, out Color originalColor))
             {
                 renderer.material.color = originalColor;
             }
+        }
+    }
+    private void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            float normalized = Mathf.Clamp01(health / maxHealth);
+            healthBar.fillAmount = normalized;
         }
     }
 }
