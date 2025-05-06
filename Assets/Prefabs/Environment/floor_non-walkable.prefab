@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d9910b10172f0f54095c2aca7675f5b4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 160f2387640095c40aeaab9696188677, type: 2}
     - target: {fileID: 919132149155446097, guid: d9910b10172f0f54095c2aca7675f5b4, type: 3}
       propertyPath: m_Name
       value: floor_non-walkable
