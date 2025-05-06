@@ -101,7 +101,7 @@ public class DeployManager : MonoBehaviour
     {
         if (previewInstance == null) return;
 
-        int adjustedCost = DayNightManager.Instance.IsNightMode ? Mathf.CeilToInt(currentDefenseData.cost * 1.5f) : currentDefenseData.cost;
+        int adjustedCost = DayNightManager.Instance.IsNightMode ? currentDefenseData.nightCost : currentDefenseData.cost;
 
         if (!IsDefenseInLocation() && IsInsideMap(previewInstance.transform.position) && !IsInsideRestrictedZone(previewInstance.transform.position))
         {

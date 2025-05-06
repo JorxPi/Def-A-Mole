@@ -11,6 +11,7 @@ public class DefenseData : ScriptableObject
     public float attackSpeed;
     public float maxHealth;
     public int cost;
+    public int nightCost;
     public int[] upgradeCosts;
     public Sprite defenseIcon; 
     public GameObject prefab;
