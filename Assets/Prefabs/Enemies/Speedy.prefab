@@ -97,7 +97,7 @@ MonoBehaviour:
   attackInterval: 2
   baseSpeed: 4
   attackRange: 2.12
-  aggroRange: 1
+  aggroRange: 1.5
   isAttackingBarrier: 0
   isInBarrier: 0
   attackLoopClip: {fileID: 6983325209598959271, guid: 0b720ac12797c2747b821474fb594ccd, type: 3}
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 0
+  healthBar: {fileID: 0}
 --- !u!136 &-7354461679131820880
 CapsuleCollider:
   m_ObjectHideFlags: 0
