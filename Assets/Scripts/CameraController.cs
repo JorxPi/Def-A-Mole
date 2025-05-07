@@ -4,31 +4,57 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [Header("Map Bounds")]
     public Collider mapBounds;
 
-    [Header("Orbit Controls")]
-    public float orbitDistance = 55f;
+    [Header("Rotation Controls")]
+    public float horizontalSpeed = 30f;
+    public float verticalSpeed = 10f;
+    public float dragSpeed = 120f;
+
+    [Header("Zoom Controls")]
     public float minZoomDistance = 25f;
     public float maxZoomDistance = 55f;
     public float zoomSpeed = 10f;
+    public float zoomLerpSpeed = 10f;
 
-    [Header("Camera Rotation")]
-    public float horizontalSpeed = 30f;
-    public float verticalSpeed = 10f;
-    public float minHeight = 6f;
-    public float maxHeight = 25f;
+    [Header("Pitch (Tilt) Limits")]
+    [Tooltip("20° means 20° above the horizon; 90° is straight down")]
+    public float minPitchAngle = 20f;
+    public float maxPitchAngle = 90f;
 
-    private float currentAngle = 0f;
-    private float currentHeight;
+    [Tooltip("Tiny offset so we never hit exactly maxPitchAngle")]
+    public float pitchEpsilon = 0.01f;
+
+    // Internals
     private Vector3 mapCenter;
-    private float targetOrbitDistance;
-    public float zoomLerpSpeed = 10f; 
+    private float currentYaw;       // degrees
+    private float currentPitch;     // degrees
+    private float currentDistance;  // radius
+    private float targetDistance;   // for smooth zoom
 
     void Start()
     {
         CalculateMapCenter();
-        currentHeight = minHeight;
-        targetOrbitDistance = orbitDistance;
+
+        // 1) Slam the camera out to the farthest allowed distance
+        Vector3 initDir = (transform.position - mapCenter).normalized;
+        if (initDir == Vector3.zero) initDir = Vector3.forward;
+        transform.position = mapCenter + initDir * maxZoomDistance;
+
+        // 2) Initialize our spherical coordinates
+        Vector3 offset = transform.position - mapCenter;
+        currentDistance = maxZoomDistance;
+        targetDistance = maxZoomDistance;
+
+        // avoid exact singularity at maxPitchAngle
+        float safeMaxPitch = maxPitchAngle - pitchEpsilon;
+        currentPitch = Mathf.Clamp(
+            Mathf.Asin(offset.y / currentDistance) * Mathf.Rad2Deg,
+            minPitchAngle,
+            safeMaxPitch
+        );
+        currentYaw = Mathf.Atan2(offset.z, offset.x) * Mathf.Rad2Deg;
     }
 
     void Update()
@@ -41,58 +67,58 @@ public class CameraController : MonoBehaviour
 
     void HandleHorizontalRotation()
     {
-        if (Input.GetKey(KeyCode.A))
-        {
-            currentAngle -= horizontalSpeed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            currentAngle += horizontalSpeed * Time.deltaTime;
-        }
+        if (Input.GetKey(KeyCode.A)) currentYaw -= horizontalSpeed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.D)) currentYaw += horizontalSpeed * Time.deltaTime;
+        if (Input.GetMouseButton(1))
+            currentYaw += Input.GetAxis("Mouse X") * dragSpeed * Time.deltaTime;
 
-        currentAngle %= 360f;
+        currentYaw %= 360f;
     }
 
     void HandleVerticalRotation()
     {
+        float safeMaxPitch = maxPitchAngle - pitchEpsilon;
         if (Input.GetKey(KeyCode.W))
-        {
-            currentHeight = Mathf.Clamp(currentHeight + verticalSpeed * Time.deltaTime, minHeight, maxHeight);
-        }
+            currentPitch = Mathf.Clamp(currentPitch + verticalSpeed * Time.deltaTime, minPitchAngle, safeMaxPitch);
         if (Input.GetKey(KeyCode.S))
-        {
-            currentHeight = Mathf.Clamp(currentHeight - verticalSpeed * Time.deltaTime, minHeight, maxHeight);
-        }
+            currentPitch = Mathf.Clamp(currentPitch - verticalSpeed * Time.deltaTime, minPitchAngle, safeMaxPitch);
+
+        if (Input.GetMouseButton(1))
+            currentPitch = Mathf.Clamp(
+                currentPitch - Input.GetAxis("Mouse Y") * dragSpeed * Time.deltaTime,
+                minPitchAngle,
+                safeMaxPitch
+            );
     }
 
     void HandleZoom()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (Mathf.Abs(scroll) > 0.01f)
-        {
-            targetOrbitDistance -= scroll * zoomSpeed;
-            targetOrbitDistance = Mathf.Clamp(targetOrbitDistance, minZoomDistance, maxZoomDistance);
-        }
-        orbitDistance = Mathf.Lerp(orbitDistance, targetOrbitDistance, Time.deltaTime * zoomLerpSpeed);
+            targetDistance = Mathf.Clamp(targetDistance - scroll * zoomSpeed, minZoomDistance, maxZoomDistance);
 
+        currentDistance = Mathf.Lerp(currentDistance, targetDistance, Time.deltaTime * zoomLerpSpeed);
     }
 
     void UpdateCameraPosition()
     {
-        float x = mapCenter.x + orbitDistance * Mathf.Cos(currentAngle * Mathf.Deg2Rad);
-        float z = mapCenter.z + orbitDistance * Mathf.Sin(currentAngle * Mathf.Deg2Rad);
+        float radPitch = currentPitch * Mathf.Deg2Rad;
+        float radYaw = currentYaw * Mathf.Deg2Rad;
 
-        Vector3 topPosition = new Vector3(mapCenter.x, maxHeight, mapCenter.z);
-        Vector3 currentCirclePosition = new Vector3(x, currentHeight, z);
+        float y = mapCenter.y + Mathf.Sin(radPitch) * currentDistance;
+        float r = Mathf.Cos(radPitch) * currentDistance;
+        float x = mapCenter.x + r * Mathf.Cos(radYaw);
+        float z = mapCenter.z + r * Mathf.Sin(radYaw);
 
-        float heightRatio = Mathf.Clamp01((currentHeight - minHeight) / (maxHeight - minHeight) * 0.999f);
-        transform.position = Vector3.Lerp(currentCirclePosition, topPosition, heightRatio);
+        transform.position = new Vector3(x, y, z);
 
-        transform.LookAt(new Vector3(mapCenter.x, 0, mapCenter.z));
+        transform.LookAt(mapCenter, Vector3.up);
     }
 
     void CalculateMapCenter()
     {
-        mapCenter = mapBounds.transform.position;
+        mapCenter = (mapBounds != null)
+            ? mapBounds.transform.position
+            : Vector3.zero;
     }
 }
