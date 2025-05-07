@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5015748, g: 0.27015787, b: 0.21001217, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3442,7 +3442,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: maxHeight
-      value: 65
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: minHeight
@@ -3457,20 +3457,28 @@ PrefabInstance:
       value: 13
       objectReference: {fileID: 0}
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
+      propertyPath: maxPitchAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
+      propertyPath: minPitchAngle
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: orbitDistance
-      value: 65
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: verticalSpeed
-      value: 18
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: horizontalSpeed
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: maxZoomDistance
-      value: 65
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: -1090942688968132097, guid: ff8d5567e7078764baf194abd4696753, type: 3}
       propertyPath: minZoomDistance
