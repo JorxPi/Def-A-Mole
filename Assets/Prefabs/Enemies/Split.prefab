@@ -681,7 +681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageable: {fileID: 0}
   enemyAI: {fileID: 0}
-  goldReward: 20
+  goldReward: 25
   smallerEnemyPrefab: {fileID: 3274956001613883752, guid: 81c15d740104519419bcb23fd3b29769, type: 3}
   splitCount: 2
   spawnRadius: 0.5
@@ -697,8 +697,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d214cb0bdb3fa6f43b08d06805d55243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
-  attackInterval: 1
+  damageAmount: 20
+  attackInterval: 1.5
   baseSpeed: 2
   attackRange: 2
   aggroRange: 1
@@ -719,7 +719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 0
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 3224135764187871326}
 --- !u!136 &-7354461679131820880
 CapsuleCollider:
   m_ObjectHideFlags: 0

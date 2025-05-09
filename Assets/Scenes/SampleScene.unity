@@ -4975,7 +4975,7 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 3274956001613883752, guid: 4ee2932fa35dfd941b974f268534a74c, type: 3}
     cost: 2
     weight: 5
-  - enemyPrefab: {fileID: 3274956001613883752, guid: 4ee2932fa35dfd941b974f268534a74c, type: 3}
+  - enemyPrefab: {fileID: 3274956001613883752, guid: af80ab9109e89dd418a3c20df45bf70a, type: 3}
     cost: 4
     weight: 4
   - enemyPrefab: {fileID: 3274956001613883752, guid: f802724348fb48b46afe1666625a7015, type: 3}

@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d214cb0bdb3fa6f43b08d06805d55243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
+  damageAmount: 30
   attackInterval: 1
   baseSpeed: 1
   attackRange: 2.12
@@ -577,9 +577,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26729e88667959e43b3d8ea9dfe97ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 220
   maxHealth: 0
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 1128105067668115397}
 --- !u!54 &7705317026927498291
 Rigidbody:
   m_ObjectHideFlags: 0
