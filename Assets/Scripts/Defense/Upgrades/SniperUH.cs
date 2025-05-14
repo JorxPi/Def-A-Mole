@@ -15,6 +15,8 @@ public class SniperUH : BasicUH
                 defense.attackDamage += 15;
                 break;
         }
+
+        UpdateBaseVisual(currentUpgradeLevel);
     }
 
     public override string GetUpgradeDetails()

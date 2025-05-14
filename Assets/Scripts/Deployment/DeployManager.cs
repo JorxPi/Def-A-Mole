@@ -103,6 +103,15 @@ public class DeployManager : MonoBehaviour
 
         int adjustedCost = DayNightManager.Instance.IsNightMode ? currentDefenseData.nightCost : currentDefenseData.cost;
 
+        bool cond1 = !IsDefenseInLocation();
+        bool cond2 = IsInsideMap(previewInstance.transform.position);
+        bool cond3 = !IsInsideRestrictedZone(previewInstance.transform.position);
+
+        Debug.Log($"Condiciones de colocación: " +
+                  $"\n- !IsDefenseInLocation(): {cond1}" +
+                  $"\n- IsInsideMap(): {cond2}" +
+                  $"\n- !IsInsideRestrictedZone(): {cond3}");
+
         if (!IsDefenseInLocation() && IsInsideMap(previewInstance.transform.position) && !IsInsideRestrictedZone(previewInstance.transform.position))
         {
             GameObject placedDefense = Instantiate(currentDefenseData.prefab, previewInstance.transform.position, Quaternion.identity);

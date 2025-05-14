@@ -18,6 +18,8 @@ public class SlowingDefenseUH : BasicUH
                 slowingProjectile.slowAmount += 10f; 
                 break;
         }
+
+        UpdateBaseVisual(currentUpgradeLevel);
     }
 
 

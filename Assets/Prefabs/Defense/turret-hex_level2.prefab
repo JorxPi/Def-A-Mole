@@ -9,20 +9,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.789052
+      value: -2.45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -17.770397
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9353887
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
       propertyPath: m_LocalRotation.x
@@ -30,11 +38,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.3536213
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -56,8 +64,62 @@ PrefabInstance:
       propertyPath: m_Name
       value: turret-hex_level2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2771844536137022124}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1636850704425512410}
   m_SourcePrefab: {fileID: 100100000, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
+--- !u!1 &8049864492214694204 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ae7d3062629bc840a616a681ca144f4, type: 3}
+  m_PrefabInstance: {fileID: 7167396115559582829}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &2771844536137022124
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8049864492214694204}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.52, y: 1, z: 0.52}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!136 &1636850704425512410
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8049864492214694204}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.4414577
+  m_Height: 0.8594869
+  m_Direction: 1
+  m_Center: {x: 2.3554199, y: 0.98456347, z: -0.27950084}

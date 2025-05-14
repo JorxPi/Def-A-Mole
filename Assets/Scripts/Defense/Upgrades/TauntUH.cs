@@ -16,6 +16,8 @@ public class TauntUH : BasicUH
                 damageable.IncreaseMaxHealth(150);
                 break;
         }
+
+        UpdateBaseVisual(currentUpgradeLevel);
     }
 
     public override string GetUpgradeDetails()

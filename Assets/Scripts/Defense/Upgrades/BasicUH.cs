@@ -60,6 +60,8 @@ public class BasicUH : UpgradeHandler
                 defense.attackSpeed += 2; // +2 attack speed for second upgrade
                 break;
         }
+
+        UpdateBaseVisual(currentUpgradeLevel);
     }
 
     public virtual string GetUpgradeDetails()

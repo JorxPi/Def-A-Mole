@@ -15,6 +15,8 @@ public class BeehiveUH : BasicUH
                 defense.attackSpeed += 0.2f;
                 break;
         }
+
+        UpdateBaseVisual(currentUpgradeLevel);
     }
 
     public override string GetUpgradeDetails()

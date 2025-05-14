@@ -17,4 +17,13 @@ public abstract class UpgradeHandler : MonoBehaviour
             Debug.LogError("UpgradeHandler requires a Defense component.");
         }
     }
+
+    protected void UpdateBaseVisual(int level)
+    {
+        BasePerLevel visualSwitcher = GetComponent<BasePerLevel>();
+        if (visualSwitcher != null)
+        {
+            visualSwitcher.SetBaseLevel(level + 1);
+        }
+    }
 }
