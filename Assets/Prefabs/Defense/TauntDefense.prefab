@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeIndicatorPrefab: {fileID: 3279891831375080189, guid: 6bc7cc1d168503f4492e638bfd534ee1, type: 3}
-  baseTransform: {fileID: 0}
+  baseTransform: {fileID: 3546937178985423722}
   baseLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -291,6 +291,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2629034055248446256}
     m_Modifications:
+    - target: {fileID: 590736392518702317, guid: 63d1e470b10f19141afe39a90a570f91, type: 3}
+      propertyPath: m_Extents.x
+      value: 3.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 590736392518702317, guid: 63d1e470b10f19141afe39a90a570f91, type: 3}
+      propertyPath: m_Extents.z
+      value: 3.34
+      objectReference: {fileID: 0}
     - target: {fileID: 5018503598243683152, guid: 63d1e470b10f19141afe39a90a570f91, type: 3}
       propertyPath: m_Name
       value: Base

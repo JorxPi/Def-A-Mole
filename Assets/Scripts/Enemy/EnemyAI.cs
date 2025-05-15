@@ -87,7 +87,7 @@ public class EnemyAI : MonoBehaviour
     {
         distanceToBarrier =  Vector3.Distance(transform.position, barrierPoint);
 
-        Debug.Log($"Distance to barrier: {distanceToBarrier}");
+        //Debug.Log($"Distance to barrier: {distanceToBarrier}");
 
         if (isAttackingDefense && targetDefense != null)
         {
