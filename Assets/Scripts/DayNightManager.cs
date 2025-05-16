@@ -12,7 +12,8 @@ public class DayNightManager : MonoBehaviour
     public Button startNightButton;
 
     public bool IsNightMode { get; private set; }
-
+    public Color DayColor;
+    public Color NightColor;
     private void Awake()
     {
         if (Instance == null)
@@ -36,6 +37,8 @@ public class DayNightManager : MonoBehaviour
         IsNightMode = false;
         RenderSettings.skybox = daySkybox;
         DynamicGI.UpdateEnvironment();
+        RenderSettings.fogColor = DayColor;
+        RenderSettings.fogDensity = 0.002f;
 
         startNightButton.gameObject.SetActive(true); // Show button
     }
@@ -45,6 +48,8 @@ public class DayNightManager : MonoBehaviour
         IsNightMode = true;
         RenderSettings.skybox = nightSkybox;
         DynamicGI.UpdateEnvironment();
+        RenderSettings.fogColor = NightColor;
+        RenderSettings.fogDensity = 0.002f;
 
         startNightButton.gameObject.SetActive(false); // Hide button
 
