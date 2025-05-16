@@ -37,7 +37,7 @@ public class BarrierUI : MonoBehaviour
     {
         lastHealth = currentHealth;
 
-        healthText.text = $"HP: {Mathf.RoundToInt(currentHealth)}";
+        healthText.text = $"{Mathf.RoundToInt(currentHealth)}";
 
         float normalized = Mathf.Clamp01(currentHealth / barrier.maxHealth);
         healthFillImage.fillAmount = normalized;

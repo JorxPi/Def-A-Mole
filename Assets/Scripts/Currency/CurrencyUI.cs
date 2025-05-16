@@ -45,7 +45,7 @@ public class CurrencyUI : MonoBehaviour
     {
         if (currencyText != null)
         {
-            currencyText.text = $"Gold: {goldAmount}";
+            currencyText.text = $"{goldAmount}";
         }
         else
         {
