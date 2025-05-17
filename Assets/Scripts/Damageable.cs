@@ -22,6 +22,9 @@ public class Damageable : MonoBehaviour
 
     public event Action OnDeath;
 
+    private GameObject smoke;
+    private GameObject fire;
+
     private void Awake()
     {
         defense = GetComponent<Defense>();
@@ -29,6 +32,19 @@ public class Damageable : MonoBehaviour
         {
             maxHealth = defense.baseStats.maxHealth;
             health = maxHealth;
+
+            smoke = GameObject.FindWithTag("Smoke");
+            fire = GameObject.FindWithTag("Fire");
+
+            if (smoke != null)
+            {
+                smoke.SetActive(false);
+            }
+            if (fire != null)
+            {
+                fire.SetActive(false);
+            }
+
         }
         else
         {
@@ -67,6 +83,28 @@ public class Damageable : MonoBehaviour
         {
             Die();
         }
+
+        if(health < maxHealth * 0.5f && defense != null)
+        {
+            if (smoke != null)
+            {
+                smoke.SetActive(true);
+            }
+
+        }
+        if (health < maxHealth * 0.2f && defense != null)
+        {
+            if (smoke != null)
+            {
+                smoke.SetActive(false);
+            }
+
+            if (fire != null)
+            {
+                fire.SetActive(true);
+            }
+        }
+
     }
 
     private void Die()

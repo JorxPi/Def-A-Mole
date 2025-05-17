@@ -9,7 +9,7 @@ public class UpgradeUI : MonoBehaviour
     [Header("UI Elements")]
     public GameObject upgradePanel; // Panel containing the upgrade button
     public Button upgradeButton;    // The actual upgrade button
-    public TMP_Text upgradeButtonText;
+    //public TMP_Text upgradeButtonText;
     public TMP_Text upgradeDetailsText;// Text for the button
 
     private GameObject selectedDefense;
@@ -42,7 +42,7 @@ public class UpgradeUI : MonoBehaviour
             BasicUH basicUpgradeHandler = upgradeHandler as BasicUH; // Assuming BasicUH for now
             if (basicUpgradeHandler != null)
             {
-                upgradeButtonText.text = basicUpgradeHandler.GetUpgradeDescription();
+                //upgradeButtonText.text = basicUpgradeHandler.GetUpgradeDescription();
                 upgradeButton.interactable = true;
 
                 upgradeDetailsText.text = basicUpgradeHandler.GetUpgradeDetails();

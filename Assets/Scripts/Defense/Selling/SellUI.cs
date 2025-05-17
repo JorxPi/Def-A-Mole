@@ -10,7 +10,7 @@ public class SellUI : MonoBehaviour
 
     public GameObject sellPanel;
     public Button sellButton;
-    public TMP_Text sellButtonText;
+    //public TMP_Text sellButtonText;
     public TMP_Text sellInfoText;
 
     private GameObject selectedDefense;
@@ -49,7 +49,7 @@ public class SellUI : MonoBehaviour
             int cost = def.baseStats.cost;
             int refund = Mathf.FloorToInt(cost * SellManager.Instance.refundRatio);
 
-            sellButtonText.text = $"Sell for {refund} Gold";
+            //sellButtonText.text = $"Sell for {refund} Gold";
             sellInfoText.text = $"Refund 75% of original cost ({cost}g)";
             sellButton.interactable = true;
         }

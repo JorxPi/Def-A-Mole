@@ -12,6 +12,8 @@ TagManager:
   - Aggro
   - Attraction
   - Base
+  - Smoke
+  - Fire
   layers:
   - Default
   - TransparentFX

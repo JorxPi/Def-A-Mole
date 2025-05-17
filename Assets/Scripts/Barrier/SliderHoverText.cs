@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class SliderHoverText : MonoBehaviour
+public class SliderHoverText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public TextMeshProUGUI lifeText;
 
@@ -13,12 +14,12 @@ public class SliderHoverText : MonoBehaviour
         lifeText.gameObject.SetActive(false);
     }
 
-    public void OnPointerEnter()
+    public void OnPointerEnter(PointerEventData eventData)
     {
         lifeText.gameObject.SetActive(true);
     }
 
-    public void OnPointerExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
         lifeText.gameObject.SetActive(false);
     }
