@@ -74,6 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6668453952146910238}
   - component: {fileID: 1795964274122278977}
+  - component: {fileID: 8588906086892781390}
   - component: {fileID: 5835699655856817618}
   - component: {fileID: 7178129920503234354}
   - component: {fileID: 3957839721058185005}
@@ -128,6 +129,19 @@ MonoBehaviour:
   defenseLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &8588906086892781390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554021112271803409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0daf189b11071e418fbeb3dbc8bf824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightColor: {r: 0.3301887, g: 0.24144015, b: 0.18534176, a: 1}
 --- !u!114 &5835699655856817618
 MonoBehaviour:
   m_ObjectHideFlags: 0

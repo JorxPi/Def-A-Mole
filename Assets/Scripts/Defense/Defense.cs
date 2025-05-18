@@ -47,6 +47,15 @@ public class Defense : MonoBehaviour
         if (attackCooldown > 0f)
             attackCooldown -= Time.deltaTime;
 
+        if (Input.GetMouseButtonDown(1))
+        {
+            // Quitamos highlight de la actual
+            Highlightable.DeselectCurrent();
+            // Ocultamos los paneles (igual que haces hoy)
+            UpgradeUI.Instance.HideUpgradePanel();
+            SellUI.Instance.HideSellPanel();
+        }
+
         DetectDefenseClick();
     }
 
@@ -62,8 +71,7 @@ public class Defense : MonoBehaviour
 
     private void DetectDefenseClick()
     {
-        Transform baseTransform = transform.Find("Base"); // Find Base automatically
-
+        Transform baseTransform = transform.Find("Base");
         if (baseTransform == null)
         {
             Debug.LogError($"Base not found under {gameObject.name}!");
@@ -73,15 +81,20 @@ public class Defense : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            int mask = LayerMask.GetMask("BaseLayer");
 
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("BaseLayer")))
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mask) &&
+                hit.transform == baseTransform)
             {
-                if (hit.transform == baseTransform) 
-                {
-                    UpgradeUI.Instance.ShowUpgradePanel(gameObject);
+                // 1) Resaltamos esta defensa
+                Highlightable.DeselectCurrent();
+                var high = GetComponent<Highlightable>();
+                if (high != null)
+                    high.Select();
 
-                    SellUI.Instance.ShowSellPanel(gameObject);
-                }
+                // 2) Mostramos tus UIs
+                UpgradeUI.Instance.ShowUpgradePanel(gameObject);
+                SellUI.Instance.ShowSellPanel(gameObject);
             }
         }
     }
