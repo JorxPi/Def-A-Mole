@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: SniperDefense
   m_EditorClassIdentifier: 
   defenseName: Worm
-  attackRange: 20
-  attackDamage: 40
+  attackRange: 25
+  attackDamage: 30
   attackSpeed: 0.5
   maxHealth: 70
   cost: 25
   nightCost: 35
-  upgradeCosts: 3200000046000000
+  upgradeCosts: 1e00000032000000
   defenseIcon: {fileID: 0}
   prefab: {fileID: 284601796826560135, guid: 93a1569517840f7469e31d50c884c08f, type: 3}
   description: The Worm is a high range unit which priorize attacking the lowest

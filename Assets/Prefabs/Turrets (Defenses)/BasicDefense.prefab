@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe74abb71c320d74eacc489131d10420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 8892764954871507398, guid: b2855b2d5eba2414f9646e2a0f7da24b, type: 3}
+  projectilePrefab: {fileID: 7002560563507470950, guid: a03012cfa13580b45b0bd9a300c310ba, type: 3}
   firePoint: {fileID: 5631018170409168738}
 --- !u!114 &7178129920503234354
 MonoBehaviour:
@@ -188,6 +188,8 @@ MonoBehaviour:
   health: 120
   maxHealth: 0
   healthBar: {fileID: 0}
+  smokeEffect: {fileID: 3558700358874894534}
+  fireEffect: {fileID: 1987102434693480692}
 --- !u!114 &1218598204742986920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,6 +406,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 647325034009612757, guid: d182f0a546957c243ab1d3f1e85ab8cb, type: 3}
   m_PrefabInstance: {fileID: 973104925087446133}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1987102434693480692 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1590530314717705345, guid: d182f0a546957c243ab1d3f1e85ab8cb, type: 3}
+  m_PrefabInstance: {fileID: 973104925087446133}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2466102706308485181
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -583,6 +590,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ac609922fc59c041b6c512d58fe4da1, type: 3}
+--- !u!1 &3558700358874894534 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4671063824864663298, guid: 2ac609922fc59c041b6c512d58fe4da1, type: 3}
+  m_PrefabInstance: {fileID: 8192602785589970884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9094947645510010804 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1118658942181900400, guid: 2ac609922fc59c041b6c512d58fe4da1, type: 3}

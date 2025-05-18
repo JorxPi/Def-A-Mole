@@ -110,6 +110,8 @@ MonoBehaviour:
   health: 100
   maxHealth: 0
   healthBar: {fileID: 0}
+  smokeEffect: {fileID: 320105025879270668}
+  fireEffect: {fileID: 2908857247868429765}
 --- !u!114 &4326456967876260997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,6 +402,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d182f0a546957c243ab1d3f1e85ab8cb, type: 3}
+--- !u!1 &2908857247868429765 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1590530314717705345, guid: d182f0a546957c243ab1d3f1e85ab8cb, type: 3}
+  m_PrefabInstance: {fileID: 4489214329068556612}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3942661874430361745 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 647325034009612757, guid: d182f0a546957c243ab1d3f1e85ab8cb, type: 3}
@@ -494,6 +501,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ac609922fc59c041b6c512d58fe4da1, type: 3}
+--- !u!1 &320105025879270668 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4671063824864663298, guid: 2ac609922fc59c041b6c512d58fe4da1, type: 3}
+  m_PrefabInstance: {fileID: 4946023451852124686}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5414884203272909438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1118658942181900400, guid: 2ac609922fc59c041b6c512d58fe4da1, type: 3}

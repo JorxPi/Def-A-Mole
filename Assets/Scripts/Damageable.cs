@@ -4,12 +4,10 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class Damageable : MonoBehaviour
 {
     public float health;
-    [HideInInspector]
-    public float maxHealth;
+    [HideInInspector] public float maxHealth;
 
     [Header("Optional")]
     public Image healthBar;
@@ -17,13 +15,18 @@ public class Damageable : MonoBehaviour
     private Defense defense;
     private bool isDead = false;
 
-    private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>(); //(stores original color to change back after the red effect)   
-
+    private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
 
     public event Action OnDeath;
 
-    private GameObject smoke;
-    private GameObject fire;
+    // --- AHORA PÚBLICOS PARA ASIGNAR EN EL INSPECTOR ---
+    [Header("Particle Effects")]
+    public GameObject smokeEffect;
+    public GameObject fireEffect;
+    // ----------------------------------------------------
+
+    private bool smokeActive = false;
+    private bool fireActive = false;
 
     private void Awake()
     {
@@ -32,19 +35,6 @@ public class Damageable : MonoBehaviour
         {
             maxHealth = defense.baseStats.maxHealth;
             health = maxHealth;
-
-            smoke = GameObject.FindWithTag("Smoke");
-            fire = GameObject.FindWithTag("Fire");
-
-            if (smoke != null)
-            {
-                smoke.SetActive(false);
-            }
-            if (fire != null)
-            {
-                fire.SetActive(false);
-            }
-
         }
         else
         {
@@ -53,95 +43,99 @@ public class Damageable : MonoBehaviour
 
         UpdateHealthBar();
 
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
-        foreach (Renderer renderer in renderers)
-        {
+        // Guardamos colores originales
+        foreach (var renderer in GetComponentsInChildren<Renderer>())
             if (!originalColors.ContainsKey(renderer))
-            {
                 originalColors[renderer] = renderer.material.color;
-            }
-        }
+
+        // Desactivamos efectos al inicio (si están asignados)
+        if (smokeEffect != null) smokeEffect.SetActive(false);
+        if (fireEffect != null) fireEffect.SetActive(false);
     }
 
     public void ApplyDamage(float damage, GameObject attacker = null)
     {
         health -= damage;
-
         UpdateHealthBar();
-
         StartCoroutine(FlashRedEffect());
 
         // !! ONLY FOR TAUNTDEFENSE !!
-        TauntDefense tauntDefense = GetComponent<TauntDefense>();
-        if (tauntDefense != null && attacker != null)
-        {
-            tauntDefense.ApplyRetaliationDamage(attacker);
-        }
+        var taunt = GetComponent<TauntDefense>();
+        if (taunt != null && attacker != null)
+            taunt.ApplyRetaliationDamage(attacker);
         // !! ONLY FOR TAUNTDEFENSE !!
 
-        if (health <= 0)
-        {
+        UpdateDamageEffects();
+
+        if (health <= 0f)
             Die();
-        }
+    }
 
-        if(health < maxHealth * 0.5f && defense != null)
+    private void UpdateDamageEffects()
+    {
+        float pct = health / maxHealth;
+
+        if (pct <= 0.2f) // 20%  fuego
         {
-            if (smoke != null)
+            if (!fireActive)
             {
-                smoke.SetActive(true);
+                if (smokeEffect != null) smokeEffect.SetActive(false);
+                if (fireEffect != null) fireEffect.SetActive(true);
+                fireActive = true;
+                smokeActive = false;
             }
-
         }
-        if (health < maxHealth * 0.2f && defense != null)
+        else if (pct <= 0.6f) // 60%  humo
         {
-            if (smoke != null)
+            if (!smokeActive)
             {
-                smoke.SetActive(false);
-            }
-
-            if (fire != null)
-            {
-                fire.SetActive(true);
+                if (fireEffect != null) fireEffect.SetActive(false);
+                if (smokeEffect != null) smokeEffect.SetActive(true);
+                smokeActive = true;
+                fireActive = false;
             }
         }
-
+        else // 60%  ninguno
+        {
+            if (smokeActive || fireActive)
+            {
+                if (smokeEffect != null) smokeEffect.SetActive(false);
+                if (fireEffect != null) fireEffect.SetActive(false);
+                smokeActive = fireActive = false;
+            }
+        }
     }
 
     private void Die()
     {
-        if (isDead) return; 
+        if (isDead) return;
         isDead = true;
 
         OnDeath?.Invoke();
-
         Debug.Log("Die-Damageable");
+
         Enemy enemy = GetComponent<Enemy>();
         if (enemy != null)
         {
-            DamageVignetteController vignetteController = FindObjectOfType<DamageVignetteController>();
-            if (vignetteController != null && enemy.enemyAI.isAttackingBarrier)
-            {
-                vignetteController.DecreaseEnemiesAttacking();
-            }
-            LevelManager levelManager = FindObjectOfType<LevelManager>();
-            levelManager.EnemyDied();
+            var vignette = FindObjectOfType<DamageVignetteController>();
+            if (vignette != null && enemy.enemyAI.isAttackingBarrier)
+                vignette.DecreaseEnemiesAttacking();
+
+            FindObjectOfType<LevelManager>()?.EnemyDied();
 
             enemy.enemyAI.Die();
 
-            Collider[] colliders = GetComponentsInChildren<Collider>();
-            foreach (var col in colliders)
-            {
+            foreach (var col in GetComponentsInChildren<Collider>())
                 col.enabled = false;
-            }
 
-            UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+            var agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
             if (agent != null)
             {
                 agent.isStopped = true;
                 agent.enabled = false;
             }
 
-            EnemyAI ai = GetComponent<EnemyAI>();
+            var ai = GetComponent<EnemyAI>();
             if (ai != null) ai.enabled = false;
 
             gameObject.tag = "Untagged";
@@ -154,42 +148,32 @@ public class Damageable : MonoBehaviour
     public void IncreaseMaxHealth(float amount)
     {
         maxHealth += amount;
-        health += amount; 
-        health = Mathf.Min(health, maxHealth);
+        health = Mathf.Min(health + amount, maxHealth);
+        UpdateHealthBar();
     }
 
     private IEnumerator FlashRedEffect()
     {
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
-
+        var renderers = GetComponentsInChildren<Renderer>();
         if (renderers.Length == 0)
         {
             Debug.LogError($"No Renderer found on {gameObject.name}");
             yield break;
         }
 
-        foreach (Renderer renderer in renderers)
-        {
-            renderer.material.color = Color.red;
-        }
+        foreach (var r in renderers)
+            r.material.color = Color.red;
 
         yield return new WaitForSeconds(0.2f);
 
-        foreach (Renderer renderer in renderers)
-        {
-            if (originalColors.TryGetValue(renderer, out Color originalColor))
-            {
-                renderer.material.color = originalColor;
-            }
-        }
+        foreach (var r in renderers)
+            if (originalColors.TryGetValue(r, out var col))
+                r.material.color = col;
     }
+
     private void UpdateHealthBar()
     {
-        if (healthBar != null)
-        {
-            Debug.Log(health+" - "+ maxHealth);
-            float normalized = Mathf.Clamp01(health / maxHealth);
-            healthBar.fillAmount = normalized;
-        }
+        if (healthBar == null) return;
+        healthBar.fillAmount = Mathf.Clamp01(health / maxHealth);
     }
 }

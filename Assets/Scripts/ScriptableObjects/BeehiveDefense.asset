@@ -16,10 +16,10 @@ MonoBehaviour:
   attackRange: 8
   attackDamage: 5
   attackSpeed: 1.2
-  maxHealth: 130
-  cost: 0
-  nightCost: 0
-  upgradeCosts: 6400000082000000
+  maxHealth: 160
+  cost: 40
+  nightCost: 50
+  upgradeCosts: 2800000032000000
   defenseIcon: {fileID: 0}
   prefab: {fileID: 6465396792212365923, guid: 6c260768e9f541342aef93f352cd87ee, type: 3}
   description: The beehive deals damage to it's surrondings passively each second.
