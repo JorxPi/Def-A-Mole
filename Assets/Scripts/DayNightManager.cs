@@ -10,6 +10,8 @@ public class DayNightManager : MonoBehaviour
     public Material daySkybox;
     public Material nightSkybox;
     public Button startNightButton;
+    public GameObject dayPanel;
+    public GameObject nightPanel;
 
     public bool IsNightMode { get; private set; }
     public Color DayColor;
@@ -40,7 +42,10 @@ public class DayNightManager : MonoBehaviour
         RenderSettings.fogColor = DayColor;
         RenderSettings.fogDensity = 0.002f;
 
-        startNightButton.gameObject.SetActive(true); // Show button
+        startNightButton.gameObject.SetActive(true);
+
+        dayPanel.SetActive(true);
+        nightPanel.SetActive(false);
     }
 
     public void StartNightMode()
@@ -51,11 +56,10 @@ public class DayNightManager : MonoBehaviour
         RenderSettings.fogColor = NightColor;
         RenderSettings.fogDensity = 0.002f;
 
-        startNightButton.gameObject.SetActive(false); // Hide button
-
-        // Start the enemy wave
-
-
+        startNightButton.gameObject.SetActive(false);
+        dayPanel.SetActive(false);
+        nightPanel.SetActive(true);
+      
         LevelManager.Instance.StartEnemyWave();
     }
 }

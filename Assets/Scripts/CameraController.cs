@@ -8,9 +8,9 @@ public class CameraController : MonoBehaviour
     public Collider mapBounds;
 
     [Header("Rotation Controls")]
-    public float horizontalSpeed = 30f;
-    public float verticalSpeed = 10f;
-    public float dragSpeed = 120f;
+    public float horizontalSpeed = 40f;
+    public float verticalSpeed = 20f;
+    public float dragSpeed = 300f;
 
     [Header("Zoom Controls")]
     public float minZoomDistance = 25f;
