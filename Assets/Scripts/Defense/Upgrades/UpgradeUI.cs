@@ -37,20 +37,29 @@ public class UpgradeUI : MonoBehaviour
         selectedDefense = defense;
         UpgradeHandler upgradeHandler = defense.GetComponent<UpgradeHandler>();
 
-        if (upgradeHandler != null)
+        // First, make sure the panel is hidden by default
+        upgradeButton.gameObject.SetActive(false);
+        upgradeDetailsText.text = "";
+
+        if (upgradeHandler != null && upgradeHandler.CanUpgrade())
         {
-            BasicUH basicUpgradeHandler = upgradeHandler as BasicUH; // Assuming BasicUH for now
+            // We *can* still upgrade
+            BasicUH basicUpgradeHandler = upgradeHandler as BasicUH; // or whatever concrete type
             if (basicUpgradeHandler != null)
             {
-                //upgradeButtonText.text = basicUpgradeHandler.GetUpgradeDescription();
-                upgradeButton.interactable = true;
-
+                // populate your description/details
+                // upgradeButtonText.text = basicUpgradeHandler.GetUpgradeDescription();
                 upgradeDetailsText.text = basicUpgradeHandler.GetUpgradeDetails();
             }
+
+            // show & enable the button
+            upgradeButton.gameObject.SetActive(true);
+            upgradeButton.interactable = true;
         }
 
         upgradePanel.SetActive(true);
     }
+
 
     public void HideUpgradePanel()
     {

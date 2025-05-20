@@ -7,6 +7,7 @@ public abstract class UpgradeHandler : MonoBehaviour
     protected Defense defense;
     protected int currentUpgradeLevel = 0;
 
+    private int MaxUpgradeLevel = 2;
     public abstract bool Upgrade();
 
     protected virtual void Awake()
@@ -29,5 +30,10 @@ public abstract class UpgradeHandler : MonoBehaviour
         var high = GetComponent<Highlightable>();
         if (high != null)
             high.CacheOriginalColors();
+    }
+
+    public bool CanUpgrade()
+    {
+        return currentUpgradeLevel < MaxUpgradeLevel;
     }
 }

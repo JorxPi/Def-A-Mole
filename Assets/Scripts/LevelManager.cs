@@ -221,7 +221,7 @@ public class LevelManager : MonoBehaviour
 
         if (barrierIndicator != null)
         {
-            barrierIndicator.ClearIndicators();
+            //barrierIndicator.ClearIndicators();
             barrierIndicator.DrawIndicators(currentAngleRanges);
         }
 

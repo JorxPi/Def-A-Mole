@@ -4,89 +4,89 @@ using UnityEngine;
 
 public class BarrierIndicator : MonoBehaviour
 {
-    public float radius = 35f; // Match mapRadius from LevelManager
-    public int segments = 50; // Number of points in the arc
-    public Color indicatorColor = Color.red; // Color for active angles
-    public Color baseCircleColor = Color.gray; // Color for full circle
+    //[Header("Circle Settings")]
+    //public float radius = 35f;
+    //public int segments = 50;
+    //public Color indicatorColor = Color.red;
+    //public Color baseCircleColor = Color.gray;
 
-    private List<LineRenderer> activeAngleRenderers = new List<LineRenderer>();
-    private LineRenderer baseCircleRenderer; // Full circle renderer
+    [Header("Cone Settings")]
+    [Tooltip("Prefab of a cone whose pivot/base sits at its tip, pointing up its local +Z.")]
+    public GameObject conePrefab;
+    [Tooltip("How far inward from the rim to place the cone (in world units).")]
+    public float coneInset = 1f;
+    [Tooltip("Y-position to spawn cones at (e.g. -1.3)")]
+    public float coneY = -1.3f;
+
+    //private LineRenderer baseCircleRenderer;
+    //private List<LineRenderer> activeAngleRenderers = new List<LineRenderer>();
+    private List<GameObject> activeCones = new List<GameObject>();
 
     private void Awake()
     {
-        CreateBaseCircle(); // Creates the full circle initially
+        //CreateBaseCircle();  // no longer needed
     }
 
-    private void CreateBaseCircle()
-    {
-        baseCircleRenderer = CreateNewLineRenderer(baseCircleColor, 0.3f);
-
-        List<Vector3> circlePoints = new List<Vector3>();
-        for (int i = 0; i <= segments; i++)
-        {
-            float angle = (i / (float)segments) * 360f * Mathf.Deg2Rad;
-            float x = Mathf.Cos(angle) * radius;
-            float z = Mathf.Sin(angle) * radius;
-            circlePoints.Add(new Vector3(x, 0.1f, z));
-        }
-
-        baseCircleRenderer.positionCount = circlePoints.Count;
-        baseCircleRenderer.SetPositions(circlePoints.ToArray());
-
-        baseCircleRenderer.loop = true;
-    }
+    //private void CreateBaseCircle()
+    //{
+    //    ... all circle creation logic removed ...
+    //}
 
     public void DrawIndicators(List<Vector2> angleRanges)
     {
-        if (angleRanges == null || angleRanges.Count == 0)
+        //ClearIndicators();  // no longer needed
+        ClearCones();
+
+        if (angleRanges == null) return;
+
+        foreach (var range in angleRanges)
         {
+            // arc drawing removed
+
+            float midDeg = (range.x + range.y) * 0.5f;
+            SpawnConeAt(midDeg);
+        }
+    }
+
+    private void SpawnConeAt(float angleDeg)
+    {
+        if (conePrefab == null)
             return;
-        }
 
-        ClearIndicators(); // Remove old indicators before drawing
+        float rad = angleDeg * Mathf.Deg2Rad;
 
-        foreach (Vector2 range in angleRanges)
-        {
-            LineRenderer newRenderer = CreateNewLineRenderer(indicatorColor, 1.0f);
-            activeAngleRenderers.Add(newRenderer);
+        Vector3 inward = new Vector3(
+            -Mathf.Cos(rad),
+            0f,
+            -Mathf.Sin(rad)
+        ).normalized;
 
-            List<Vector3> points = new List<Vector3>();
+        Quaternion rot = Quaternion.LookRotation(inward, Vector3.up)
+                         * Quaternion.Euler(0f, 180f, 0f);
 
-            for (int i = 0; i <= segments; i++)
-            {
-                float t = i / (float)segments;
-                float angle = Mathf.Lerp(range.x, range.y, t) * Mathf.Deg2Rad;
-                float x = Mathf.Cos(angle) * radius;
-                float z = Mathf.Sin(angle) * radius;
-                points.Add(new Vector3(x, 0.1f, z));
-            }
+        // spawn at origin with specified Y
+        Vector3 spawnPos = new Vector3(0f, coneY, 0f);
 
-            newRenderer.positionCount = points.Count;
-            newRenderer.SetPositions(points.ToArray());
-        }
+        GameObject c = Instantiate(conePrefab, spawnPos, rot, transform);
+        activeCones.Add(c);
     }
 
-    private LineRenderer CreateNewLineRenderer(Color color, float width)
+    //public void ClearIndicators()
+    //{
+    //    foreach (var lr in activeAngleRenderers)
+    //        Destroy(lr.gameObject);
+    //    activeAngleRenderers.Clear();
+    //}
+
+    public void ClearCones()
     {
-        GameObject lineObj = new GameObject("IndicatorLine");
-        lineObj.transform.SetParent(transform);
-
-        LineRenderer lineRenderer = lineObj.AddComponent<LineRenderer>();
-        lineRenderer.startWidth = width;
-        lineRenderer.endWidth = width;
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.startColor = color;
-        lineRenderer.endColor = color;
-        lineRenderer.useWorldSpace = true;
-        return lineRenderer;
+        foreach (var c in activeCones)
+            Destroy(c);
+        activeCones.Clear();
     }
 
-    public void ClearIndicators()
-    {
-        foreach (LineRenderer lr in activeAngleRenderers)
-        {
-            Destroy(lr.gameObject);
-        }
-        activeAngleRenderers.Clear();
-    }
+    //private LineRenderer CreateNewLineRenderer(Color col, float width)
+    //{
+    //    ... no longer needed ...
+    //}
 }
