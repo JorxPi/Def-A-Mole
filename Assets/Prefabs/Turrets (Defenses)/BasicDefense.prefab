@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0daf189b11071e418fbeb3dbc8bf824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
+  highlightColor: {r: 0.32941177, g: 0.24313726, b: 0.18431373, a: 1}
 --- !u!114 &5835699655856817618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,10 +169,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeIndicatorPrefab: {fileID: 3279891831375080189, guid: 6bc7cc1d168503f4492e638bfd534ee1, type: 3}
-  baseTransform: {fileID: 7842954541350801879}
-  baseLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &3957839721058185005
 MonoBehaviour:
   m_ObjectHideFlags: 0

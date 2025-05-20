@@ -145,34 +145,47 @@ public class LevelManager : MonoBehaviour
 
     private void SetAngleRangesForLevel(int level)
     {
+        // 1) Remember what we had last time
+        List<Vector2> oldRanges = (currentAngleRanges != null)
+            ? new List<Vector2>(currentAngleRanges)
+            : new List<Vector2>();
+
+        // 2) Clear for the new wave
         if (currentAngleRanges == null)
             currentAngleRanges = new List<Vector2>();
         else
-            currentAngleRanges.Clear(); // Clear previous ranges
+            currentAngleRanges.Clear();
 
-        int anglesToGenerate = Mathf.Min(level, 24); // Max 24 sets (360° / 15°)
+        int totalToGenerate = Mathf.Min(level, 24);  // maximum 24 slices
 
-        HashSet<int> usedAngles = new HashSet<int>(); // To track already used angles
+        HashSet<int> usedAngles = new HashSet<int>();
 
-        for (int i = 0; i < anglesToGenerate; i++)
+        // 3) If we have any old ones, carry exactly one forward
+        if (oldRanges.Count > 0)
         {
-            int randomAngle;
-            do
-            {
-                randomAngle = Random.Range(0, 24) * 15; // Only multiples of 15
-            } while (usedAngles.Contains(randomAngle)); // Ensure no duplicates
-
-            usedAngles.Add(randomAngle);
-            currentAngleRanges.Add(new Vector2(randomAngle, randomAngle + 15));
+            // Pick one at random from last level
+            Vector2 carry = oldRanges[Random.Range(0, oldRanges.Count)];
+            int carryStart = Mathf.RoundToInt(carry.x); // e.g. 30
+            currentAngleRanges.Add(carry);
+            usedAngles.Add(carryStart);
         }
+
+        // 4) Now fill up the rest with fresh random slices
+        while (currentAngleRanges.Count < totalToGenerate)
+        {
+            int startAngle = Random.Range(0, 24) * 15;  // 0,15,30,...,345
+            if (usedAngles.Contains(startAngle))
+                continue;
+
+            usedAngles.Add(startAngle);
+            currentAngleRanges.Add(new Vector2(startAngle, startAngle + 15));
+        }
+
+        // 5) Update the visualization
         if (barrierIndicator != null)
-        {
-            barrierIndicator.DrawIndicators(currentAngleRanges); // Update visualization
-        }
+            barrierIndicator.DrawIndicators(currentAngleRanges);
         else
-        {
             Debug.LogError("BarrierIndicator is NULL in LevelManager!");
-        }
     }
 
 

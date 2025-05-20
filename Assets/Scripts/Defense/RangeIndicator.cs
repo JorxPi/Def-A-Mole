@@ -1,93 +1,96 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Defense))]
 public class RangeIndicator : MonoBehaviour
 {
+    [Header("Setup")]
+    [Tooltip("Prefab for the flat circle (pivot at center).")]
     public GameObject rangeIndicatorPrefab;
-    public Transform baseTransform; // Manually assign Base in Unity Inspector
-    public LayerMask baseLayer;
 
-    private GameObject rangeIndicator;
-    private Defense defense;
-    private bool isMouseDownOnDefense = false;
+    private GameObject _indicator;
+    private Defense _defense;
+    private bool _isShowing = false;
 
-    private void Start()
+    void Start()
     {
-        defense = GetComponent<Defense>();
+        _defense = GetComponent<Defense>();
 
-        if (baseTransform == null)
+        if (rangeIndicatorPrefab == null)
         {
-            Debug.LogError($"Base is not assigned in {gameObject.name}. Assign it in the Inspector.");
+            Debug.LogError($"[{name}] No RangeIndicator prefab assigned!");
             return;
         }
 
-        if (rangeIndicatorPrefab != null)
-        {
-            rangeIndicator = Instantiate(rangeIndicatorPrefab, baseTransform.position, Quaternion.identity, transform);
-            rangeIndicator.transform.localScale = new Vector3(defense.attackRange * 2, 0.1f, defense.attackRange * 2);
-            rangeIndicator.SetActive(false);
-        }
+        // Instantiate once, parented to the defense root
+        _indicator = Instantiate(
+            rangeIndicatorPrefab,
+            transform.position,
+            Quaternion.identity,
+            transform
+        );
+        _indicator.SetActive(false);
     }
 
-    private void Update()
+    void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Detect initial click
-        {
-            HandleClick();
-        }
+        if (Input.GetMouseButtonDown(0))
+            TryShow();
 
-        if (Input.GetMouseButton(0) && isMouseDownOnDefense) // Keep active state while clicking on Base
-        {
-            if (!MouseOverDefense()) // Hide range if mouse moves away
-            {
-                rangeIndicator.SetActive(false);
-                isMouseDownOnDefense = false;
-            }
-        }
+        if (_isShowing && Input.GetMouseButton(0))
+            if (!IsPointerOverThisBase())
+                Hide();
 
-        if (Input.GetMouseButtonUp(0)) // Detect click release
-        {
-            rangeIndicator.SetActive(false);
-            isMouseDownOnDefense = false;
-        }
+        if (Input.GetMouseButtonUp(0))
+            Hide();
     }
 
-    private void HandleClick()
+    private void TryShow()
     {
-        if (baseTransform == null) return; // Prevent errors if Base is missing
+        var hits = Physics.RaycastAll(
+            Camera.main.ScreenPointToRay(Input.mousePosition),
+            Mathf.Infinity
+        ).OrderBy(h => h.distance);
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, baseLayer))
+        foreach (var hit in hits)
         {
-            Debug.Log($"Clicked on: {hit.transform.name} (Layer: {LayerMask.LayerToName(hit.transform.gameObject.layer)})");
-
-            if (hit.transform.gameObject == baseTransform.gameObject)
+            // Look for a child named "Base" under *this* defense
+            if (hit.transform.name == "Base" && hit.transform.parent == transform)
             {
-                if (rangeIndicator != null)
-                {
-                    rangeIndicator.SetActive(true);
-                }
-                isMouseDownOnDefense = true;
+                Show();
+                return;
             }
         }
     }
 
-    private bool MouseOverDefense()
+    private bool IsPointerOverThisBase()
     {
-        if (baseTransform == null) return false; // Prevent errors
+        var hits = Physics.RaycastAll(
+            Camera.main.ScreenPointToRay(Input.mousePosition),
+            Mathf.Infinity
+        ).OrderBy(h => h.distance);
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        return hits.Any(h =>
+            h.transform.name == "Base" &&
+            h.transform.parent == transform
+        );
+    }
 
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, baseLayer))
-        {
-            Debug.Log($"Mouse Over: {hit.transform.name}");
-            return hit.transform.gameObject == baseTransform.gameObject;
-        }
+    private void Show()
+    {
+        // Position & scale fresh each time in case range changed
+        _indicator.transform.position = transform.position;
+        float d = _defense.attackRange * 2f;
+        _indicator.transform.localScale = new Vector3(d, 0.1f, d);
 
-        return false;
+        _indicator.SetActive(true);
+        _isShowing = true;
+    }
+
+    private void Hide()
+    {
+        if (_indicator != null)
+            _indicator.SetActive(false);
+        _isShowing = false;
     }
 }
-

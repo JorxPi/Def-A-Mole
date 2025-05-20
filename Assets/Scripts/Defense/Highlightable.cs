@@ -1,60 +1,78 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [DisallowMultipleComponent]
 public class Highlightable : MonoBehaviour
 {
-    // Color que usarás para resaltar (asigna en el Inspector)
+    [Tooltip("Color to use when this object is selected.")]
     public Color highlightColor = Color.yellow;
 
-    // Guarda los colores originales de cada renderer
+    // Maps each live Renderer to its original color
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
 
-    // Último Highlightable seleccionado
+    // The last-highlighted instance
     private static Highlightable currentSelection;
 
     private void Awake()
     {
-        // Capturamos los colores originales
-        foreach (var r in GetComponentsInChildren<Renderer>())
-            originalColors[r] = r.material.color;
+        CacheOriginalColors();
     }
 
     /// <summary>
-    /// Resalta esta defensa, y des-resalta la anterior si existe
+    /// Scans all child Renderers and records their current material colors.
+    /// Clears out any entries for destroyed renderers first.
+    /// </summary>
+    public void CacheOriginalColors()
+    {
+        // Remove any destroyed keys
+        foreach (var dead in originalColors.Keys.Where(r => r == null).ToList())
+            originalColors.Remove(dead);
+
+        // Add any new Renderers
+        foreach (var rend in GetComponentsInChildren<Renderer>())
+            if (!originalColors.ContainsKey(rend))
+                originalColors[rend] = rend.material.color;
+    }
+
+    /// <summary>
+    /// Select this object: deselect the previous, then apply highlight color.
     /// </summary>
     public void Select()
     {
-        // Si ya hay otra selección, la deseleccionamos
+        // Re-cache in case you just swapped meshes/materials in an upgrade
+        CacheOriginalColors();
+
         if (currentSelection != null && currentSelection != this)
             currentSelection.Deselect();
 
-        // Pintamos todos los renderers con el color de highlight
+        // Paint every still-alive renderer
         foreach (var kv in originalColors)
-            kv.Key.material.color = highlightColor;
+            if (kv.Key != null)
+                kv.Key.material.color = highlightColor;
 
         currentSelection = this;
     }
 
     /// <summary>
-    /// Vuelve al color original
+    /// Return all renderers to their recorded original colors.
     /// </summary>
     public void Deselect()
     {
+        // Paint back only those that still exist
         foreach (var kv in originalColors)
-            kv.Key.material.color = kv.Value;
+            if (kv.Key != null)
+                kv.Key.material.color = kv.Value;
 
         if (currentSelection == this)
             currentSelection = null;
     }
 
     /// <summary>
-    /// Deselecciona la defensa actualmente resaltada (si la hay)
+    /// Static helper to clear any current selection.
     /// </summary>
     public static void DeselectCurrent()
     {
-        if (currentSelection != null)
-            currentSelection.Deselect();
+        currentSelection?.Deselect();
     }
 }
-

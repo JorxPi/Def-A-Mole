@@ -25,5 +25,9 @@ public abstract class UpgradeHandler : MonoBehaviour
         {
             visualSwitcher.SetBaseLevel(level + 1);
         }
+
+        var high = GetComponent<Highlightable>();
+        if (high != null)
+            high.CacheOriginalColors();
     }
 }
