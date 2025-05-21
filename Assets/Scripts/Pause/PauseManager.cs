@@ -12,6 +12,7 @@ public class PauseManager : MonoBehaviour
     public Button quitButton;
     public Text pauseText;
     public List<Button> uiButtonsToDisable;
+    public Button retryButton;
 
     private bool isPaused = false;
     private List<GameObject> defenses = new List<GameObject>();
@@ -29,6 +30,10 @@ public class PauseManager : MonoBehaviour
 
         if (quitButton != null)
             quitButton.onClick.AddListener(QuitToMainMenu);
+
+        if (retryButton != null)
+            retryButton.onClick.AddListener(QuitToMainMenu);
+
 
         // Find all defenses at start
         defenses.AddRange(GameObject.FindGameObjectsWithTag("Defense"));

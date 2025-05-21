@@ -7,6 +7,7 @@ public class BarrierUI : MonoBehaviour
     public TMP_Text healthText;
     public Barrier barrier;
     public Slider healthBar;
+    public Image fillImage;
 
 
     private float lastHealth = -1f;
@@ -43,6 +44,19 @@ public class BarrierUI : MonoBehaviour
         healthText.text = $"{Mathf.RoundToInt(currentHealth)}";
 
         healthBar.value = currentHealth;
+
+        if (currentHealth > 5)
+        {
+            fillImage.color = Color.green;
+        }
+        else if (currentHealth > 3)
+        {
+            fillImage.color = Color.yellow;
+        }
+        else
+        {
+            fillImage.color = Color.red;
+        }
     }
 }
 
