@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Barrier : MonoBehaviour
 {
-    public float maxHealth = 100f;
+    public float maxHealth = 10f;
     private float currentHealth;
 
     public delegate void OnHealthChanged(float currentHealth);

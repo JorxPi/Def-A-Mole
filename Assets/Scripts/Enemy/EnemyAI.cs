@@ -216,7 +216,7 @@ public class EnemyAI : MonoBehaviour
 
     private void AttackBarrier()
     {
-        targetBarrier.TakeDamage(10f);
+        targetBarrier.TakeDamage(1f);
 
         Damageable damageable = GetComponent<Damageable>();
         if (damageable != null)

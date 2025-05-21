@@ -13,6 +13,8 @@ public class DayNightManager : MonoBehaviour
     public GameObject dayPanel;
     public GameObject nightPanel;
 
+    public BarrierIndicator barrierIndicator;
+
     public bool IsNightMode { get; private set; }
     public Color DayColor;
     public Color NightColor;
@@ -59,7 +61,10 @@ public class DayNightManager : MonoBehaviour
         startNightButton.gameObject.SetActive(false);
         dayPanel.SetActive(false);
         nightPanel.SetActive(true);
-      
+
+        barrierIndicator.ClearCones();
+
+
         LevelManager.Instance.StartEnemyWave();
     }
 }

@@ -5,8 +5,9 @@ using TMPro;
 public class BarrierUI : MonoBehaviour
 {
     public TMP_Text healthText;
-    public Image healthFillImage;
-    public Barrier barrier;         
+    public Barrier barrier;
+    public Slider healthBar;
+
 
     private float lastHealth = -1f;
 
@@ -15,6 +16,8 @@ public class BarrierUI : MonoBehaviour
         UpdateHealthUI(barrier.GetCurrentHealth());
 
         barrier.onHealthChanged += HandleHealthChanged;
+
+        healthBar.value = healthBar.maxValue;
     }
 
     private void OnDestroy()
@@ -39,10 +42,7 @@ public class BarrierUI : MonoBehaviour
 
         healthText.text = $"{Mathf.RoundToInt(currentHealth)}";
 
-        float normalized = Mathf.Clamp01(currentHealth / barrier.maxHealth);
-        healthFillImage.fillAmount = normalized;
-        //healthBar.value = normalized;
-        // get component image . fillAmount
+        healthBar.value = currentHealth;
     }
 }
 
