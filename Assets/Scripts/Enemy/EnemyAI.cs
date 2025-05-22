@@ -223,6 +223,7 @@ public class EnemyAI : MonoBehaviour
         {
             float fatalDamage = damageable.health;
             damageable.ApplyDamage(fatalDamage);
+            AudioManager.Instance.PlayTopoPunch(1f);
         }
     }
 
@@ -233,6 +234,7 @@ public class EnemyAI : MonoBehaviour
             Debug.Log($"{gameObject.name} ataca la defensa causando {damageAmount} de daño.");
             targetDefense.TryGetComponent<Damageable>(out Damageable damageable);
             damageable.ApplyDamage(damageAmount, gameObject);
+            AudioManager.Instance.PlayTopoPunch(1f);
         }
     }
 

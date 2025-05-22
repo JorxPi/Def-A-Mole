@@ -7,6 +7,8 @@ public abstract class Projectile : MonoBehaviour
     protected Transform target;
     protected MonoBehaviour owner;
 
+    public GameObject hitEffectPrefab;
+
     protected virtual void Start()
     {
         // Base initialization
@@ -15,7 +17,8 @@ public abstract class Projectile : MonoBehaviour
     public void Initialize(Transform Target, MonoBehaviour Owner)
     {
         target = Target;
-        owner = Owner; 
+        owner = Owner;
+        AudioManager.Instance.PlayDefenseShoot(1f);
     }
 
     protected virtual void Update()
@@ -33,6 +36,11 @@ public abstract class Projectile : MonoBehaviour
 
     protected virtual void HitTarget()
     {
+        if (hitEffectPrefab != null)
+        {
+            Instantiate(hitEffectPrefab, transform.position, transform.rotation);
+        }
+
         if (target.TryGetComponent<Damageable>(out Damageable damageable))
         {
             if (owner is Defense defense)

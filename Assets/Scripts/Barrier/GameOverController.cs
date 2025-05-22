@@ -12,6 +12,7 @@ public class GameOverController : MonoBehaviour
 
     public void ShowGameOver()
     {
+        Time.timeScale = 0f;
         gameOverPanel.SetActive(true);
     }
 }

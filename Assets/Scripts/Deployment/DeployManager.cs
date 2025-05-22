@@ -119,6 +119,7 @@ public class DeployManager : MonoBehaviour
 
             CurrencyManager.Instance.SpendGold(adjustedCost);
             CleanupPreview();
+            AudioManager.Instance.PlayPlaceDefense();
         }
         else
         {
