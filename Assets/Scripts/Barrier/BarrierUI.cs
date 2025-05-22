@@ -5,10 +5,8 @@ using TMPro;
 public class BarrierUI : MonoBehaviour
 {
     public TMP_Text healthText;
+    public Image healthFillImage;
     public Barrier barrier;
-    public Slider healthBar;
-    public Image fillImage;
-
 
     private float lastHealth = -1f;
 
@@ -17,8 +15,6 @@ public class BarrierUI : MonoBehaviour
         UpdateHealthUI(barrier.GetCurrentHealth());
 
         barrier.onHealthChanged += HandleHealthChanged;
-
-        healthBar.value = healthBar.maxValue;
     }
 
     private void OnDestroy()
@@ -43,21 +39,9 @@ public class BarrierUI : MonoBehaviour
 
         healthText.text = $"{Mathf.RoundToInt(currentHealth)}";
 
-        healthBar.value = currentHealth;
-
-        if (currentHealth > 5)
-        {
-            fillImage.color = Color.green;
-        }
-        else if (currentHealth > 3)
-        {
-            fillImage.color = Color.yellow;
-        }
-        else
-        {
-            fillImage.color = Color.red;
-        }
+        float normalized = Mathf.Clamp01(currentHealth / barrier.maxHealth);
+        healthFillImage.fillAmount = normalized;
+        //healthBar.value = normalized;
+        // get component image . fillAmount
     }
 }
-
-
