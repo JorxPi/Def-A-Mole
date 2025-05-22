@@ -607,7 +607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 10
   attackInterval: 1
-  baseSpeed: 2
+  baseSpeed: 2.5
   attackRange: 2
   aggroRange: 1
   isAttackingBarrier: 0
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26729e88667959e43b3d8ea9dfe97ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 80
   maxHealth: 0
   healthBar: {fileID: 2757445504438032203}
   smokeEffect: {fileID: 0}

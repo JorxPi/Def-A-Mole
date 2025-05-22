@@ -90,10 +90,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priority: 3
   baseStats: {fileID: 11400000, guid: c35ad8caae2df744a973dd6c2e280439, type: 2}
-  attackRange: 10
+  attackRange: 16
   attackDamage: 0
   attackSpeed: 0
-  attractionRange: 0
+  attractionRange: 16
   defenseLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -124,10 +124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeIndicatorPrefab: {fileID: 3279891831375080189, guid: 6bc7cc1d168503f4492e638bfd534ee1, type: 3}
-  baseTransform: {fileID: 3546937178985423722}
-  baseLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &3436117906303167651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,7 +217,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 8
+  m_Radius: 16
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &674752096549829921
 PrefabInstance:

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Damageable : MonoBehaviour
 {
@@ -154,12 +155,14 @@ public class Damageable : MonoBehaviour
 
     private IEnumerator FlashRedEffect()
     {
-        var renderers = GetComponentsInChildren<Renderer>();
-        if (renderers.Length == 0)
-        {
-            Debug.LogError($"No Renderer found on {gameObject.name}");
-            yield break;
-        }
+        int indicatorLayer = LayerMask.NameToLayer("Indicator");
+
+        // only pick renderers *not* on the Indicator layer
+        var renderers = GetComponentsInChildren<Renderer>()
+            .Where(r => r.gameObject.layer != indicatorLayer)
+            .ToArray();
+
+        if (renderers.Length == 0) yield break;
 
         foreach (var r in renderers)
             r.material.color = Color.red;

@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageable: {fileID: 0}
   enemyAI: {fileID: 0}
-  goldReward: 20
+  goldReward: 15
   explosionRadius: 3
   explosionDamage: 50
 --- !u!114 &4185090312090111848
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 20
   attackInterval: 1.5
-  baseSpeed: 1.5
+  baseSpeed: 1.7
   attackRange: 2.96
   aggroRange: 1.5
   isAttackingBarrier: 0
