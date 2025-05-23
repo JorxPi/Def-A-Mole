@@ -50,12 +50,15 @@ public class SlowingProjectile : Projectile
 
     protected override void HitTarget()
     {
+        Vector3 spawnPos = transform.position;
+        spawnPos.y = - 0.3f;
+
         // 1) VFX if any
         if (hitEffectPrefab != null)
-            Instantiate(hitEffectPrefab, transform.position, transform.rotation);
+            Instantiate(hitEffectPrefab, spawnPos, transform.rotation);
 
         // 2) Splash & slow
-        var hits = Physics.OverlapSphere(transform.position, explosionRadius);
+        var hits = Physics.OverlapSphere(spawnPos, explosionRadius);
         foreach (var col in hits)
         {
             if (col.CompareTag("Enemy"))
