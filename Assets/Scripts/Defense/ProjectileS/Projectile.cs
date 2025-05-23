@@ -1,14 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
     protected Transform target;
-    protected MonoBehaviour owner;
+    protected GameObject attacker;    
+    protected float damageValue;  
 
+    [Tooltip("Optional hit VFX prefab")]
     public GameObject hitEffectPrefab;
 
+    /// <summary>Call immediately after Instantiate()</summary>
+    /// 
     protected virtual void Start()
     {
         // Base initialization
@@ -17,7 +19,13 @@ public abstract class Projectile : MonoBehaviour
     public void Initialize(Transform Target, MonoBehaviour Owner)
     {
         target = Target;
-        owner = Owner;
+        attacker = Owner.gameObject;
+
+        if (Owner is Defense def)
+            damageValue = def.attackDamage;
+        else
+            damageValue = 0f;
+
         AudioManager.Instance.PlayDefenseShoot(1f);
     }
 
@@ -28,7 +36,6 @@ public abstract class Projectile : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         MoveTowardsTarget();
     }
 
@@ -36,30 +43,21 @@ public abstract class Projectile : MonoBehaviour
 
     protected virtual void HitTarget()
     {
+        // 1) optional VFX
         if (hitEffectPrefab != null)
-        {
             Instantiate(hitEffectPrefab, transform.position, transform.rotation);
-        }
 
-        if (target.TryGetComponent<Damageable>(out Damageable damageable))
-        {
-            if (owner is Defense defense)
-            {
-                float damage = defense.attackDamage;
-                damageable.ApplyDamage(damage, defense.gameObject);
-            }
-        }
+        // 2) apply damage
+        if (target.TryGetComponent<Damageable>(out var dmg))
+            dmg.ApplyDamage(damageValue, attacker);
 
-        Destroy(gameObject); // Destroy projectile after hitting target
+        // 3) destroy self
+        Destroy(gameObject);
     }
 
-    // can do this with pure math
     private void OnTriggerEnter(Collider other)
     {
-        // Check if projectile hitsthe target
         if (other.transform == target)
-        {
             HitTarget();
-        }
     }
 }

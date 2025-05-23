@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5015747, g: 0.2701575, b: 0.21001196, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7386,9 +7386,14 @@ MonoBehaviour:
   backgroundMusicClip: {fileID: 8300000, guid: e5b47f9b40e8a0648a82d8f42acf7659, type: 3}
   sfxSource: {fileID: 1018079424}
   placeDefenseClip: {fileID: 8300000, guid: 2a14430a70a0ec84cbdaba1488ca8e5e, type: 3}
-  buttonClickClip: {fileID: 8300000, guid: 83249aaf43cfec544b6da3f6680fd029, type: 3}
-  topoPunchClip: {fileID: 8300000, guid: 42461a086cd429a4986895680a17aaac, type: 3}
+  buttonClickClip: {fileID: 8300000, guid: 00a801a6b60561b458cc7d6fd880b8bc, type: 3}
+  topoPunchClip: {fileID: 8300000, guid: 9be568ff5993e6f4ea04ee55ff631b65, type: 3}
   defenseShootClip: {fileID: 8300000, guid: f7ebae30693f0944d9f54082144192f8, type: 3}
+  defenseLevelUpClip: {fileID: 8300000, guid: 2b5557dd7e11d5a49807411046844bc0, type: 3}
+  noGoldUpgradeClip: {fileID: 8300000, guid: d57cc3f1dfbcac247aab624629279c19, type: 3}
+  roundCompleteClip: {fileID: 8300000, guid: 6a9869710e215384a9bc0ee58221b5b8, type: 3}
+  defenseSellClip: {fileID: 8300000, guid: 8f0bc0b48d9fa7f4a91ee382cca775c1, type: 3}
+  defenseDestroyedClip: {fileID: 8300000, guid: 1d3143e14d857bc41bbac9db38f3134c, type: 3}
 --- !u!4 &1018079427
 Transform:
   m_ObjectHideFlags: 0

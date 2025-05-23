@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+// --- SlowingProjectile.cs ---
+
 using UnityEngine;
 
 public class SlowingProjectile : Projectile
@@ -7,28 +7,26 @@ public class SlowingProjectile : Projectile
     public float speed = 10f;
     public float height = 5f;
 
-    public float explosionRadius { get; set; } = 3f; // Upgradeable
-    public float slowAmount { get; set; } = 50f;    // Upgradeable - Percentage
+    public float explosionRadius { get; set; } = 3f;
+    public float slowAmount = 50f;    // percent
     public float slowDuration = 2f;
 
-    private Vector3 startPoint;
-    private Vector3 targetPoint;
-    private float travelTime;
-    private float elapsedTime;
+    private Vector3 startPoint, targetPoint;
+    private float travelTime, elapsedTime;
 
     protected override void Start()
     {
         base.Start();
         startPoint = transform.position;
+        elapsedTime = 0f;
 
-        if (target != null && target.TryGetComponent<Enemy>(out Enemy enemy))
+        // Predict targetPoint as before...
+        if (target != null && target.TryGetComponent<Enemy>(out var e))
         {
-            float estimatedTravelTime = Vector3.Distance(startPoint, target.position) / speed;
-            Vector3 predictedPosition = target.position + (enemy.enemyAI.GetVelocity() * estimatedTravelTime);
-
-            predictedPosition.y = target.position.y;
-
-            targetPoint = predictedPosition;
+            float eta = Vector3.Distance(startPoint, target.position) / speed;
+            Vector3 pred = target.position + (e.enemyAI.GetVelocity() * eta);
+            pred.y = target.position.y;
+            targetPoint = pred;
         }
         else
         {
@@ -36,51 +34,43 @@ public class SlowingProjectile : Projectile
         }
 
         travelTime = Vector3.Distance(startPoint, targetPoint) / speed;
-        elapsedTime = 0f;
     }
 
     protected override void MoveTowardsTarget()
     {
         elapsedTime += Time.deltaTime;
-        float progress = Mathf.Clamp01(elapsedTime / travelTime);
+        float p = Mathf.Clamp01(elapsedTime / travelTime);
 
-        Vector3 horizontalPosition = Vector3.Lerp(startPoint, targetPoint, progress);
+        Vector3 horiz = Vector3.Lerp(startPoint, targetPoint, p);
+        float arcY = 4f * height * p * (1 - p);
+        transform.position = new Vector3(horiz.x, horiz.y + arcY, horiz.z);
 
-        float parabolicHeight = 4 * height * progress * (1 - progress);
-
-        Vector3 nextPosition = new Vector3(horizontalPosition.x, horizontalPosition.y + parabolicHeight, horizontalPosition.z);
-        transform.position = nextPosition;
-
-        if (progress >= 1f)
-        {
-            HitTarget();
-        }
+        if (p >= 1f) HitTarget();
     }
-
 
     protected override void HitTarget()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
-        foreach (var collider in hitColliders)
+        // 1) VFX if any
+        if (hitEffectPrefab != null)
+            Instantiate(hitEffectPrefab, transform.position, transform.rotation);
+
+        // 2) Splash & slow
+        var hits = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach (var col in hits)
         {
-            if (collider.CompareTag("Enemy"))
+            if (col.CompareTag("Enemy"))
             {
-                if (collider.TryGetComponent<Damageable>(out Damageable damageable))
-                {
-                    if (owner is Defense defense)
-                    {
-                        float damage = defense.attackDamage;
-                        damageable.ApplyDamage(damage);
-                    }
-                }
-                
-                if (collider.TryGetComponent<Enemy>(out Enemy enemy))
-                {
-                    enemy.enemyAI.ApplySlow(slowAmount,slowDuration);
-                }
+                // apply the cached damageValue
+                if (col.TryGetComponent<Damageable>(out var dmg))
+                    dmg.ApplyDamage(damageValue, attacker);
+
+                // apply slow
+                if (col.TryGetComponent<Enemy>(out var enemy))
+                    enemy.enemyAI.ApplySlow(slowAmount, slowDuration);
             }
         }
 
-        Destroy(gameObject); 
+        // 3) destroy self
+        Destroy(gameObject);
     }
 }

@@ -115,6 +115,11 @@ public class Damageable : MonoBehaviour
         OnDeath?.Invoke();
         Debug.Log("Die-Damageable");
 
+        if (GetComponent<Defense>() != null)
+        {
+            AudioManager.Instance.PlayDefenseDestroyed(0.3f);
+        }
+
         Enemy enemy = GetComponent<Enemy>();
         if (enemy != null)
         {

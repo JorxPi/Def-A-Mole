@@ -22,6 +22,6 @@ public class DeployButton : MonoBehaviour
     private void OnDeployButtonClick()
     {
         DeployManager.Instance.StartDeployment(defenseData);
-        AudioManager.Instance.PlayButtonClick(0.5f);
+        //AudioManager.Instance.PlayButtonClick(0.5f);
     }
 }

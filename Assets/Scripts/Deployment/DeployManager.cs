@@ -48,6 +48,7 @@ public class DeployManager : MonoBehaviour
         {
             currentDefenseData = defenseData;
             isDeploying = true;
+            AudioManager.Instance.PlayButtonClick(0.5f);
 
             if (currentDefenseData.prefab != null)
             {
@@ -61,6 +62,7 @@ public class DeployManager : MonoBehaviour
         else
         {
             Debug.Log("Not enough gold to deploy this defense!");
+            AudioManager.Instance.PlayNoGoldUpgrade(1f);
         }
     }
 

@@ -16,6 +16,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip buttonClickClip;
     public AudioClip topoPunchClip;
     public AudioClip defenseShootClip;
+    public AudioClip defenseLevelUpClip;
+    public AudioClip noGoldUpgradeClip;
+    public AudioClip roundCompleteClip;
+    public AudioClip defenseSellClip;
+    public AudioClip defenseDestroyedClip;
 
     private void Awake()
     {
@@ -47,6 +52,15 @@ public class AudioManager : MonoBehaviour
     public void PlayButtonClick(float volumeScale = 1f) => PlaySFX(buttonClickClip, volumeScale);
     public void PlayTopoPunch(float volumeScale = 1f) => PlaySFX(topoPunchClip, volumeScale);
     public void PlayDefenseShoot(float volumeScale = 1f) => PlaySFX(defenseShootClip, volumeScale);
+    public void PlayDefenseLevelUp(float volumeScale = 1f) => PlaySFX(defenseLevelUpClip, volumeScale);
+    public void PlayNoGoldUpgrade(float volumeScale = 1f) => PlaySFX(noGoldUpgradeClip, volumeScale);
+    public void PlayRoundComplete(float volumeScale = 1f) => PlaySFX(roundCompleteClip, volumeScale);
+    public void PlayDefenseSell(float volumeScale = 1f) => PlaySFX(defenseSellClip, volumeScale);
+    public void PlayDefenseDestroyed(float volumeScale = 1f) => PlaySFX(defenseDestroyedClip, volumeScale);
+
+
+
+
 
 }
 

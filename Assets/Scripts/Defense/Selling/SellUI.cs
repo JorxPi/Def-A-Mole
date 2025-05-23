@@ -71,6 +71,8 @@ public class SellUI : MonoBehaviour
             UpgradeUI.Instance.HideUpgradePanel();
 
             HideSellPanel();
+
+            AudioManager.Instance.PlayDefenseSell();
         }
     }
 }

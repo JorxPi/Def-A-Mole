@@ -73,6 +73,7 @@ public class UpgradeUI : MonoBehaviour
         {
             UpgradeManager.Instance.UpgradeDefense(selectedDefense);
             ShowUpgradePanel(selectedDefense); // Update button text after upgrading
+            AudioManager.Instance.PlayDefenseLevelUp();
         }
     }
 }
