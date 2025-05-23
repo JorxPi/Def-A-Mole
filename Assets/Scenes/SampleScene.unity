@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.5015748, g: 0.27015787, b: 0.21001217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5231,8 +5231,12 @@ PrefabInstance:
       value: -13.533737
       objectReference: {fileID: 0}
     - target: {fileID: 788567565632431620, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 280
+      objectReference: {fileID: 0}
+    - target: {fileID: 788567565632431620, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 883951126808630225, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -5282,6 +5286,10 @@ PrefabInstance:
       propertyPath: m_Type
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2375931550491380085, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d2bc51cb6b5ed4544b86538444892224, type: 3}
     - target: {fileID: 2698257744741408578, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
       propertyPath: m_SizeDelta.x
       value: 150
@@ -5533,6 +5541,14 @@ PrefabInstance:
     - target: {fileID: 5432178594204631803, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5439850799117898916, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+      propertyPath: m_fontSize
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 5439850799117898916, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 5591888241905273925, guid: 2a281af37154b7b48b3d56803b5b380d, type: 3}
       propertyPath: m_text
