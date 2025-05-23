@@ -226,6 +226,8 @@ public class LevelManager : MonoBehaviour
         }
 
         DayNightManager.Instance.StartDayMode();
+
+        AudioManager.Instance.PlayRoundComplete();
     }
 
     public void StartEnemyWave()
