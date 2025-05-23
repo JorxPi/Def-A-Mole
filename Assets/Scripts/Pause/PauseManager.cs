@@ -44,7 +44,7 @@ public class PauseManager : MonoBehaviour
 
     public void ChangeVolume(float volume)
     {
-        audioMixer.SetFloat("Master", volume);
+        audioMixer.SetFloat("fullVolume", volume);
     }
 
     void PauseGame()

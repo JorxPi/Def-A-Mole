@@ -572,7 +572,7 @@ MonoBehaviour:
   damageAmount: 40
   attackInterval: 1
   baseSpeed: 1.3
-  attackRange: 2.12
+  attackRange: 3
   aggroRange: 1
   isAttackingBarrier: 0
   isInBarrier: 0
