@@ -21,6 +21,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip roundCompleteClip;
     public AudioClip defenseSellClip;
     public AudioClip defenseDestroyedClip;
+    public AudioClip slimeShootClip;
+    public AudioClip dirtShootClip;
+    public AudioClip explosionMoleClip;
 
     private void Awake()
     {
@@ -41,7 +44,7 @@ public class AudioManager : MonoBehaviour
     }
 
     /// <summary>Play a one-shot SFX from a clip.</summary>
-    public void PlaySFX(AudioClip clip, float volumeScale)
+    public void PlaySFX(AudioClip clip, float volumeScale =  1f)
     {
         if (clip != null)
             sfxSource.PlayOneShot(clip, Mathf.Clamp01(volumeScale));
@@ -57,6 +60,9 @@ public class AudioManager : MonoBehaviour
     public void PlayRoundComplete(float volumeScale = 1f) => PlaySFX(roundCompleteClip, volumeScale);
     public void PlayDefenseSell(float volumeScale = 1f) => PlaySFX(defenseSellClip, volumeScale);
     public void PlayDefenseDestroyed(float volumeScale = 1f) => PlaySFX(defenseDestroyedClip, volumeScale);
+    public void PlaySlimeShoot(float volumeScale = 1f) => PlaySFX(slimeShootClip, volumeScale);
+    public void PlayDirtShoot(float volumeScale = 1f) => PlaySFX(dirtShootClip, volumeScale);
+    public void PlayExplosionMole(float volumeScale = 1f) => PlaySFX(explosionMoleClip, volumeScale);
 
 
 

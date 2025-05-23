@@ -82,4 +82,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffectPrefab: {fileID: 3663873411581734174, guid: 23815d18840997346bd89bd240f675cf, type: 3}
+  shootSound: {fileID: 8300000, guid: f7ebae30693f0944d9f54082144192f8, type: 3}
   speed: 20

@@ -73,6 +73,9 @@ public class SlowingProjectile : Projectile
             }
         }
 
+        if (shootSound != null)
+            AudioManager.Instance.PlaySFX(shootSound);
+
         // 3) destroy self
         Destroy(gameObject);
     }

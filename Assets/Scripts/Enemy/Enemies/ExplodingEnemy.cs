@@ -21,7 +21,9 @@ public class ExplodingEnemy : Enemy
                 }
             }
         }
-        
+
+        AudioManager.Instance.PlayExplosionMole(0.3f);
+
         base.HandleDeath();
     }
 }
