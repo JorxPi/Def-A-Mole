@@ -24,7 +24,8 @@ public class StartScreenUIManager : MonoBehaviour
 
     public void ChangeVolume(float volume)
     {
-        audioMixer.SetFloat("Volume", volume);
+        audioMixer.SetFloat("MasterVolume", volume);
+        Debug.Log("Volume changed to: " + volume);
     }
 
     public void ChangeQuality(int qualityIndex)

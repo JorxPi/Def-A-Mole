@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class PauseManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PauseManager : MonoBehaviour
     public Text pauseText;
     public List<Button> uiButtonsToDisable;
     public Button retryButton;
+
+    [SerializeField] private AudioMixer audioMixer;
 
     private bool isPaused = false;
     private List<GameObject> defenses = new List<GameObject>();
@@ -37,6 +40,11 @@ public class PauseManager : MonoBehaviour
 
         // Find all defenses at start
         defenses.AddRange(GameObject.FindGameObjectsWithTag("Defense"));
+    }
+
+    public void ChangeVolume(float volume)
+    {
+        audioMixer.SetFloat("Master", volume);
     }
 
     void PauseGame()
