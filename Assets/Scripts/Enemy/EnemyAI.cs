@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using System;
+using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(Enemy))]
 public class EnemyAI : MonoBehaviour
@@ -31,6 +32,8 @@ public class EnemyAI : MonoBehaviour
     private float attackTimer;
     private DamageVignetteController vignetteController;
 
+    private Vector3 startDestination;
+
     private EnemyAnimatorController animController;
 
     [Header("Animation Timing")]
@@ -52,25 +55,44 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         animController = GetComponent<EnemyAnimatorController>();
-
         agent = GetComponent<NavMeshAgent>();
         agent.speed = baseSpeed;
-
-        agent.SetDestination(barrierPoint);
+        //agent.SetDestination(barrierPoint);
 
         GameObject barrierObject = GameObject.FindWithTag("Barrier");
         targetBarrier = barrierObject.GetComponent<Barrier>();
-
         vignetteController = FindObjectOfType<DamageVignetteController>();
 
-        Defense defenseInRange = FindNearestDefense();
+        /*Defense defenseInRange = FindNearestDefense();
+        if(defenseInRange != null)
+        {
+            targetDefense = defenseInRange;
+            isAttackingDefense = true;
+            Debug.Log($"Defense in range: {defenseInRange.transform.position} in start");
+            //agent.SetDestination(defenseInRange.transform.position);
+            //agent.destination = defenseInRange.transform.position;
+            bool result = agent.SetDestination(defenseInRange.transform.position);
+            
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(defenseInRange.transform.position, out hit, 1.0f, NavMesh.AllAreas))
+            {
+                bool result1 = agent.SetDestination(hit.position);
+                Debug.Log($"SetDestination sampled: {result1}, destination: {hit.position}, agentdest: {agent.destination}");
+            }
+            else
+            {
+                Debug.LogWarning("Could not find valid NavMesh point near target.position");
+            }
+            Debug.Log($"{result} , agent.destination: {agent.destination} in start if defense in range");
+        }
+        Debug.Log($"Defense in range: {defenseInRange?.name} in start");
         if (defenseInRange != null)
         {
             targetDefense = defenseInRange;
             isAttackingDefense = true;
             agent.SetDestination(defenseInRange.transform.position);
         }
-
+        */
         if (attackLoopClip != null)
         {
             float clipLength = attackLoopClip.length;
@@ -81,11 +103,23 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.LogWarning("Assign the looping attack clip in EnemyAI.");
         }
+        Debug.Log($"agent.destination: {agent.destination} in start final");
+        startDestination = agent.destination;
     }
 
     private void Update()
     {
-        distanceToBarrier =  Vector3.Distance(transform.position, barrierPoint);
+        bool firstFrame = false;
+        if (firstFrame == false)
+        {
+            targetDefense = FindNearestDefense();
+            if (targetDefense != null)
+            {
+                isAttackingDefense = true;
+                agent.SetDestination(targetDefense.transform.position);
+                firstFrame = true;
+            }
+        }
 
         //Debug.Log($"Distance to barrier: {distanceToBarrier}");
 
@@ -160,26 +194,6 @@ public class EnemyAI : MonoBehaviour
             attackTimer = 0f; // reset if not in range
         }
 
-        // Proceed with attack logic if allowed
-        if (shouldBeAttacking)
-        {
-            attackTimer += Time.deltaTime;
-            if (attackTimer >= attackInterval)
-            {
-                if (isAttackingBarrier)
-                {
-                    AttackBarrier();
-                }
-                else if (isAttackingDefense && targetDefense != null)
-                {
-                    AttackDefense();
-                }
-
-                attackTimer = 0f;
-            }
-        }
-
-
         if (isSlowed)
         {
             slowTimer -= Time.deltaTime;
@@ -207,6 +221,10 @@ public class EnemyAI : MonoBehaviour
     public void SetTarget(Vector3 target)
     {
         barrierPoint = target;
+        agent = GetComponent<NavMeshAgent>();
+        agent.destination = barrierPoint;
+        //agent.SetDestination(barrierPoint);
+        Debug.Log($"Target set to: {agent.destination}");
     }
 
     public Vector3 GetBarrierPoint()
@@ -318,6 +336,7 @@ public class EnemyAI : MonoBehaviour
 
     private Defense FindNearestDefense()
     {
+        Debug.Log($"Finding nearest defense within {aggroRange} units.");
         Collider[] colliders = Physics.OverlapSphere(transform.position, aggroRange);
         Defense nearestDefense = null;
         float nearestDistance = float.MaxValue;
@@ -338,7 +357,8 @@ public class EnemyAI : MonoBehaviour
                 }
             }
         }
-
+        Debug.Log($"Nearest defense found: {nearestDefense?.name} at distance {nearestDistance}");
+      
         return nearestDefense;
     }
 
