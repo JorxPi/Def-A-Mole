@@ -103,12 +103,12 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.LogWarning("Assign the looping attack clip in EnemyAI.");
         }
-        Debug.Log($"agent.destination: {agent.destination} in start final");
-        startDestination = agent.destination;
     }
 
     private void Update()
     {
+        distanceToBarrier = Vector3.Distance(transform.position, barrierPoint);
+
         bool firstFrame = false;
         if (firstFrame == false)
         {
