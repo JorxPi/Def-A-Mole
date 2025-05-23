@@ -437,10 +437,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 70883090}
   - {fileID: 664155521}
   - {fileID: 1988754088}
   - {fileID: 1764043684}
-  - {fileID: 70883090}
   m_Father: {fileID: 245666059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3125,6 +3125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: a305a9c0d86d70846a2894ed28831477, type: 2}
+  musicSlider: {fileID: 1967170156}
 --- !u!4 &1749210666
 Transform:
   m_ObjectHideFlags: 0
