@@ -117,7 +117,7 @@ public class Damageable : MonoBehaviour
 
         if (GetComponent<Defense>() != null)
         {
-            AudioManager.Instance.PlayDefenseDestroyed(0.3f);
+            AudioManager.Instance.PlayDefenseDestroyed(0.1f);
         }
 
         Enemy enemy = GetComponent<Enemy>();

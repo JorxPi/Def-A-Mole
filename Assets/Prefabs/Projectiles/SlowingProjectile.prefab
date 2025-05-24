@@ -118,6 +118,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a22ddf3319bf9468a10df271c47092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitEffectPrefab: {fileID: 4612962098985193142, guid: 3477d48c48427d44cb44ae28b9560e1d, type: 3}
+  shootSound: {fileID: 8300000, guid: a2888e33859f2c640b3ffc97014b2148, type: 3}
   speed: 5
   height: 3
+  slowAmount: 50
   slowDuration: 2

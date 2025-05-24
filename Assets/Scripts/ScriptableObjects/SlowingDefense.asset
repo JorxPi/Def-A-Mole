@@ -17,7 +17,7 @@ MonoBehaviour:
   attackDamage: 20
   attackSpeed: 0.5
   maxHealth: 170
-  cost: 45
+  cost: 0
   nightCost: 60
   upgradeCosts: 2800000032000000
   defenseIcon: {fileID: 0}
