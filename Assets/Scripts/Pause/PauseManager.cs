@@ -9,6 +9,7 @@ using UnityEngine.Audio;
 public class PauseManager : MonoBehaviour
 {
     public GameObject pausePanel;
+    public Slider volumeSlider;
     public Button resumeButton;
     public Button quitButton;
     public Text pauseText;
@@ -16,6 +17,8 @@ public class PauseManager : MonoBehaviour
     public Button retryButton;
 
     [SerializeField] private AudioMixer audioMixer;
+
+    public string volumeParam = "fullVolume";
 
     private bool isPaused = false;
     private List<GameObject> defenses = new List<GameObject>();
@@ -37,14 +40,16 @@ public class PauseManager : MonoBehaviour
         if (retryButton != null)
             retryButton.onClick.AddListener(QuitToMainMenu);
 
+        volumeSlider.onValueChanged.AddListener(OnPauseVolumeChanged);
+
 
         // Find all defenses at start
         defenses.AddRange(GameObject.FindGameObjectsWithTag("Defense"));
     }
 
-    public void ChangeVolume(float volume)
+    public void OnPauseVolumeChanged(float sliderValue)
     {
-        audioMixer.SetFloat("fullVolume", volume);
+        AudioManager.Instance.SetMasterVolume(sliderValue);
     }
 
     void PauseGame()
@@ -53,6 +58,10 @@ public class PauseManager : MonoBehaviour
         {
             isPaused = true;
             Time.timeScale = 0f;
+
+            float saved = PlayerPrefs.GetFloat(volumeParam, 1f);
+            volumeSlider.value = saved;
+
             if (pauseText != null)
                 pauseText.gameObject.SetActive(true);
 

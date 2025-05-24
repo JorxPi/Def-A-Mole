@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
+
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
+    [Header("Mixer")]
+    public AudioMixer audioMixer;           // assign your Mixer asset
+    public string volumeParam = "fullVolume";
+
     [Header("Music")]
     public AudioSource musicSource;        // looped music AudioSource
-    public AudioClip backgroundMusicClip;  // assign in Inspector
+    public AudioClip menuMusic;
+    public AudioClip gameMusic;  // assign in Inspector
 
     [Header("SFX")]
     public AudioSource sfxSource;          // one-shot SFX AudioSource
-    public AudioClip placeDefenseClip;
+    public AudioClip placeDefenseClip;  
     public AudioClip buttonClickClip;
     public AudioClip topoPunchClip;
     public AudioClip defenseShootClip;
@@ -24,6 +32,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip slimeShootClip;
     public AudioClip dirtShootClip;
     public AudioClip explosionMoleClip;
+    public AudioClip enemySpawnClip;
 
     private void Awake()
     {
@@ -31,17 +40,41 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            // start your music
-            musicSource.clip = backgroundMusicClip;
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
+
+            if (PlayerPrefs.HasKey(volumeParam))
+                audioMixer.SetFloat(volumeParam, Mathf.Log10(PlayerPrefs.GetFloat(volumeParam)) * 20);
+        }
+        else Destroy(gameObject);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        AudioClip toPlay = null;
+        if (scene.name == "StartScreen") toPlay = menuMusic;
+        if (scene.name == "SampleScene") toPlay = gameMusic;
+
+        if (toPlay != null && musicSource.clip != toPlay)
+        {
+            musicSource.Stop();
+            musicSource.clip = toPlay;
             musicSource.loop = true;
-            musicSource.volume = 0.1f;
             musicSource.Play();
         }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
+
+    public void SetMasterVolume(float linear)
+    {
+        // avoid log(0)
+        linear = Mathf.Clamp(linear, 0.0001f, 1f);
+        float dB = Mathf.Log10(linear) * 20f;
+        audioMixer.SetFloat(volumeParam, dB);
+
+        // persist
+        PlayerPrefs.SetFloat(volumeParam, linear);
+    }
+
 
     /// <summary>Play a one-shot SFX from a clip.</summary>
     public void PlaySFX(AudioClip clip, float volumeScale =  1f)
@@ -63,6 +96,8 @@ public class AudioManager : MonoBehaviour
     public void PlaySlimeShoot(float volumeScale = 1f) => PlaySFX(slimeShootClip, volumeScale);
     public void PlayDirtShoot(float volumeScale = 1f) => PlaySFX(dirtShootClip, volumeScale);
     public void PlayExplosionMole(float volumeScale = 1f) => PlaySFX(explosionMoleClip, volumeScale);
+    public void PlayEnemySpawn(float volumeScale = 1f) => PlaySFX(enemySpawnClip, volumeScale);
+
 
 
 

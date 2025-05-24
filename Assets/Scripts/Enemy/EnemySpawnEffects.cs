@@ -51,11 +51,7 @@ public class EnemySpawnEffects : MonoBehaviour
     private IEnumerator PlaySpawnEffects()
     {
         // Reproducir sonido de spawn
-        if (spawnSound != null)
-        {
-            audioSource.clip = spawnSound;
-            audioSource.Play();
-        }
+        AudioManager.Instance.PlayEnemySpawn(0.5f);
 
         float elapsedTime = 0f;
         Vector3 startPosition = transform.position;

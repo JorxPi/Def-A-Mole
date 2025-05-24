@@ -15,9 +15,9 @@ MonoBehaviour:
   defenseName: Worm
   attackRange: 25
   attackDamage: 25
-  attackSpeed: 0.35
+  attackSpeed: 0.4
   maxHealth: 70
-  cost: 0
+  cost: 25
   nightCost: 35
   upgradeCosts: 1e00000032000000
   defenseIcon: {fileID: 0}

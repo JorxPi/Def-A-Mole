@@ -20,6 +20,8 @@ public class LevelManager : MonoBehaviour
 
     private BarrierIndicator barrierIndicator;
 
+    public TextMeshProUGUI bonusText;
+
     public int GetEnemyHpBonus() => enemyHpBonus;
     public int GetEnemyDamageBonus() => enemyDamageBonus;
 
@@ -51,6 +53,9 @@ public class LevelManager : MonoBehaviour
         UnlockDefensesForLevel(currentLevel);
         UpdateLevelText();
         UpdateDefenseButtons();
+
+        if (bonusText != null)
+            bonusText.gameObject.SetActive(false);
     }
 
     public void AssignTargetToEnemy(EnemyAI enemyAI)
@@ -331,10 +336,41 @@ public class LevelManager : MonoBehaviour
     {
         if ((currentLevel - 1) % 4 == 0 && currentLevel > 1)
         {
-            enemyHpBonus += 50;
-            enemyDamageBonus += 10;
+            enemyHpBonus += 40;
+            enemyDamageBonus += 5;
 
             Debug.Log($"[Level {currentLevel}] Enemy bonus increased: +{enemyHpBonus} HP, +{enemyDamageBonus} DMG");
+
+            if (bonusText != null)
+                StartCoroutine(ShowBonusText());
         }
+    }
+
+    private IEnumerator ShowBonusText()
+    {
+        bonusText.alpha = 0f;
+        bonusText.gameObject.SetActive(true);
+
+        float t = 0f;
+        while (t < 0.5f)
+        {
+            t += Time.unscaledDeltaTime;
+            bonusText.alpha = Mathf.Lerp(0f, 1f, t / 0.5f);
+            yield return null;
+        }
+        bonusText.alpha = 1f;
+
+        yield return new WaitForSecondsRealtime(2f);
+
+        t = 0f;
+        while (t < 0.5f)
+        {
+            t += Time.unscaledDeltaTime;
+            bonusText.alpha = Mathf.Lerp(1f, 0f, t / 0.5f);
+            yield return null;
+        }
+        bonusText.alpha = 0f;
+
+        bonusText.gameObject.SetActive(false);
     }
 }

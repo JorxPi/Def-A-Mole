@@ -8,16 +8,15 @@ public class StartScreenUIManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider musicSlider;
 
+    private const string VolumeKey = "fullVolume";
+    private const string VolumeParam = "fullVolume";
+
     private void Start()
     {
-        if (PlayerPrefs.HasKey("fullVolume"))
-        {
+        if (PlayerPrefs.HasKey(VolumeKey))
             LoadVolume();
-        }
         else
-        {
             SetMusicVolume();
-        }
     }
 
     public void StartGame()
@@ -35,28 +34,32 @@ public class StartScreenUIManager : MonoBehaviour
         Screen.fullScreen = fullScreen;
     }
 
-    public void ChangeVolume(float volume)
-    {
-        audioMixer.SetFloat("fullVolume", volume);
-        Debug.Log("Volume changed to: " + volume);
-    }
-
     public void ChangeQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
 
-    public void SetMusicVolume()
+    /// <summary>
+    /// Call this from your Slider's OnValueChanged(float) event.
+    /// </summary>
+    public void OnVolumeSliderChanged(float sliderValue)
     {
-        float volume = musicSlider.value;
-        audioMixer.SetFloat("fullVolume", Mathf.Log10(volume) * 20);
-        PlayerPrefs.SetFloat("fullVolume", volume);
+        AudioManager.Instance.SetMasterVolume(sliderValue);
+    }
+
+    private void SetMusicVolume()
+    {
+        float saved = musicSlider.value;
+        // same conversion as above
+        float dB = Mathf.Log10(Mathf.Clamp01(saved)) * 20f;
+        audioMixer.SetFloat(VolumeParam, dB);
+        PlayerPrefs.SetFloat(VolumeKey, saved);
     }
 
     private void LoadVolume()
     {
-        musicSlider.value = PlayerPrefs.GetFloat("fullVolume");
+        float saved = PlayerPrefs.GetFloat(VolumeKey);
+        musicSlider.value = saved;
         SetMusicVolume();
     }
-
 }
