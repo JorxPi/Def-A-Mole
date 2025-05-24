@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defenseName: Worm
   attackRange: 25
-  attackDamage: 30
-  attackSpeed: 0.5
+  attackDamage: 25
+  attackSpeed: 0.35
   maxHealth: 70
   cost: 25
   nightCost: 35

@@ -329,7 +329,7 @@ public class LevelManager : MonoBehaviour
 
     private void ScaleEnemyStats()
     {
-        if ((currentLevel - 1) % 5 == 0 && currentLevel > 1)
+        if ((currentLevel - 1) % 4 == 0 && currentLevel > 1)
         {
             enemyHpBonus += 50;
             enemyDamageBonus += 10;

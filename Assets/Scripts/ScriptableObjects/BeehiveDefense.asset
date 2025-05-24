@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: BeehiveDefense
   m_EditorClassIdentifier: 
   defenseName: Beehive
-  attackRange: 8
-  attackDamage: 5
-  attackSpeed: 1.2
+  attackRange: 12
+  attackDamage: 10
+  attackSpeed: 0.8
   maxHealth: 160
   cost: 40
   nightCost: 50

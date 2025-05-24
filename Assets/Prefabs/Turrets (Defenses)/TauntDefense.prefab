@@ -90,10 +90,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priority: 3
   baseStats: {fileID: 11400000, guid: c35ad8caae2df744a973dd6c2e280439, type: 2}
-  attackRange: 16
+  attackRange: 14
   attackDamage: 0
   attackSpeed: 0
-  attractionRange: 16
+  attractionRange: 14
   defenseLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -217,7 +217,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 16
+  m_Radius: 14
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &674752096549829921
 PrefabInstance:
