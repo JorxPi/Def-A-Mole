@@ -156,8 +156,8 @@ public class DeployManager : MonoBehaviour
         if (previewInstance != null)
         {
             var ri = previewInstance.GetComponent<RangeIndicator>();
-            if (ri != null)
-                ri.HideIndicator();
+if (ri != null)
+    ri.HideIndicator();
 
             Destroy(previewInstance);
             previewInstance = null;
@@ -217,21 +217,26 @@ public class DeployManager : MonoBehaviour
 
     private void UpdatePreviewColor(bool isValid)
     {
-        if (previewInstance == null) return;
+        if (previewInstance == null)
+            return;
 
-        // Get all MeshRenderers in the preview instance
-        var renderers = previewInstance.GetComponentsInChildren<MeshRenderer>();
-        if (renderers.Length == 0) return;
+        // figure out which layer index is your circle indicator
+        int indicatorLayer = LayerMask.NameToLayer("Indicator");
 
-        // Decide our color
+        // every MeshRenderer in the ghost
+        MeshRenderer[] renderers = previewInstance.GetComponentsInChildren<MeshRenderer>();
+        if (renderers.Length == 0)
+            return;
+
+        // white if valid, light-red if invalid
         Color targetColor = isValid
             ? Color.white
             : new Color(1f, 0.5f, 0.5f, 1f);
 
         foreach (var renderer in renderers)
         {
-            // **Skip the circle** (anything under a RangeIndicator)
-            if (renderer.GetComponentInParent<RangeIndicator>() != null)
+            // **skip** any renderer on the Indicator layer
+            if (renderer.gameObject.layer == indicatorLayer)
                 continue;
 
             var block = new MaterialPropertyBlock();
