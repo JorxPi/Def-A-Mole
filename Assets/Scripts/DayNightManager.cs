@@ -59,6 +59,7 @@ public class DayNightManager : MonoBehaviour
         RenderSettings.fogDensity = 0.002f;
 
         startNightButton.gameObject.SetActive(false);
+        SellUI.Instance.HideSellPanel();
         dayPanel.SetActive(false);
         nightPanel.SetActive(true);
 

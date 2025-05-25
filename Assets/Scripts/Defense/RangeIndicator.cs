@@ -15,21 +15,8 @@ public class RangeIndicator : MonoBehaviour
     void Start()
     {
         _defense = GetComponent<Defense>();
-
-        if (rangeIndicatorPrefab == null)
-        {
-            Debug.LogError($"[{name}] No RangeIndicator prefab assigned!");
-            return;
-        }
-
-        // Instantiate once, parented to the defense root
-        _indicator = Instantiate(
-            rangeIndicatorPrefab,
-            transform.position,
-            Quaternion.identity,
-            transform
-        );
-        _indicator.SetActive(false);
+        if (rangeIndicatorPrefab != null && _indicator == null)
+            InstantiateIndicator();
     }
 
     void Update()
@@ -43,6 +30,39 @@ public class RangeIndicator : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
             Hide();
+    }
+
+    public void ShowIndicator()
+    {
+        if (_defense == null)
+            _defense = GetComponent<Defense>();
+
+        Show();
+    }
+
+    public void HideIndicator()
+    {
+        Hide();
+    }
+
+    public void InstantiateIndicator()
+    {
+        if (rangeIndicatorPrefab == null)
+        {
+            Debug.LogError($"[{name}] No RangeIndicator prefab assigned!");
+            return;
+        }
+
+        if (_indicator != null)
+            Destroy(_indicator);
+
+        _indicator = Instantiate(
+            rangeIndicatorPrefab,
+            transform.position,
+            Quaternion.identity,
+            transform
+        );
+        _indicator.SetActive(false);
     }
 
     private void TryShow()
@@ -78,11 +98,9 @@ public class RangeIndicator : MonoBehaviour
 
     private void Show()
     {
-        // Position & scale fresh each time in case range changed
+        float diameter = _defense.attackRange * 2f;
         _indicator.transform.position = transform.position;
-        float d = _defense.attackRange * 2f;
-        _indicator.transform.localScale = new Vector3(d, 0.1f, d);
-
+        _indicator.transform.localScale = new Vector3(diameter, 0.1f, diameter);
         _indicator.SetActive(true);
         _isShowing = true;
     }

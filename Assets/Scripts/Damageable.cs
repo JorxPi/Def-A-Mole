@@ -162,12 +162,18 @@ public class Damageable : MonoBehaviour
     {
         int indicatorLayer = LayerMask.NameToLayer("Indicator");
 
-        // only pick renderers *not* on the Indicator layer
         var renderers = GetComponentsInChildren<Renderer>()
-            .Where(r => r.gameObject.layer != indicatorLayer)
-            .ToArray();
+                         .Where(r => r.gameObject.layer != indicatorLayer)
+                         .ToArray();
 
-        if (renderers.Length == 0) yield break;
+        if (renderers.Length == 0)
+            yield break;
+
+        foreach (var r in renderers)
+        {
+            if (!originalColors.ContainsKey(r))
+                originalColors[r] = r.material.color;
+        }
 
         foreach (var r in renderers)
             r.material.color = Color.red;

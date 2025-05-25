@@ -50,7 +50,7 @@ public class SellUI : MonoBehaviour
             int refund = Mathf.FloorToInt(cost * SellManager.Instance.refundRatio);
 
             //sellButtonText.text = $"Sell for {refund} Gold";
-            sellInfoText.text = $"Refund 75% of original cost ({cost}g)";
+            sellInfoText.text = $"Refund 75% of original cost ({cost}$)";
             sellButton.interactable = true;
         }
 

@@ -58,7 +58,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priority: 1
   baseStats: {fileID: 11400000, guid: 590904c2073302345a14fa6d141a94c5, type: 2}
-  attackRange: 20
+  attackRange: 25
   attackDamage: 40
   attackSpeed: 0.5
   attractionRange: 0
@@ -105,10 +105,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeIndicatorPrefab: {fileID: 3279891831375080189, guid: 6bc7cc1d168503f4492e638bfd534ee1, type: 3}
-  baseTransform: {fileID: 2580504195534373608}
-  baseLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &5216890633175952150
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -23,6 +23,15 @@ public class EnemySpawner1 : MonoBehaviour
             Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
             GameObject enemyGO = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
 
+            int hpBonus = LevelManager.Instance.GetEnemyHpBonus();
+            int dmgBonus = LevelManager.Instance.GetEnemyDamageBonus();
+
+            if (enemyGO.TryGetComponent<Damageable>(out var dmg))
+                dmg.IncreaseMaxHealth(hpBonus);
+
+            if (enemyGO.TryGetComponent<EnemyAI>(out var ai))
+                ai.IncreaseDamage(dmgBonus);
+
             EnemyAI enemyAI = enemyGO.GetComponent<EnemyAI>();
             if (enemyAI != null)
             {

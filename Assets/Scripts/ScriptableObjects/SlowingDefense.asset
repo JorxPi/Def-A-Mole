@@ -19,7 +19,7 @@ MonoBehaviour:
   maxHealth: 170
   cost: 45
   nightCost: 60
-  upgradeCosts: 2800000032000000
+  upgradeCosts: 3200000064000000
   defenseIcon: {fileID: 0}
   prefab: {fileID: 6319336131982888255, guid: afd36d44a5364cb49a41e609d5d375ac, type: 3}
   description: The snail throws area projectile to the enemys, dealing a little amout

@@ -336,7 +336,7 @@ public class LevelManager : MonoBehaviour
     {
         if ((currentLevel - 1) % 4 == 0 && currentLevel > 1)
         {
-            enemyHpBonus += 40;
+            enemyHpBonus += 30;
             enemyDamageBonus += 5;
 
             Debug.Log($"[Level {currentLevel}] Enemy bonus increased: +{enemyHpBonus} HP, +{enemyDamageBonus} DMG");
