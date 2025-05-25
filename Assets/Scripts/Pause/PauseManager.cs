@@ -9,6 +9,7 @@ using UnityEngine.Audio;
 public class PauseManager : MonoBehaviour
 {
     public GameObject pausePanel;
+    public GameObject controlsPanel;
     public Slider volumeSlider;
     public Button resumeButton;
     public Button quitButton;
@@ -95,7 +96,14 @@ public class PauseManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
-                ResumeGame();
+                if (controlsPanel.activeSelf){
+                    controlsPanel.SetActive(false);
+                    pausePanel.SetActive(true);
+                }
+                else
+                {
+                    ResumeGame();
+                }
             else
                 PauseGame();
         }
